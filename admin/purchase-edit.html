@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Phiếu nhập hàng - MoonCake Delight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/admin_style.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-wrap">
+                <div class="logo-img">
+                    <i class="fas fa-moon" style="font-size: 2rem; color: var(--brand-crimson);"></i>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-start">
+                    <div style="font-weight:800;color:#fff;font-size:1rem">MORICO</div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.92)">Bánh Trung Thu</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-title">Bảng điều khiển</div>
+                <a href="dashboard.html"><i class="fas fa-home"></i><span>Trang chủ</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-title">Quản lý</div>
+                <a href="users.html"><i class="fas fa-users"></i><span>Người dùng</span></a>
+                <a href="categories.html"><i class="fas fa-tags"></i><span>Loại sản phẩm</span></a>
+                <a href="products.html"><i class="fas fa-box"></i><span>Sản phẩm</span></a>
+                <a href="purchase-orders.html" class="active"><i class="fas fa-truck-loading"></i><span>Nhập hàng</span></a>
+                <a href="pricing.html"><i class="fas fa-dollar-sign"></i><span>Quản lý giá</span></a>
+                <a href="orders.html"><i class="fas fa-shopping-cart"></i><span>Đơn hàng</span></a>
+                <a href="inventory.html"><i class="fas fa-warehouse"></i><span>Tồn kho</span></a>
+                
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="main-header">
+            <h1 id="po-page-title"><i class="fas fa-file-invoice"></i> Chi tiết Phiếu nhập hàng #PN001</h1>
+            <div class="header-actions">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user" style="font-size: 1.2rem; color: var(--brand-crimson);"></i>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-name" id="header-username">Người dùng</div>
+                        <div class="user-role" id="header-role">Quản lý</div>
+                    </div>
+                    <button class="logout-btn" id="logout-btn">Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; gap: 20px;">
+            <div style="flex: 2;">
+                <div class="card mb-4">
+                    <div class="card-header"><h2><i class="fas fa-plus-circle"></i> Thêm sản phẩm vào phiếu</h2></div>
+                    <div style="padding: 1.5rem;">
+                        <form style="display: flex; gap: 10px; align-items: flex-end;">
+                            <div style="flex: 2;">
+                                <label style="display: block;">Chọn sản phẩm</label>
+                                <select class="form-control" id="po-product-select">
+                                    <option selected value="">-- Chọn sản phẩm --</option>
+                                    <option value="1">Bánh Trung Thu Golden Plum</option>
+                                    <option value="2">Bánh Trung Thu Hotate XO Mixed Nuts</option>
+                                    <option value="3">Bánh Trung Thu Matcha</option>
+                                    <option value="4">Bánh Trung Thu Murasaki Imo</option>
+                                    <option value="5">Bánh Trung Thu Mushroom Mixed Nuts</option>
+                                    <option value="6">Bánh Trung Thu Hạt Sen Dừa Non</option>
+                                    <option value="7">Bánh Trung Thu Đậu Đỏ Trứng Muối</option>
+                                    <option value="8">Bánh Trung Thu Xôi Gấc</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="display: block;">Giá nhập</label>
+                                <input type="number" class="form-control" id="po-cost-price" placeholder="0" value="45000">
+                            </div>
+                            <div style="flex: 0; width: 80px;">
+                                <label style="display: block;">Số lượng</label>
+                                <input type="number" class="form-control compact-qty" id="po-quantity" value="1" min="1">
+                            </div>
+                            <div style="flex: 0;">
+                                <button type="button" class="btn-primary" id="po-add-item-btn" onclick="addPurchaseItem()" style="width: 100%;"><i class="fas fa-plus"></i> Thêm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="po-details-card" class="card" style="display:none;">
+                    <div class="card-header"><h2><i class="fas fa-list-alt"></i> Chi tiết phiếu nhập</h2></div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá nhập</th>
+                                    <th>Số lượng</th>
+                                    <th style="text-align:right;">Thành tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="po-items-tbody">
+                                <!-- Rows will be added dynamically. Hidden by default when empty. -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" style="text-align:right; font-weight:bold; font-size: 1.2rem;">Tổng cộng</td>
+                                    <td style="text-align:right; font-weight:bold; font-size: 1.2rem;" id="po-total-cost">0₫</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div style="flex: 1;">
+                <div class="card">
+                    <div class="card-header"><h2><i class="fas fa-clipboard-check"></i> Thông tin Phiếu nhập</h2></div>
+                    <div style="padding: 1.5rem;">
+                        <div class="form-group">
+                            <label>Ngày nhập</label>
+                            <input type="date" class="form-control" id="po-date" value="2023-10-15">
+                        </div>
+                        <div class="form-group">
+                            <label>Nhà cung cấp</label>
+                            <input type="text" class="form-control" id="po-supplier" value="Công ty Thực phẩm ABC">
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái</label>
+                            <div id="po-status-display">
+                                <span class="status-completed" style="width: 100%; display: block;">Đã hoàn thành</span>
+                            </div>
+                        </div>
+                        <hr style="margin: 1.5rem 0;"/>
+                        <div style="display: grid; gap: 10px;" id="po-action-buttons">
+                            <button class="btn-secondary" id="po-save-draft-btn" onclick="savePurchaseDraft()"><i class="fas fa-save"></i> Lưu tạm</button>
+                            <button class="btn-primary btn-add" id="po-complete-btn" onclick="completePurchase()"><i class="fas fa-check-circle"></i> Hoàn thành nhập kho</button>
+                            <button class="btn-secondary" id="po-back-btn" onclick="window.location.href='purchase-orders.html'"><i class="fas fa-arrow-left"></i> Quay lại</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2023 Hệ thống Quản lý Bánh Trung Thu MORICO | Phiên bản 2.1.0</p>
+        </div>
+    </main>
+    <script src="../assets/js/admin_actions.js"></script>
+    <script>
+        // Helper: format number as VND
+        function formatVND(num) {
+            if (!num) return '0₫';
+            const n = Number(num);
+            if (isNaN(n)) return num;
+            return n.toLocaleString('vi-VN') + '₫';
+        }
+
+        // Enforce single product: add or replace the single item row
+        function addPurchaseItem() {
+            const select = document.getElementById('po-product-select');
+            const priceEl = document.getElementById('po-cost-price');
+            const qtyEl = document.getElementById('po-quantity');
+            const tbody = document.getElementById('po-items-tbody');
+
+            const productId = select.value;
+            if (!productId) { alert('Vui lòng chọn sản phẩm'); return; }
+            const productName = select.options[select.selectedIndex].text;
+            const price = Number(priceEl.value) || 0;
+            const qty = parseInt(qtyEl.value, 10) || 0;
+            if (qty <= 0) { alert('Số lượng phải lớn hơn 0'); return; }
+
+            // Clear existing rows and insert single row
+            tbody.innerHTML = '';
+            const tr = document.createElement('tr');
+            const amount = price * qty;
+            tr.dataset.productId = productId;
+            tr.dataset.price = price;
+            tr.dataset.qty = qty;
+            tr.innerHTML = `
+                <td>${productName}</td>
+                <td>${formatVND(price)}</td>
+                <td>${qty}</td>
+                <td style="text-align:right;">${formatVND(amount)}</td>
+                <td><button class="btn-delete btn-action-small" onclick="removePurchaseItem(this)"><i class="fas fa-times"></i> Xóa</button></td>
+            `;
+            tbody.appendChild(tr);
+
+            // Update total
+            document.getElementById('po-total-cost').textContent = formatVND(amount);
+
+            // Ensure details card is visible when an item is present
+            updatePoDetailsVisibility();
+        }
+
+        function removePurchaseItem(btn) {
+            const row = btn.closest('tr');
+            if (row) row.remove();
+            // Recalculate total (single-product model) and update visibility
+            const tbody = document.getElementById('po-items-tbody');
+            if (!tbody.querySelector('tr')) {
+                document.getElementById('po-total-cost').textContent = '0₫';
+            } else {
+                // If multiple (defensive), sum amounts from rows
+                let sum = 0;
+                Array.from(tbody.querySelectorAll('tr')).forEach(r => {
+                    const amtText = r.children[3].textContent || '';
+                    const n = Number((amtText + '').replace(/[^0-9\-\.]/g, '')) || 0;
+                    sum += n;
+                });
+                document.getElementById('po-total-cost').textContent = formatVND(sum);
+            }
+            updatePoDetailsVisibility();
+        }
+
+        // Toggle visibility of the PO details card based on whether items exist
+        function updatePoDetailsVisibility() {
+            const card = document.getElementById('po-details-card');
+            const tbody = document.getElementById('po-items-tbody');
+            if (!card || !tbody) return;
+            if (tbody.querySelector('tr')) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+
+        // Persist PO to localStorage (single product model)
+        function savePurchase(status) {
+            // collect fields
+            const supplier = document.getElementById('po-supplier').value || '';
+            const date = document.getElementById('po-date').value || new Date().toISOString().slice(0,10);
+            const tbody = document.getElementById('po-items-tbody');
+            const firstRow = tbody.querySelector('tr');
+            if (!firstRow) { alert('Phiếu phải chứa ít nhất 1 sản phẩm.'); return; }
+
+            const productId = firstRow.dataset.productId;
+            const price = Number(firstRow.dataset.price) || 0;
+            const qty = parseInt(firstRow.dataset.qty, 10) || 0;
+            const productName = firstRow.children[0].textContent.trim();
+            const total = price * qty;
+
+            // create id
+            const id = 'PN' + Date.now().toString().slice(-6);
+
+            const po = {
+                id,
+                supplier,
+                date,
+                total: formatVND(total),
+                status: status,
+                productId: Number(productId),
+                productName,
+                qty,
+                price: formatVND(price)
+            };
+
+            // save to localStorage under key 'purchaseOrders'
+            try {
+                const stored = JSON.parse(localStorage.getItem('purchaseOrders') || '{}');
+                stored[po.id] = po;
+                localStorage.setItem('purchaseOrders', JSON.stringify(stored));
+            } catch (e) {
+                console.error(e);
+                alert('Lưu thất bại');
+                return;
+            }
+
+            alert(`Đã lưu phiếu ${po.id} (trạng thái: ${status}).`);
+            // redirect back to list where new PO will be loaded
+            window.location.href = 'purchase-orders.html';
+        }
+
+        function savePurchaseDraft() { savePurchase('draft'); }
+        function completePurchase() { savePurchase('completed'); }
+
+        // On load, ensure details card is hidden when no rows exist
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePoDetailsVisibility();
+        });
+    </script>
+</body>
+</html>

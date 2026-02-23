@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Tồn kho - MoonCake Delight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/admin_style.css" />
+    <style>
+      /* Style tùy chỉnh cho input và button nhỏ (đã có trong file cũ) */
+      .input-qty { width: 65px; padding: 6px; text-align: center; border-radius: 6px; border: 1px solid #ccc; margin-right: 5px; height: 38px; box-sizing: border-box;}
+      .btn-action-small { padding: 8px 10px !important; font-size: 0.85rem !important; }
+      /* Thêm icon cho các nút hành động */
+      .btn-primary.btn-action-small i, 
+      .btn-add.btn-action-small i,
+      .btn-delete.btn-action-small i { margin-right: 5px; }
+      
+      /* Style để làm mờ hàng Dừng Bán/Khóa */
+      .row-inactive {
+        background-color: rgba(108, 117, 125, 0.1) !important; /* light gray overlay */
+        opacity: 0.8;
+      }
+      
+      /* Style mới cho phần tra cứu và báo cáo */
+      .search-report-section {
+        margin-bottom: 20px;
+      }
+      
+      .search-report-section .card {
+        margin-bottom: 15px;
+      }
+      
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      
+      .form-group {
+        flex: 1;
+        min-width: 200px;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #333;
+      }
+      
+      .form-control {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      
+      .btn-search {
+        background-color: var(--brand-crimson);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+        align-self: flex-end;
+        margin-bottom: 15px;
+        height: 38px;
+      }
+      
+      .btn-search:hover {
+        background-color: #c82333;
+      }
+      
+      .report-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .summary-card {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .summary-card h3 {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+        color: #666;
+      }
+      
+      .summary-card .value {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--brand-crimson);
+      }
+      
+      .chart-container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .chart-placeholder {
+        height: 300px;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        color: #666;
+        font-style: italic;
+      }
+      
+      .no-data {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-wrap">
+                <div class="logo-img">
+                    <i class="fas fa-moon" style="font-size: 2rem; color: var(--brand-crimson);"></i>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-start">
+                    <div style="font-weight:800;color:#fff;font-size:1rem">MORICO</div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.92)">Bánh Trung Thu</div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section">
+                <div class="nav-title">Bảng điều khiển</div>
+                <a href="dashboard.html"><i class="fas fa-home"></i><span>Trang chủ</span></a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-title">Quản lý</div>
+                <a href="users.html"><i class="fas fa-users"></i><span>Người dùng</span></a>
+                <a href="categories.html"><i class="fas fa-tags"></i><span>Loại sản phẩm</span></a>
+                <a href="products.html"><i class="fas fa-box"></i><span>Sản phẩm</span></a>
+                <a href="purchase-orders.html"><i class="fas fa-truck-loading"></i><span>Nhập hàng</span></a>
+                <a href="pricing.html"><i class="fas fa-dollar-sign"></i><span>Quản lý giá</span></a>
+                <a href="orders.html"><i class="fas fa-shopping-cart"></i><span>Đơn hàng</span></a>
+                <a href="inventory.html" class="active"><i class="fas fa-warehouse"></i><span>Tồn kho</span></a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="main-header">
+            <h1><i class="fas fa-warehouse"></i> Quản Lý Tồn Kho Sản Phẩm</h1>
+            <div class="header-actions">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user" style="font-size: 1.2rem; color: var(--brand-crimson);"></i>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-name" id="header-username">Người dùng</div>
+                        <div class="user-role" id="header-role">Quản lý</div>
+                    </div>
+                    <button class="logout-btn" id="logout-btn">Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần tra cứu và báo cáo -->
+        <div class="search-report-section">
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fas fa-search"></i> Tra Cứu Tồn Kho Theo Thời Gian</h2>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="productSelect">Chọn sản phẩm</label>
+                  <select id="productSelect" class="form-control">
+                    <option value="">-- Tất cả sản phẩm --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="startDate">Từ ngày</label>
+                  <input type="date" id="startDate" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="endDate">Đến ngày</label>
+                  <input type="date" id="endDate" class="form-control">
+                </div>
+                <button class="btn-search" id="searchBtn">
+                  <i class="fas fa-search"></i> Tra Cứu
+                </button>
+              </div>
+              
+              <div id="searchResults">
+                <!-- Kết quả tra cứu sẽ hiển thị ở đây -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-header">
+              <h2><i class="fas fa-chart-line"></i> Báo Cáo Nhập - Xuất - Tồn</h2>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="reportStartDate">Từ ngày</label>
+                  <input type="date" id="reportStartDate" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="reportEndDate">Đến ngày</label>
+                  <input type="date" id="reportEndDate" class="form-control">
+                </div>
+                <button class="btn-search" id="generateReportBtn">
+                  <i class="fas fa-chart-bar"></i> Tạo Báo Cáo
+                </button>
+              </div>
+              
+              <div id="reportResults">
+                <!-- Báo cáo sẽ hiển thị ở đây -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2><i class="fas fa-chart-bar"></i> Báo Cáo Tồn Kho Hiện Tại</h2></div>
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr style="background-color: var(--brand-crimson); color: white;">
+                  <th style="color: white; background: var(--brand-crimson);">Mã SP</th>
+                  <th style="color: white; background: var(--brand-crimson);">Tên Bánh</th>
+                  <th style="color: white; background: var(--brand-crimson); text-align:center;">SL Còn Lại</th>
+                  <th style="color: white; background: var(--brand-crimson); text-align:center;">Trạng Thái</th>
+                  <th style="color: white; background: var(--brand-crimson); text-align:center;">Thời Gian Cập Nhật</th>
+                  <th style="color: white; background: var(--brand-crimson); text-align:center;">Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                <tr>
+                  <td colspan="6" style="text-align:center;">Đang tải dữ liệu tồn kho...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="footer">
+            <p>© 2023 Hệ thống Quản lý Bánh Trung Thu MORICO | Phiên bản 2.1.0</p>
+        </div>
+    </main>
+    
+    <script src="../assets/js/main.js"></script> 
+    <script src="../assets/js/admin_actions.js"></script>
+    <script>
+      // Ngưỡng cảnh báo: dưới 20 quyển (có thể điều chỉnh)
+      const LOW_STOCK_THRESHOLD = 20;
+
+      // === HELPER FUNCTIONS (FormatDateTime có thể được lấy từ main.js) ===
+      /** Định dạng chuỗi ngày tháng ISO sang định dạng giờ-ngày tháng năm Việt Nam. */
+      // HÀM NÀY ĐƯỢC BỎ QUA NẾU ĐÃ CÓ TRONG main.js
+      /* function formatDateTime(dateString) { ... } */
+
+      // === HÀNH ĐỘNG TƯƠNG TÁC ===
+      /**
+       * Xử lý nhập thêm số lượng tồn kho.
+       * @param {number} productId - ID sản phẩm.
+       * @param {string} productName - Tên sản phẩm.
+       */
+      function handleImport(productId, productName) {
+        const inputElement = document.getElementById(`inputQty_${productId}`);
+        const qty = parseInt(inputElement.value);
+
+        if (isNaN(qty) || qty <= 0) {
+          // Sử dụng hàm showNotification từ admin_actions.js
+          if (typeof showNotification === 'function') {
+            showNotification("Vui lòng nhập số lượng hợp lệ (> 0) để nhập thêm.", 'error');
+          } else {
+            alert("Vui lòng nhập số lượng hợp lệ (> 0) để nhập thêm.");
+          }
+          return;
+        }
+
+        // SỬ DỤNG HÀM getData() TỪ main.js
+        let data = getData(); 
+        if (!data || !data.products) {
+          alert("Lỗi: Không tìm thấy dữ liệu sản phẩm.");
+          return;
+        }
+        
+        const productIndex = data.products.findIndex((p) => p.id === productId);
+        
+        if (productIndex > -1) {
+          const currentStock = data.products[productIndex].stock || 0; 
+          
+          data.products[productIndex].stock = currentStock + qty; 
+          data.products[productIndex].lastStockUpdate = new Date().toISOString();
+          
+          if (data.products[productIndex].status === "inactive") {
+            data.products[productIndex].status = "active";
+          }
+          
+          // SỬ DỤNG HÀM saveData(data) TỪ main.js
+          if (saveData(data)) { 
+            if (typeof showNotification === 'function') {
+                showNotification(`Đã nhập thêm ${qty} cuốn "${productName}". Tồn kho mới: ${currentStock + qty}.`, 'success');
+            } else {
+                alert(`✅ Đã nhập thêm ${qty} cuốn sách "${productName}". Tồn kho mới: ${currentStock + qty}.`);
+            }
+            renderInventoryTable(generateInventoryReport()); 
+          }
+        }
+      }
+
+      /**
+       * Xử lý Dừng Bán/Bán Lại (Khóa/Mở khóa sản phẩm).
+       * @param {number} productId - ID sản phẩm.
+       * @param {string} productName - Tên sản phẩm.
+       * @param {string} currentStatus - Trạng thái hiện tại ('active' hoặc 'inactive').
+       */
+      function handleToggleStatus(productId, productName, currentStatus) {
+        const newStatus = currentStatus === "active" ? "inactive" : "active";
+        const actionText = newStatus === "inactive" ? "DỪNG BÁN" : "BÁN LẠI";
+
+        if (!confirm(`⚠️ Bạn có chắc chắn muốn ${actionText} sách "${productName}" không?`)) {
+          return;
+        }
+
+        // SỬ DỤNG HÀM getData() TỪ main.js
+        let data = getData(); 
+        if (!data || !data.products) {
+          alert("Lỗi: Không tìm thấy dữ liệu sản phẩm.");
+          return;
+        }
+
+        const productIndex = data.products.findIndex((p) => p.id === productId);
+
+        if (productIndex > -1) {
+          data.products[productIndex].status = newStatus;
+          data.products[productIndex].lastStockUpdate = new Date().toISOString(); 
+
+          // SỬ DỤNG HÀM saveData(data) TỪ main.js
+          if (saveData(data)) {
+            if (typeof showNotification === 'function') {
+                showNotification(`Đã cập nhật trạng thái "${productName}" thành: ${newStatus === "active" ? "Đang Bán" : "Dừng Bán (Khóa)"}.`, 'info');
+            } else {
+                alert(`✅ Đã cập nhật trạng thái sách "${productName}" thành: ${newStatus === "active" ? "Đang Bán" : "Dừng Bán (Khóa)"}.`);
+            }
+            renderInventoryTable(generateInventoryReport()); 
+          }
+        }
+      }
+
+      // === RENDERING LOGIC ===
+      /** Lấy dữ liệu tồn kho và tạo báo cáo */
+      function generateInventoryReport() {
+        // SỬ DỤNG HÀM getData() TỪ main.js
+        const data = getData(); 
+        const products = data.products || [];
+        const report = [];
+
+        products.forEach((p) => {
+          const endQty = p.stock || 0; 
+          const lastUpdate = p.lastStockUpdate || null;
+          const status = p.status || "active"; 
+
+          let stockStatusText = "";
+          let rowClass = "";
+          let actionElements = "";
+          let statusBadge = "";
+
+          // 1. Xác định trạng thái tồn kho và màu chữ
+          let qtyStyle = "";
+          if (endQty <= 0) {
+            stockStatusText = "HẾT HÀNG";
+            statusBadge = `<span class="status out-of-stock">${stockStatusText}</span>`;
+            qtyStyle = "color: var(--brand-crimson); font-weight: bold;";
+          } else if (endQty < LOW_STOCK_THRESHOLD) {
+            stockStatusText = "SẮP HẾT!";
+            statusBadge = `<span class="status out-of-stock">${stockStatusText}</span>`;
+            qtyStyle = "color: var(--brand-crimson); font-weight: bold;";
+          } else {
+            stockStatusText = "Bình thường";
+            statusBadge = `<span class="status in-stock">${stockStatusText}</span>`;
+          }
+
+          // 2. Xác định trạng thái bán hàng và hành động
+          if (status === "inactive") {
+            statusBadge =
+              `<span class="status hidden">KHÓA/DỪNG BÁN</span>`; 
+            rowClass = "row-inactive"; 
+            
+            // Nút Bán Lại (Màu xanh lá cây - btn-add)
+            actionElements = `<button class="btn-add btn-action-small" onclick="handleToggleStatus(${
+              p.id
+            }, '${p.name.replace(
+              /'/g,
+              "\\'"
+            )}', '${status}')"><i class="fas fa-play"></i> Bán Lại</button>`;
+          } else {
+            // Đang active
+            // Thêm ô nhập số lượng
+            actionElements += `<input type="number" id="inputQty_${p.id}" class="input-qty" value="10" min="1">`;
+            
+            // Nút Nhập Thêm (Màu đỏ thẫm - btn-primary)
+            actionElements += `<button class="btn-primary btn-action-small" onclick="handleImport(${
+              p.id
+            }, '${p.name.replace(/'/g, "\\'")}')"><i class="fas fa-plus"></i> Nhập Thêm</button>`;
+            
+            // Nút Dừng Bán (Màu đỏ - btn-delete)
+            actionElements += `<button class="btn-delete btn-action-small" onclick="handleToggleStatus(${
+              p.id
+            }, '${p.name.replace(
+              /'/g,
+              "\\'"
+            )}', '${status}')"><i class="fas fa-ban"></i> Dừng Bán</button>`;
+          }
+          
+          const productCode = p.sku || `MCD${String(p.id).padStart(3, '0')}`;
+
+          // Lưu ý: Đảm bảo hàm formatDateTime đã được tải (từ main.js hoặc định nghĩa trong file này)
+          report.push({
+            id: p.id,
+            sku: productCode,
+            name: p.name || "Sản phẩm không tên",
+            endQty: endQty,
+            lastUpdate: typeof formatDateTime === 'function' ? formatDateTime(lastUpdate) : (lastUpdate ? lastUpdate.substring(0, 10) : "Chưa cập nhật"),
+            rowClass: rowClass,
+            qtyStyle: qtyStyle,
+            statusBadge: statusBadge,
+            actionElements: actionElements,
+          });
+        });
+
+        report.sort((a, b) => a.id - b.id);
+        return report;
+      }
+
+      /** Hiển thị dữ liệu báo cáo lên bảng. */
+      function renderInventoryTable(reportData) {
+        const tableBody = document.getElementById("inventoryTableBody");
+        if (!tableBody) return;
+
+        let html = "";
+        if (reportData.length === 0) {
+          html =
+            '<tr><td colspan="6" style="text-align:center;">Không có dữ liệu tồn kho sách.</td></tr>';
+        } else {
+          reportData.forEach((item) => {
+            html += `
+                        <tr class="${item.rowClass}">
+                            <td>${item.sku}</td>
+                            <td>${item.name}</td>
+                            <td style="text-align:center; ${item.qtyStyle}">${item.endQty}</td>
+                            <td style="text-align:center;">${item.statusBadge}</td>
+                            <td style="text-align:center;">${item.lastUpdate}</td>
+                            <td style="text-align:center;" class="action-group">${item.actionElements}</td>
+                        </tr>
+                    `;
+          });
+        }
+        tableBody.innerHTML = html;
+      }
+
+      // === CHỨC NĂNG TRA CỨU VÀ BÁO CÁO MỚI ===
+      
+      /**
+       * Khởi tạo dropdown chọn sản phẩm
+       */
+      function initializeProductSelect() {
+        const productSelect = document.getElementById('productSelect');
+        if (!productSelect) return;
+        
+        const data = getData();
+        const products = data.products || [];
+        
+        // Xóa các option hiện tại (trừ option đầu tiên)
+        while (productSelect.children.length > 1) {
+          productSelect.removeChild(productSelect.lastChild);
+        }
+        
+        // Thêm các sản phẩm vào dropdown
+        products.forEach(product => {
+          const option = document.createElement('option');
+          option.value = product.id;
+          option.textContent = `${product.name} (${product.sku || `MCD${String(product.id).padStart(3, '0')}`})`;
+          productSelect.appendChild(option);
+        });
+      }
+      
+      /**
+       * Tra cứu tồn kho theo thời gian
+       */
+      function searchInventoryHistory() {
+        const productId = document.getElementById('productSelect').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        
+        const resultsContainer = document.getElementById('searchResults');
+        
+        // Kiểm tra điều kiện đầu vào
+        if (!startDate || !endDate) {
+          resultsContainer.innerHTML = '<div class="no-data">Vui lòng chọn khoảng thời gian để tra cứu.</div>';
+          return;
+        }
+        
+        const data = getData();
+        const products = data.products || [];
+        const orders = data.orders || [];
+        const purchaseOrders = data.purchaseOrders || [];
+        
+        let results = [];
+        
+        // Nếu chọn tất cả sản phẩm
+        if (!productId) {
+          products.forEach(product => {
+            const history = getProductInventoryHistory(product.id, startDate, endDate, orders, purchaseOrders);
+            results.push({
+              product: product,
+              history: history
+            });
+          });
+        } else {
+          // Chỉ tra cứu một sản phẩm
+          const product = products.find(p => p.id == productId);
+          if (product) {
+            const history = getProductInventoryHistory(product.id, startDate, endDate, orders, purchaseOrders);
+            results.push({
+              product: product,
+              history: history
+            });
+          }
+        }
+        
+        // Hiển thị kết quả
+        displaySearchResults(results);
+      }
+      
+      /**
+       * Lấy lịch sử tồn kho của một sản phẩm trong khoảng thời gian
+       */
+      function getProductInventoryHistory(productId, startDate, endDate, orders, purchaseOrders) {
+        // Giả lập dữ liệu lịch sử tồn kho
+        // Trong thực tế, bạn cần lưu lịch sử thay đổi tồn kho trong database
+        
+        const history = [];
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        
+        // Tính số ngày trong khoảng thời gian
+        const daysDiff = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+        
+        // Tạo dữ liệu giả lập cho mỗi ngày
+        let currentStock = Math.floor(Math.random() * 100) + 20; // Tồn kho ban đầu ngẫu nhiên
+        
+        for (let i = 0; i <= daysDiff; i++) {
+          const currentDate = new Date(start);
+          currentDate.setDate(start.getDate() + i);
+          
+          // Giả lập nhập hàng (ngẫu nhiên)
+          const importQty = Math.random() > 0.7 ? Math.floor(Math.random() * 50) + 10 : 0;
+          
+          // Giả lập xuất hàng (ngẫu nhiên)
+          const exportQty = Math.random() > 0.3 ? Math.floor(Math.random() * 20) + 1 : 0;
+          
+          // Cập nhật tồn kho
+          currentStock = currentStock + importQty - exportQty;
+          if (currentStock < 0) currentStock = 0;
+          
+          history.push({
+            date: currentDate.toISOString().split('T')[0],
+            import: importQty,
+            export: exportQty,
+            stock: currentStock
+          });
+        }
+        
+        return history;
+      }
+      
+      /**
+       * Hiển thị kết quả tra cứu
+       */
+      function displaySearchResults(results) {
+        const resultsContainer = document.getElementById('searchResults');
+        
+        if (results.length === 0) {
+          resultsContainer.innerHTML = '<div class="no-data">Không tìm thấy dữ liệu tồn kho trong khoảng thời gian đã chọn.</div>';
+          return;
+        }
+        
+        let html = '';
+        
+        results.forEach(result => {
+          const product = result.product;
+          const history = result.history;
+          
+          html += `
+            <div class="card" style="margin-top: 15px;">
+              <div class="card-header">
+                <h3>${product.name} (${product.sku || `MCD${String(product.id).padStart(3, '0')}`})</h3>
+              </div>
+              <div class="card-body">
+                <div style="overflow-x: auto;">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Ngày</th>
+                        <th style="text-align:center;">Nhập</th>
+                        <th style="text-align:center;">Xuất</th>
+                        <th style="text-align:center;">Tồn</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+          `;
+          
+          history.forEach(day => {
+            html += `
+              <tr>
+                <td>${day.date}</td>
+                <td style="text-align:center; color: green;">${day.import > 0 ? '+' + day.import : '-'}</td>
+                <td style="text-align:center; color: red;">${day.export > 0 ? '-' + day.export : '-'}</td>
+                <td style="text-align:center; font-weight: bold;">${day.stock}</td>
+              </tr>
+            `;
+          });
+          
+          html += `
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        
+        resultsContainer.innerHTML = html;
+      }
+      
+      /**
+       * Tạo báo cáo nhập - xuất - tồn
+       */
+      function generateInventoryReportByPeriod() {
+        const startDate = document.getElementById('reportStartDate').value;
+        const endDate = document.getElementById('reportEndDate').value;
+        
+        const reportContainer = document.getElementById('reportResults');
+        
+        // Kiểm tra điều kiện đầu vào
+        if (!startDate || !endDate) {
+          reportContainer.innerHTML = '<div class="no-data">Vui lòng chọn khoảng thời gian để tạo báo cáo.</div>';
+          return;
+        }
+        
+        const data = getData();
+        const products = data.products || [];
+        
+        // Tạo dữ liệu báo cáo giả lập
+        const reportData = [];
+        let totalImport = 0;
+        let totalExport = 0;
+        let totalStock = 0;
+        
+        products.forEach(product => {
+          // Giả lập dữ liệu nhập, xuất trong khoảng thời gian
+          const importQty = Math.floor(Math.random() * 100) + 10;
+          const exportQty = Math.floor(Math.random() * 80) + 5;
+          const currentStock = product.stock || 0;
+          
+          totalImport += importQty;
+          totalExport += exportQty;
+          totalStock += currentStock;
+          
+          reportData.push({
+            product: product,
+            import: importQty,
+            export: exportQty,
+            stock: currentStock
+          });
+        });
+        
+        // Hiển thị báo cáo
+        displayInventoryReport(reportData, totalImport, totalExport, totalStock, startDate, endDate);
+      }
+      
+      /**
+       * Hiển thị báo cáo nhập - xuất - tồn
+       */
+      function displayInventoryReport(reportData, totalImport, totalExport, totalStock, startDate, endDate) {
+        const reportContainer = document.getElementById('reportResults');
+        
+        let html = `
+          <div class="report-summary">
+            <div class="summary-card">
+              <h3>Tổng Nhập</h3>
+              <div class="value" style="color: green;">+${totalImport}</div>
+            </div>
+            <div class="summary-card">
+              <h3>Tổng Xuất</h3>
+              <div class="value" style="color: red;">-${totalExport}</div>
+            </div>
+            <div class="summary-card">
+              <h3>Tổng Tồn</h3>
+              <div class="value">${totalStock}</div>
+            </div>
+          </div>
+          
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mã SP</th>
+                  <th>Tên Sản Phẩm</th>
+                  <th style="text-align:center;">Nhập</th>
+                  <th style="text-align:center;">Xuất</th>
+                  <th style="text-align:center;">Tồn</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+        
+        reportData.forEach(item => {
+          const product = item.product;
+          const productCode = product.sku || `MCD${String(product.id).padStart(3, '0')}`;
+          
+          html += `
+            <tr>
+              <td>${productCode}</td>
+              <td>${product.name}</td>
+              <td style="text-align:center; color: green;">${item.import}</td>
+              <td style="text-align:center; color: red;">${item.export}</td>
+              <td style="text-align:center; font-weight: bold;">${item.stock}</td>
+            </tr>
+          `;
+        });
+        
+        html += `
+              </tbody>
+            </table>
+          </div>
+        `;
+        
+        reportContainer.innerHTML = html;
+      }
+      
+      /** Hàm khởi tạo chính */
+      function initInventoryPage() {
+        // Kiểm tra sự tồn tại của các hàm cốt lõi từ main.js
+        if (typeof getData !== "function" || typeof saveData !== "function") {
+          document.getElementById("inventoryTableBody").innerHTML =
+            '<tr><td colspan="6" style="text-align:center; color: var(--brand-crimson); font-weight: bold;">Lỗi: Cần đảm bảo main.js đã được import thành công và định nghĩa hàm getData/saveData.</td></tr>';
+          console.error("Lỗi: Hàm getData() hoặc saveData() không tồn tại.");
+          return;
+        }
+        
+        // Cần đảm bảo hàm initializeSampleProducts đã được định nghĩa ở đâu đó (thường là trong main.js)
+        /*
+        if (typeof initializeSampleProducts === 'function') {
+            initializeSampleProducts(); 
+        }
+        */
+
+        const report = generateInventoryReport();
+        renderInventoryTable(report);
+        
+        // Khởi tạo chức năng tra cứu và báo cáo
+        initializeProductSelect();
+        
+        // Đặt ngày mặc định (30 ngày gần nhất)
+        const today = new Date();
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(today.getDate() - 30);
+        
+        document.getElementById('startDate').value = thirtyDaysAgo.toISOString().split('T')[0];
+        document.getElementById('endDate').value = today.toISOString().split('T')[0];
+        
+        document.getElementById('reportStartDate').value = thirtyDaysAgo.toISOString().split('T')[0];
+        document.getElementById('reportEndDate').value = today.toISOString().split('T')[0];
+        
+        // Gắn sự kiện cho các nút
+        document.getElementById('searchBtn').addEventListener('click', searchInventoryHistory);
+        document.getElementById('generateReportBtn').addEventListener('click', generateInventoryReportByPeriod);
+      }
+      
+      // Chạy hàm khởi tạo khi DOM đã load
+      document.addEventListener('DOMContentLoaded', function() {
+          // Gắn sự kiện logout cho nút logout (nếu có)
+          const logoutBtn = document.getElementById('logout-btn');
+          if (logoutBtn && typeof handleLogout === 'function') { // handleLogout thường có trong admin_actions.js
+            logoutBtn.addEventListener('click', handleLogout);
+          }
+          
+          initInventoryPage();
+      });
+    </script>
+  </body>
+</html>
