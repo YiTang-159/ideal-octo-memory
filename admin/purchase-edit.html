@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="../assets/css/admin_style.css" />
 </head>
+
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -30,11 +32,12 @@
                 <a href="users.html"><i class="fas fa-users"></i><span>Người dùng</span></a>
                 <a href="categories.html"><i class="fas fa-tags"></i><span>Loại sản phẩm</span></a>
                 <a href="products.html"><i class="fas fa-box"></i><span>Sản phẩm</span></a>
-                <a href="purchase-orders.html" class="active"><i class="fas fa-truck-loading"></i><span>Nhập hàng</span></a>
+                <a href="purchase-orders.html" class="active"><i class="fas fa-truck-loading"></i><span>Nhập
+                        hàng</span></a>
                 <a href="pricing.html"><i class="fas fa-dollar-sign"></i><span>Quản lý giá</span></a>
                 <a href="orders.html"><i class="fas fa-shopping-cart"></i><span>Đơn hàng</span></a>
                 <a href="inventory.html"><i class="fas fa-warehouse"></i><span>Tồn kho</span></a>
-                
+
             </div>
         </nav>
     </aside>
@@ -59,7 +62,9 @@
         <div style="display:flex; gap: 20px;">
             <div style="flex: 2;">
                 <div class="card mb-4">
-                    <div class="card-header"><h2><i class="fas fa-plus-circle"></i> Thêm sản phẩm vào phiếu</h2></div>
+                    <div class="card-header">
+                        <h2><i class="fas fa-plus-circle"></i> Thêm sản phẩm vào phiếu</h2>
+                    </div>
                     <div style="padding: 1.5rem;">
                         <form style="display: flex; gap: 10px; align-items: flex-end;">
                             <div style="flex: 2;">
@@ -78,21 +83,27 @@
                             </div>
                             <div style="flex: 1;">
                                 <label style="display: block;">Giá nhập</label>
-                                <input type="number" class="form-control" id="po-cost-price" placeholder="0" value="45000">
+                                <input type="number" class="form-control" id="po-cost-price" placeholder="0"
+                                    value="45000">
                             </div>
                             <div style="flex: 0; width: 80px;">
                                 <label style="display: block;">Số lượng</label>
-                                <input type="number" class="form-control compact-qty" id="po-quantity" value="1" min="1">
+                                <input type="number" class="form-control compact-qty" id="po-quantity" value="1"
+                                    min="1">
                             </div>
                             <div style="flex: 0;">
-                                <button type="button" class="btn-primary" id="po-add-item-btn" onclick="addPurchaseItem()" style="width: 100%;"><i class="fas fa-plus"></i> Thêm</button>
+                                <button type="button" class="btn-primary" id="po-add-item-btn"
+                                    onclick="addPurchaseItem()" style="width: 100%;"><i class="fas fa-plus"></i>
+                                    Thêm</button>
                             </div>
                         </form>
                     </div>
                 </div>
 
                 <div id="po-details-card" class="card" style="display:none;">
-                    <div class="card-header"><h2><i class="fas fa-list-alt"></i> Chi tiết phiếu nhập</h2></div>
+                    <div class="card-header">
+                        <h2><i class="fas fa-list-alt"></i> Chi tiết phiếu nhập</h2>
+                    </div>
                     <div style="overflow-x: auto;">
                         <table>
                             <thead>
@@ -109,8 +120,10 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="3" style="text-align:right; font-weight:bold; font-size: 1.2rem;">Tổng cộng</td>
-                                    <td style="text-align:right; font-weight:bold; font-size: 1.2rem;" id="po-total-cost">0₫</td>
+                                    <td colspan="3" style="text-align:right; font-weight:bold; font-size: 1.2rem;">Tổng
+                                        cộng</td>
+                                    <td style="text-align:right; font-weight:bold; font-size: 1.2rem;"
+                                        id="po-total-cost">0₫</td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -121,7 +134,9 @@
 
             <div style="flex: 1;">
                 <div class="card">
-                    <div class="card-header"><h2><i class="fas fa-clipboard-check"></i> Thông tin Phiếu nhập</h2></div>
+                    <div class="card-header">
+                        <h2><i class="fas fa-clipboard-check"></i> Thông tin Phiếu nhập</h2>
+                    </div>
                     <div style="padding: 1.5rem;">
                         <div class="form-group">
                             <label>Ngày nhập</label>
@@ -137,11 +152,15 @@
                                 <span class="status-completed" style="width: 100%; display: block;">Đã hoàn thành</span>
                             </div>
                         </div>
-                        <hr style="margin: 1.5rem 0;"/>
+                        <hr style="margin: 1.5rem 0;" />
                         <div style="display: grid; gap: 10px;" id="po-action-buttons">
-                            <button class="btn-secondary" id="po-save-draft-btn" onclick="savePurchaseDraft()"><i class="fas fa-save"></i> Lưu tạm</button>
-                            <button class="btn-primary btn-add" id="po-complete-btn" onclick="completePurchase()"><i class="fas fa-check-circle"></i> Hoàn thành nhập kho</button>
-                            <button class="btn-secondary" id="po-back-btn" onclick="window.location.href='purchase-orders.html'"><i class="fas fa-arrow-left"></i> Quay lại</button>
+                            <button class="btn-secondary" id="po-save-draft-btn" onclick="savePurchaseDraft()"><i
+                                    class="fas fa-save"></i> Lưu tạm</button>
+                            <button class="btn-primary btn-add" id="po-complete-btn" onclick="completePurchase()"><i
+                                    class="fas fa-check-circle"></i> Hoàn thành nhập kho</button>
+                            <button class="btn-secondary" id="po-back-btn"
+                                onclick="window.location.href='purchase-orders.html'"><i class="fas fa-arrow-left"></i>
+                                Quay lại</button>
                         </div>
                     </div>
                 </div>
@@ -234,7 +253,7 @@
         function savePurchase(status) {
             // collect fields
             const supplier = document.getElementById('po-supplier').value || '';
-            const date = document.getElementById('po-date').value || new Date().toISOString().slice(0,10);
+            const date = document.getElementById('po-date').value || new Date().toISOString().slice(0, 10);
             const tbody = document.getElementById('po-items-tbody');
             const firstRow = tbody.querySelector('tr');
             if (!firstRow) { alert('Phiếu phải chứa ít nhất 1 sản phẩm.'); return; }
@@ -280,9 +299,10 @@
         function completePurchase() { savePurchase('completed'); }
 
         // On load, ensure details card is hidden when no rows exist
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updatePoDetailsVisibility();
         });
     </script>
 </body>
+
 </html>

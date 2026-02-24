@@ -447,28 +447,28 @@ strong {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     #order-summary {
         grid-column: 1;
         grid-row: auto;
     }
-    
+
     h1 {
         font-size: 2rem;
     }
-    
+
     .address-option {
         padding: 12px;
     }
-    
+
     .form-row {
         grid-template-columns: 1fr;
     }
-    
+
     .form-actions {
         flex-direction: column;
     }
-    
+
     .delete-address-btn {
         top: 5px;
         right: 5px;

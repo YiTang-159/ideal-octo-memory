@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
         /* styles.css - CSS chung cho toàn bộ website */
         body {
             margin: 0;
-            font-family: "Century", serif; 
+            font-family: "Century", serif;
             background: linear-gradient(to right, #FFFDF2, #FFF9DC, #FFF4C2);
             color: #8B0000;
             min-height: 100vh;
@@ -27,7 +28,7 @@
             width: 100%;
             z-index: 1000;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            height: auto; 
+            height: auto;
         }
 
         .header-container {
@@ -65,7 +66,7 @@
         .icon-link {
             position: relative;
         }
-        
+
         .icon-link svg,
         .user-icon {
             width: 34px;
@@ -83,11 +84,11 @@
             font-family: 'Dancing Script', cursive;
             font-weight: 700;
             text-align: center;
-            background-color: #FFFFFF; 
-            border-bottom: none; 
-            margin: 0; 
+            background-color: #FFFFFF;
+            border-bottom: none;
+            margin: 0;
         }
-        
+
         /* ===== THANH MENU PHÍA DƯỚI (NAV-BAR) ===== */
         .nav-bar {
             display: flex;
@@ -170,7 +171,7 @@
             background-color: #fffdf0;
             border: 1.5px solid #8B0000;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             min-width: 180px;
             z-index: 100;
             text-align: center;
@@ -211,7 +212,7 @@
             font-size: 13px;
             font-weight: bold;
             border: 1px solid #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transform: scale(0.8);
             transition: opacity 0.2s, transform 0.2s;
@@ -232,7 +233,7 @@
             background-color: #fffdf0;
             border: 1.5px solid #8B0000;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             max-height: 300px;
             overflow-y: auto;
             display: none;
@@ -419,11 +420,31 @@
             font-size: 0.75rem;
             margin-left: 10px;
         }
-        .status-badge.pending {background-color: #FFEBEE; color: #C62828;}
-        .status-badge.confirmed {background-color: #FFF3E0; color: #EF6C00;}
-        .status-badge.shipping {background-color: #E3F2FD; color: #1E88E5;}
-        .status-badge.delivered {background-color: #E8F5E9; color: #2E7D32;}
-        .status-badge.cancelled {background-color: #ECEFF1; color: #455A64;}
+
+        .status-badge.pending {
+            background-color: #FFEBEE;
+            color: #C62828;
+        }
+
+        .status-badge.confirmed {
+            background-color: #FFF3E0;
+            color: #EF6C00;
+        }
+
+        .status-badge.shipping {
+            background-color: #E3F2FD;
+            color: #1E88E5;
+        }
+
+        .status-badge.delivered {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .status-badge.cancelled {
+            background-color: #ECEFF1;
+            color: #455A64;
+        }
 
         /* Responsive */
         @media (max-width: 1200px) {
@@ -431,7 +452,7 @@
                 padding: 0 20px;
                 gap: 15px;
             }
-            
+
             .search-bar {
                 width: 500px;
             }
@@ -443,34 +464,34 @@
                 padding: 10px 20px;
                 flex-wrap: wrap;
             }
-            
+
             .logo {
                 font-size: 36px;
                 margin-bottom: 10px;
             }
-            
+
             .logo-img {
                 height: 45px;
             }
-            
+
             .search-bar {
                 width: 100%;
                 max-width: 500px;
                 margin: 10px 0;
             }
-            
+
             .icon-group {
                 width: 100%;
                 justify-content: center;
                 margin-top: 10px;
             }
-            
+
             .nav-bar {
                 flex-wrap: wrap;
                 gap: 20px;
                 padding: 10px 0;
             }
-            
+
             .search-results {
                 width: 90%;
                 max-width: 500px;
@@ -481,53 +502,53 @@
             body {
                 font-size: 16px;
             }
-            
+
             .order-details {
                 grid-template-columns: 1fr;
             }
-            
+
             .order-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
-            
+
             .header-container {
                 flex-direction: column;
                 height: auto;
                 padding: 15px;
             }
-            
+
             .search-bar {
                 width: 100%;
                 max-width: 500px;
                 margin: 10px 0;
             }
-            
+
             .nav-bar {
                 flex-wrap: wrap;
                 gap: 20px;
             }
-            
+
             .search-results {
                 width: 95%;
                 max-width: 400px;
                 top: 70px;
             }
-            
+
             .search-results .product-item {
                 padding: 8px;
             }
-            
+
             .search-results img {
                 width: 50px;
                 height: 50px;
             }
-            
+
             .search-results h4 {
                 font-size: 16px;
             }
-            
+
             .search-results p {
                 font-size: 14px;
             }
@@ -537,47 +558,47 @@
             .header-container {
                 padding: 5px 10px;
             }
-            
+
             .logo {
                 font-size: 28px;
             }
-            
+
             .logo-img {
                 height: 35px;
             }
-            
+
             .search-bar {
                 padding: 3px 8px;
             }
-            
+
             .search-bar input {
                 font-size: 13px;
                 padding: 5px 10px;
             }
-            
+
             .search-bar button {
                 width: 32px;
                 height: 32px;
             }
-            
+
             .icon-group {
                 gap: 15px;
             }
-            
+
             .icon-link svg,
             .user-icon {
                 width: 24px;
                 height: 24px;
             }
-            
+
             .nav-bar {
                 gap: 10px;
             }
-            
+
             .nav-bar a {
                 font-size: 15px;
             }
-            
+
             .cart-count {
                 width: 18px;
                 height: 18px;
@@ -588,11 +609,12 @@
         }
     </style>
 </head>
+
 <body>
     <header>
-        <div class = "header-container">
-            <div class = "logo">
-                <img src = "../assets/image/login/logo.png" alt = "Logo Morico" class = "logo-img">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../assets/image/login/logo.png" alt="Logo Morico" class="logo-img">
                 <span>Morico</span>
             </div>
             <div class="search-bar">
@@ -601,7 +623,7 @@
                     <svg xmlns="../assets/external/www.w3.org/2000/svg_file" viewBox="0 0 24 24">
                         <path d="M21.71 20.29l-3.387-3.387A8.958 8.958 0 0019 11a9 9 0 10-9 9 
                         8.958 8.958 0 005.903-1.677l3.387 3.387a1 1 0 001.414-1.414zM4 
-                        11a7 7 0 1114 0 7 7 0 01-14 0z"/>
+                        11a7 7 0 1114 0 7 7 0 01-14 0z" />
                     </svg>
                 </button>
             </div>
@@ -614,16 +636,17 @@
                         14l.84-2h8.99c.89 0 1.67-.58 1.93-1.42l1.96-6.16A1 
                         1 0 0019 3H6.21l-.94-2H1v2h3l3.6 
                         7.59-1.35 3.32A1.99 1.99 0 006 17h12v-2H7.42a.5.5 0 
-                        01-.47-.34L7.16 14z"/>
+                        01-.47-.34L7.16 14z" />
                     </svg>
                     <span id="cartCountBadge" class="cart-count">0</span>
                 </a>
                 <div class="user-menu">
-                    <svg xmlns="../assets/external/www.w3.org/2000/svg_file" viewBox="0 0 24 24" class="user-icon" id="userIcon">
+                    <svg xmlns="../assets/external/www.w3.org/2000/svg_file" viewBox="0 0 24 24" class="user-icon"
+                        id="userIcon">
                         <path d="M12 12c2.7 0 4.9-2.2 
                         4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 
                         7.1 9.3 12 12 12zm0 2.4c-3.3 0-9.8 
-                        1.7-9.8 4.9V22h19.6v-2.7c0-3.2-6.5-4.9-9.8-4.9z"/>
+                        1.7-9.8 4.9V22h19.6v-2.7c0-3.2-6.5-4.9-9.8-4.9z" />
                     </svg>
                     <div class="dropdown" id="userDropdown">
                         <!-- Nội dung dropdown sẽ được thêm bằng JavaScript -->
@@ -631,16 +654,16 @@
                 </div>
             </div>
         </div>
-        <nav class = "nav-bar">
-            <a href = "../index.html">TRANG CHỦ</a>
-            <a href = "about.html">GIỚI THIỆU</a> 
-            <a href = "product.html">SẢN PHẨM</a>
+        <nav class="nav-bar">
+            <a href="../index.html">TRANG CHỦ</a>
+            <a href="about.html">GIỚI THIỆU</a>
+            <a href="product.html">SẢN PHẨM</a>
         </nav>
         <h1 class="page-title"> LỊCH SỬ MUA HÀNG CỦA BẠN </h1>
     </header>
-    
-    <div id = "history-container">
-        <p id = "empty-message" style = "display: none;">Bạn chưa có đơn hàng nào được xác nhận.</p>
+
+    <div id="history-container">
+        <p id="empty-message" style="display: none;">Bạn chưa có đơn hàng nào được xác nhận.</p>
     </div>
 
     <script>
@@ -677,7 +700,7 @@
          */
         function updateCartCount() {
             const currentUser = localStorage.getItem("currentUser");
-            
+
             // CHỈ HIỆN GIỎ HÀNG KHI ĐÃ ĐĂNG NHẬP
             if (!currentUser) {
                 cartLink.style.display = 'none';
@@ -707,7 +730,7 @@
          */
         function updateUserMenu() {
             const currentUserString = localStorage.getItem("currentUser");
-            dropdown.innerHTML = ""; 
+            dropdown.innerHTML = "";
 
             if (currentUserString) {
                 // --- TRƯỜNG HỢP: ĐÃ ĐĂNG NHẬP ---
@@ -719,15 +742,15 @@
 
                 // Thêm sự kiện click cho link Tài Khoản
                 const profileLink = dropdown.querySelector('a[href="profile.html"]');
-                profileLink.addEventListener('click', function(e) {
+                profileLink.addEventListener('click', function (e) {
                     e.preventDefault();
                     window.location.href = 'profile.html';
                 });
 
                 document.getElementById("logoutBtn").addEventListener("click", e => {
                     e.preventDefault();
-                    localStorage.removeItem("currentUser"); 
-                    updateUserMenu(); 
+                    localStorage.removeItem("currentUser");
+                    updateUserMenu();
                     updateCartCount(); // Cập nhật lại giỏ hàng khi logout
                     dropdown.classList.remove("active");
                 });
@@ -744,18 +767,18 @@
         function loadPurchaseHistory() {
             // Ưu tiên lấy dữ liệu từ purchaseHistory
             let purchaseHistory = JSON.parse(localStorage.getItem("purchaseHistory")) || [];
-            
+
             console.log("Dữ liệu từ purchaseHistory:", purchaseHistory);
-            
+
             // Nếu không có dữ liệu, thử lấy từ orders
             if (purchaseHistory.length === 0) {
                 const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
                 console.log("Dữ liệu từ orders:", allOrders);
-                
+
                 // Lấy thông tin user hiện tại (nếu có)
                 const currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
                 const userPhone = currentUser.phone;
-                
+
                 if (userPhone) {
                     // Lọc đơn hàng theo số điện thoại của user
                     purchaseHistory = allOrders.filter(order => order.phone === userPhone);
@@ -763,13 +786,13 @@
                     // Nếu không có thông tin user, hiển thị tất cả đơn hàng (cho demo)
                     purchaseHistory = allOrders;
                 }
-                
+
                 // Lưu lại để lần sau dùng
                 if (purchaseHistory.length > 0) {
                     localStorage.setItem("purchaseHistory", JSON.stringify(purchaseHistory));
                 }
             }
-            
+
             if (purchaseHistory.length === 0) {
                 emptyMessage.style.display = 'block';
                 historyContainer.appendChild(emptyMessage);
@@ -788,10 +811,10 @@
                 const orderTotal = order.total || 0;
                 const customerName = order.customer || 'Chưa có thông tin';
                 const customerPhone = order.phone || 'Chưa có thông tin';
-                
+
                 const products = order.products || order.items || [];
                 const statusInfo = statusMap[order.status] || statusMap['pending'];
-                
+
                 const itemListHtml = products.map(item => `
                     <li>
                         <span class="item-name">${item.name || 'Sản phẩm'}</span>
@@ -864,13 +887,13 @@
                     ]
                 }
             ];
-            
+
             localStorage.setItem("purchaseHistory", JSON.stringify(sampleOrders));
             localStorage.setItem("orders", JSON.stringify(sampleOrders));
         }
 
         // Tải lịch sử khi trang được mở
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // 1. Cập nhật menu user ngay khi tải trang
             updateUserMenu();
 
@@ -896,13 +919,13 @@
             function searchProducts() {
                 const keyword = searchInput.value.trim().toLowerCase();
                 resultsBox.innerHTML = "";
-                if(keyword === "") {
+                if (keyword === "") {
                     resultsBox.classList.remove("active");
                     return;
                 }
 
                 const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
-                if(filtered.length === 0) {
+                if (filtered.length === 0) {
                     resultsBox.innerHTML = `<p style="text-align:center; padding:10px; color:#8B0000;">Không tìm thấy sản phẩm</p>`;
                     resultsBox.classList.add("active");
                     return;
@@ -928,11 +951,11 @@
 
             searchButton.addEventListener("click", searchProducts);
             searchInput.addEventListener("keypress", e => {
-                if(e.key === "Enter") searchProducts();
+                if (e.key === "Enter") searchProducts();
             });
 
             document.addEventListener("click", e => {
-                if(!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
+                if (!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
                     resultsBox.classList.remove("active");
                 }
             });
@@ -940,22 +963,22 @@
             // Kiểm tra nếu không có dữ liệu, tạo dữ liệu mẫu
             const purchaseHistory = JSON.parse(localStorage.getItem("purchaseHistory")) || [];
             const orders = JSON.parse(localStorage.getItem("orders")) || [];
-            
+
             if (purchaseHistory.length === 0 && orders.length === 0) {
                 createSampleData();
             }
-            
+
             loadPurchaseHistory();
         });
 
         // 4. XỬ LÝ BẬT/TẮT DROPDOWN
         userIcon.addEventListener("click", e => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             dropdown.classList.toggle("active");
         });
 
         document.addEventListener("click", e => {
-            if(!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+            if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
                 dropdown.classList.remove("active");
             }
         });
@@ -975,4 +998,5 @@
         });
     </script>
 </body>
+
 </html>

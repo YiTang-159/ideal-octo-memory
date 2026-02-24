@@ -14,7 +14,7 @@ function showNotification(message) {
   const notification = document.getElementById('notification');
   notification.textContent = message;
   notification.classList.add('show');
-  
+
   setTimeout(() => {
     notification.classList.remove('show');
   }, 3000);
@@ -25,7 +25,7 @@ function updateCartCount() {
   const currentUser = localStorage.getItem("currentUser");
   const cartLink = document.getElementById("cartLink");
   const cartCountBadge = document.getElementById("cartCountBadge");
-  
+
   // CHỈ HIỆN GIỎ HÀNG KHI ĐÃ ĐĂNG NHẬP
   if (!currentUser) {
     cartLink.style.display = 'none';
@@ -66,7 +66,7 @@ function updateUserMenu() {
 
     // Thêm sự kiện click cho link Tài Khoản
     const profileLink = dropdown.querySelector('a[href="profile.html"]');
-    profileLink.addEventListener('click', function(e) {
+    profileLink.addEventListener('click', function (e) {
       e.preventDefault();
       window.location.href = 'profile.html';
     });
@@ -93,16 +93,16 @@ function loadProductData() {
   try {
     // Đọc dữ liệu từ localStorage
     const storedProducts = localStorage.getItem('morico_products');
-    
+
     if (!storedProducts) {
       throw new Error('Chưa có dữ liệu sản phẩm. Vui lòng vào trang admin để khởi tạo.');
     }
-    
+
     products = JSON.parse(storedProducts);
-    
+
     // Hiển thị chi tiết sản phẩm
     displayProductDetail();
-    
+
   } catch (error) {
     console.error('Lỗi tải dữ liệu:', error);
     document.getElementById('product-content').innerHTML = `
@@ -117,31 +117,31 @@ function loadProductData() {
 function checkStockAvailability(productId, requestedQuantity) {
   const product = products.find(p => p.id === productId);
   if (!product) return { available: false, message: "Sản phẩm không tồn tại" };
-  
+
   if (requestedQuantity > product.stock) {
-    return { 
-      available: false, 
-      message: `Chỉ còn ${product.stock} sản phẩm trong kho` 
+    return {
+      available: false,
+      message: `Chỉ còn ${product.stock} sản phẩm trong kho`
     };
   }
-  
+
   return { available: true, message: "" };
 }
 
 // Cập nhật trạng thái nút thêm vào giỏ hàng và mua ngay
 function updateButtonStates() {
   if (!currentProduct) return;
-  
+
   const quantityInput = document.getElementById('quantity');
   const addToCartBtn = document.querySelector('.btn-add-cart');
   const buyNowBtn = document.querySelector('.btn-buy-now');
   const stockWarning = document.querySelector('.stock-warning');
-  
+
   if (!quantityInput || !addToCartBtn || !buyNowBtn) return;
-  
+
   const requestedQuantity = parseInt(quantityInput.value);
   const stockCheck = checkStockAvailability(currentProduct.id, requestedQuantity);
-  
+
   if (stockCheck.available) {
     addToCartBtn.disabled = false;
     buyNowBtn.disabled = false;
@@ -157,7 +157,7 @@ function updateButtonStates() {
 // Hiển thị chi tiết sản phẩm
 function displayProductDetail() {
   const productId = getProductIdFromURL();
-  
+
   if (!productId) {
     document.getElementById('product-content').innerHTML = `
       <div class="loading" style="color: #B22222;">
@@ -169,7 +169,7 @@ function displayProductDetail() {
 
   // Tìm sản phẩm
   const product = products.find(p => p.id === productId);
-  
+
   if (!product) {
     document.getElementById('product-content').innerHTML = `
       <div class="loading" style="color: #B22222;">
@@ -241,14 +241,14 @@ function displayProductDetail() {
   `;
 
   document.getElementById('product-content').innerHTML = productHTML;
-  
+
   // Thêm sự kiện cho input số lượng
   const quantityInput = document.getElementById('quantity');
   if (quantityInput) {
     quantityInput.addEventListener('input', updateButtonStates);
     quantityInput.addEventListener('change', updateButtonStates);
   }
-  
+
   // Cập nhật trạng thái nút ban đầu
   updateButtonStates();
 }
@@ -256,10 +256,10 @@ function displayProductDetail() {
 // Hiển thị sản phẩm liên quan (HTML)
 function displayRelatedProductsHTML(relatedIds) {
   if (!relatedIds || relatedIds.length === 0) return '';
-  
+
   const displayIds = relatedIds.slice(0, 4);
   let html = '';
-  
+
   displayIds.forEach(productId => {
     const relatedProduct = products.find(p => p.id === productId);
     if (relatedProduct) {
@@ -273,7 +273,7 @@ function displayRelatedProductsHTML(relatedIds) {
       `;
     }
   });
-  
+
   return html;
 }
 
@@ -303,17 +303,17 @@ function addToCartFromDetail() {
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const existingItem = cart.find(item => item.id === productId);
-  
+
   if (existingItem) {
     // Kiểm tra tổng số lượng sau khi thêm
     const newTotalQuantity = existingItem.quantity + quantity;
     const stockCheckAfterAdd = checkStockAvailability(productId, newTotalQuantity);
-    
+
     if (!stockCheckAfterAdd.available) {
       showNotification(stockCheckAfterAdd.message);
       return;
     }
-    
+
     existingItem.quantity = newTotalQuantity;
   } else {
     cart.push({
@@ -324,11 +324,11 @@ function addToCartFromDetail() {
       quantity: quantity
     });
   }
-  
+
   localStorage.setItem('cart', JSON.stringify(cart));
   showNotification(`Đã thêm ${quantity} ${product.name} vào giỏ hàng!`);
   updateCartCount();
-  
+
   // Cập nhật lại trạng thái nút sau khi thêm vào giỏ
   updateButtonStates();
 }
@@ -343,7 +343,7 @@ function buyNow() {
 
   // Thêm vào giỏ hàng trước
   const added = addToCartFromDetail();
-  
+
   // Nếu thêm thành công thì chuyển hướng
   if (added !== false) {
     setTimeout(() => {
@@ -361,21 +361,21 @@ function viewProductDetail(productId) {
 function searchProducts() {
   const searchInput = document.querySelector('.search-bar input');
   const resultsBox = document.querySelector('.search-results');
-  
+
   const keyword = searchInput.value.trim().toLowerCase();
   resultsBox.innerHTML = "";
-  if(keyword === "") {
+  if (keyword === "") {
     resultsBox.classList.remove("active");
     return;
   }
-  
+
   const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
-  if(filtered.length === 0) {
+  if (filtered.length === 0) {
     resultsBox.innerHTML = `<p style="text-align:center; padding:10px; color:#8B0000;">Không tìm thấy sản phẩm</p>`;
     resultsBox.classList.add("active");
     return;
   }
-  
+
   filtered.forEach(p => {
     const item = document.createElement("div");
     item.classList.add("product-item");
@@ -395,45 +395,45 @@ function searchProducts() {
 }
 
 // Khởi tạo trang
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Cập nhật menu user và giỏ hàng
   updateUserMenu();
   updateCartCount();
-  
+
   // Tải dữ liệu sản phẩm
   loadProductData();
-  
+
   // Thêm chức năng tìm kiếm
   const searchInput = document.querySelector('.search-bar input');
   const searchButton = document.querySelector('.search-bar button');
   const resultsBox = document.querySelector('.search-results');
-  
+
   // Thêm sự kiện cho nút tìm kiếm
   searchButton.addEventListener("click", searchProducts);
-  
+
   // Thêm sự kiện cho phím Enter
-  searchInput.addEventListener("keypress", e => { 
-    if(e.key === "Enter") searchProducts(); 
+  searchInput.addEventListener("keypress", e => {
+    if (e.key === "Enter") searchProducts();
   });
-  
+
   // Ẩn kết quả tìm kiếm khi click ra ngoài
   document.addEventListener("click", e => {
-    if(!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
+    if (!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
       resultsBox.classList.remove("active");
     }
   });
-  
+
   // Xử lý dropdown user menu
   const userIcon = document.getElementById("userIcon");
   const dropdown = document.getElementById("userDropdown");
-  
+
   userIcon.addEventListener("click", e => {
     e.stopPropagation();
     dropdown.classList.toggle("active");
   });
-  
+
   document.addEventListener("click", e => {
-    if(!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+    if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
       dropdown.classList.remove("active");
     }
   });

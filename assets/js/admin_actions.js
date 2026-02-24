@@ -1,4 +1,4 @@
-admin-actions.js
+admin - actions.js
 /**
  * ============================
  * Admin Actions - JS chung cho Admin Panel
@@ -182,7 +182,7 @@ function updateInventoryStatusDisplay(stockQtyCell, statusCell) {
   let text, cls;
   if (qty === 0) [text, cls] = ['HẾT HÀNG', 'out-of-stock'];
   else if (qty <= 10) [text, cls] = ['SẮP HẾT!', 'out-of-stock'];
-  else [text, cls] = ['Bình thường', 'in-stock'];
+  else[text, cls] = ['Bình thường', 'in-stock'];
   statusCell.innerHTML = `<span class="status ${cls}">${text}</span>`;
 }
 window.updateInventoryStatusDisplay = updateInventoryStatusDisplay;
@@ -205,7 +205,7 @@ function adjustInventory(buttonElement, action, productId) {
   products[productIndex].lastStockUpdate = new Date().toISOString();
   saveProductData(products);
   stockQtyCell.textContent = formatNumber(newQty);
-  lastUpdateCell.textContent = `${formatDate(products[productIndex].lastStockUpdate)} ${new Date(products[productIndex].lastStockUpdate).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})}`;
+  lastUpdateCell.textContent = `${formatDate(products[productIndex].lastStockUpdate)} ${new Date(products[productIndex].lastStockUpdate).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`;
   updateInventoryStatusDisplay(stockQtyCell, statusCell);
   qtyInput.value = 1;
   showNotification(`Cập nhật ${products[productIndex].name}: tồn kho ${formatNumber(newQty)}`, 'success');
@@ -227,32 +227,34 @@ function toggleInventoryStatus(buttonElement, productId) {
   stockQtyCell.setAttribute('data-status', product.status);
   if (isActive) statusCell.innerHTML = `<span class="status action-stopped">DỪNG BÁN</span>`;
   else updateInventoryStatusDisplay(stockQtyCell, statusCell);
-  buttonElement.innerHTML = `<i class="fas ${product.status==='active'?'fa-ban':'fa-check'}"></i> ${isActive?'Bán Lại':'Dừng Bán'}`;
+  buttonElement.innerHTML = `<i class="fas ${product.status === 'active' ? 'fa-ban' : 'fa-check'}"></i> ${isActive ? 'Bán Lại' : 'Dừng Bán'}`;
   buttonElement.classList.toggle('btn-success', !isActive);
   buttonElement.classList.toggle('btn-delete', isActive);
-  showNotification(isActive ? `Đã DỪNG BÁN ${product.name}` : `Đã KÍCH HOẠT LẠI ${product.name}`, isActive?'warning':'success');
+  showNotification(isActive ? `Đã DỪNG BÁN ${product.name}` : `Đã KÍCH HOẠT LẠI ${product.name}`, isActive ? 'warning' : 'success');
 }
 window.toggleInventoryStatus = toggleInventoryStatus;
 
 function generateInventoryReport() {
   const products = getProductData();
   const categoriesMap = getCategories().reduce((map, c) => { map[c.name] = c.name; return map; }, {});
-  products.sort((a,b)=>{
-    const prio = p => p.status==='inactive'?3:p.stock===0?0:p.stock<=10?1:2;
+  products.sort((a, b) => {
+    const prio = p => p.status === 'inactive' ? 3 : p.stock === 0 ? 0 : p.stock <= 10 ? 1 : 2;
     const prioA = prio(a), prioB = prio(b);
-    return prioA!==prioB?prioA-prioB:a.id-b.id;
+    return prioA !== prioB ? prioA - prioB : a.id - b.id;
   });
-  return products.map(p=>{
+  return products.map(p => {
     let statusText, statusClass;
-    if(p.status==='inactive'){statusText='DỪNG BÁN';statusClass='action-stopped';}
-    else if(p.stock===0){statusText='HẾT HÀNG';statusClass='out-of-stock';}
-    else if(p.stock<=10){statusText='SẮP HẾT!';statusClass='out-of-stock';}
-    else {statusText='Bình thường';statusClass='in-stock';}
-    const categoryName = p.category && categoriesMap[p.category]?p.category:'Chưa phân loại';
-    return {...p, displayStock:formatNumber(p.stock), displayPrice:formatCurrency(p.price),
-      displayStatusText:statusText, displayStatusClass:statusClass,
-      displayLastUpdate:`${formatDate(p.lastStockUpdate)} ${new Date(p.lastStockUpdate).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})}`,
-      categoryName};
+    if (p.status === 'inactive') { statusText = 'DỪNG BÁN'; statusClass = 'action-stopped'; }
+    else if (p.stock === 0) { statusText = 'HẾT HÀNG'; statusClass = 'out-of-stock'; }
+    else if (p.stock <= 10) { statusText = 'SẮP HẾT!'; statusClass = 'out-of-stock'; }
+    else { statusText = 'Bình thường'; statusClass = 'in-stock'; }
+    const categoryName = p.category && categoriesMap[p.category] ? p.category : 'Chưa phân loại';
+    return {
+      ...p, displayStock: formatNumber(p.stock), displayPrice: formatCurrency(p.price),
+      displayStatusText: statusText, displayStatusClass: statusClass,
+      displayLastUpdate: `${formatDate(p.lastStockUpdate)} ${new Date(p.lastStockUpdate).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`,
+      categoryName
+    };
   });
 }
 window.generateInventoryReport = generateInventoryReport;

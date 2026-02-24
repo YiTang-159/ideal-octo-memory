@@ -4,7 +4,7 @@ const adminUsers = {
   'quanly1': { password: 'abcd1234', role: 'Manager', fullName: 'Quản lý 1' },
 }
 
-document.getElementById('loginForm').addEventListener('submit', function(e) {
+document.getElementById('loginForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
   const username = document.getElementById('username').value.trim();

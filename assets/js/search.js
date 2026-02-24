@@ -27,13 +27,13 @@ class SearchManager {
 
   search() {
     const keyword = this.searchInput.value.trim().toLowerCase();
-    
+
     if (keyword === '') {
       this.hideResults();
       return;
     }
 
-    const filtered = this.products.filter(product => 
+    const filtered = this.products.filter(product =>
       product.name.toLowerCase().includes(keyword)
     );
 

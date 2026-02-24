@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
   <style>
     body {
       font-family: "Century", serif;
-      background: linear-gradient(to right,#FFF4C2);
+      background: linear-gradient(to right, #FFF4C2);
       height: 100vh;
       display: flex;
       align-items: center;
@@ -60,6 +61,7 @@
     input[type="password"]::-ms-clear {
       display: none;
     }
+
     input[type="password"]::-webkit-credentials-auto-fill-button,
     input[type="password"]::-webkit-password-toggle-button {
       display: none;
@@ -150,20 +152,21 @@
 
       <label>Số điện thoại <span class="required">*</span></label>
       <input type="text" id="phone" placeholder="Nhập số điện thoại" required>
-      <div id="phoneError" class="error" style="height: auto; margin-top: -10px; margin-bottom: 10px; font-size: 14px;"></div>
+      <div id="phoneError" class="error" style="height: auto; margin-top: -10px; margin-bottom: 10px; font-size: 14px;">
+      </div>
 
       <label>Mật khẩu <span class="required">*</span></label>
       <div class="password-wrapper">
         <input type="password" id="password" placeholder="Nhập mật khẩu" required>
-        <img src="../assets/external/cdn-icons-png.flaticon.com/512/709/709612.png"
-             alt="eye" class="eye-icon" id="togglePassword">
+        <img src="../assets/external/cdn-icons-png.flaticon.com/512/709/709612.png" alt="eye" class="eye-icon"
+          id="togglePassword">
       </div>
 
       <label>Xác nhận mật khẩu <span class="required">*</span></label>
       <div class="password-wrapper">
         <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required>
-        <img src="../assets/external/cdn-icons-png.flaticon.com/512/709/709612.png"
-             alt="eye" class="eye-icon" id="toggleConfirmPassword">
+        <img src="../assets/external/cdn-icons-png.flaticon.com/512/709/709612.png" alt="eye" class="eye-icon"
+          id="toggleConfirmPassword">
       </div>
 
       <button type="submit">Đăng ký</button>
@@ -258,7 +261,7 @@
     function validatePhone() {
       const phoneValue = phoneInput.value.trim();
       const phoneRegex = /^[0-9]{10,11}$/;
-      
+
       if (phoneValue === '') {
         phoneError.textContent = '';
         return false;
@@ -300,7 +303,7 @@
       } else {
         // Lấy danh sách user từ Local Storage
         let users = JSON.parse(localStorage.getItem("users")) || [];
-        
+
         // Kiểm tra username đã tồn tại chưa
         const existingUser = users.find(u => u.username === user.username);
         if (existingUser) {
@@ -314,17 +317,18 @@
           errorMsg.textContent = "Số điện thoại đã được đăng ký.";
           return;
         }
-        
+
         // Thêm user mới vào mảng
         users.push(user);
-        
+
         // Lưu lại vào Local Storage
         localStorage.setItem("users", JSON.stringify(users));
-        
+
         alert("Đăng ký thành công!");
         window.location.href = "login.html";
       }
     });
   </script>
 </body>
+
 </html>

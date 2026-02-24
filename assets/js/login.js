@@ -1,7 +1,7 @@
 const users = {
   'quanly1': { password: 'abcd1234' },
 }
-document.getElementById('loginForm').addEventListener('submit', function(e) {
+document.getElementById('loginForm').addEventListener('submit', function (e) {
   e.preventDefault();
 
   const username = document.getElementById('username').value.trim();

@@ -16,7 +16,7 @@ const cartLink = document.getElementById("cartLink");
 function initializeSampleData() {
   if (!localStorage.getItem('morico_products')) {
     console.log('🚀 Khởi tạo dữ liệu sản phẩm mẫu lần đầu...');
-    
+
     const sampleProducts = [
       {
         id: 1,
@@ -159,7 +159,7 @@ function initializeSampleData() {
         description: `<p><strong>Đậu Đỏ Trứng Muối</strong> - vị mặn ngọt hài hòa truyền thống.</p>`
       }
     ];
-    
+
     localStorage.setItem('morico_products', JSON.stringify(sampleProducts));
     console.log('✅ Đã khởi tạo ' + sampleProducts.length + ' sản phẩm mẫu');
     return sampleProducts;
@@ -180,7 +180,7 @@ function isUserLoggedIn() {
  */
 function updateCartCount() {
   const currentUser = localStorage.getItem("currentUser");
-  
+
   // CHỈ HIỆN GIỎ HÀNG KHI ĐÃ ĐĂNG NHẬP
   if (!currentUser) {
     cartLink.style.display = 'none';
@@ -210,7 +210,7 @@ function updateCartCount() {
  */
 function updateUserMenu() {
   const currentUserString = localStorage.getItem("currentUser");
-  dropdown.innerHTML = ""; 
+  dropdown.innerHTML = "";
 
   if (currentUserString) {
     // --- TRƯỜNG HỢP: ĐÃ ĐĂNG NHẬP ---
@@ -222,15 +222,15 @@ function updateUserMenu() {
 
     // Thêm sự kiện click cho link Tài Khoản
     const profileLink = dropdown.querySelector('a[href="profile.html"]');
-    profileLink.addEventListener('click', function(e) {
+    profileLink.addEventListener('click', function (e) {
       e.preventDefault();
       window.location.href = 'profile.html';
     });
 
     document.getElementById("logoutBtn").addEventListener("click", e => {
       e.preventDefault();
-      localStorage.removeItem("currentUser"); 
-      updateUserMenu(); 
+      localStorage.removeItem("currentUser");
+      updateUserMenu();
       updateCartCount(); // Cập nhật lại giỏ hàng khi logout
       dropdown.classList.remove("active");
       showNotification("Đã đăng xuất thành công!");
@@ -252,7 +252,7 @@ function showNotification(message, type = 'success') {
   notification.className = 'notification'; // Reset classes
   notification.classList.add(type);
   notification.classList.add('show');
-  
+
   setTimeout(() => {
     notification.classList.remove('show');
   }, 3000);
@@ -266,7 +266,7 @@ function getVisibleProducts() {
 // Hàm tìm kiếm sản phẩm
 function searchProducts(searchTerm) {
   currentPage = 1; // Reset về trang 1
-  
+
   if (!searchTerm.trim()) {
     currentProducts = getVisibleProducts();
     currentSearchTerm = '';
@@ -280,8 +280,8 @@ function searchProducts(searchTerm) {
   const searchResults = allProducts.filter(product => {
     const productName = product.name.toLowerCase();
     const searchWords = normalizedSearchTerm.split(' ');
-    
-    return searchWords.every(word => 
+
+    return searchWords.every(word =>
       productName.includes(word) && word.length > 1
     );
   });
@@ -295,7 +295,7 @@ function searchProducts(searchTerm) {
 // Hàm cập nhật thông tin kết quả tìm kiếm
 function updateSearchResultsInfo() {
   const resultsInfo = document.getElementById('search-results-info');
-  
+
   if (currentSearchTerm) {
     if (currentProducts.length === 0) {
       resultsInfo.innerHTML = `Không tìm thấy sản phẩm nào cho từ khóa "<strong>${currentSearchTerm}</strong>"`;
@@ -322,7 +322,7 @@ function getStockBadge(product) {
 function renderProducts(productList) {
   const container = document.getElementById("product-list");
   if (!container) return;
-  
+
   if (productList.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 50px;">
@@ -355,7 +355,7 @@ function renderProducts(productList) {
     const stockBadge = getStockBadge(product);
     const isOutOfStock = product.stockStatus === 'out-of-stock';
     const description = product.description ? product.description.replace(/<[^>]*>/g, '') : '';
-    
+
     return `
     <div class="product-card">
       ${stockBadge}
@@ -379,7 +379,7 @@ function renderProducts(productList) {
       </div>
     </div>
   `}).join("");
-  
+
   // Render pagination controls
   renderPagination(totalPages);
 }
@@ -387,7 +387,7 @@ function renderProducts(productList) {
 // Hàm render pagination controls
 function renderPagination(totalPages) {
   let paginationContainer = document.getElementById('pagination-container');
-  
+
   // Tạo container nếu chưa có
   if (!paginationContainer) {
     paginationContainer = document.createElement('div');
@@ -396,24 +396,24 @@ function renderPagination(totalPages) {
     const productsArea = document.querySelector('.products-area');
     productsArea.appendChild(paginationContainer);
   }
-  
+
   if (totalPages <= 1) {
     paginationContainer.innerHTML = '';
     return;
   }
-  
+
   let paginationHTML = '<div class="pagination">';
-  
+
   // Previous button
   if (currentPage > 1) {
     paginationHTML += `<button class="pagination-btn" onclick="goToPage(${currentPage - 1})">‹ Trước</button>`;
   }
-  
+
   // Page numbers
   for (let i = 1; i <= totalPages; i++) {
     if (
-      i === 1 || 
-      i === totalPages || 
+      i === 1 ||
+      i === totalPages ||
       (i >= currentPage - 1 && i <= currentPage + 1)
     ) {
       paginationHTML += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
@@ -421,12 +421,12 @@ function renderPagination(totalPages) {
       paginationHTML += `<span class="pagination-dots">...</span>`;
     }
   }
-  
+
   // Next button
   if (currentPage < totalPages) {
     paginationHTML += `<button class="pagination-btn" onclick="goToPage(${currentPage + 1})">Sau ›</button>`;
   }
-  
+
   paginationHTML += '</div>';
   paginationContainer.innerHTML = paginationHTML;
 }
@@ -436,7 +436,7 @@ function goToPage(page) {
   currentPage = page;
   const productsToShow = currentProducts.length > 0 ? currentProducts : getVisibleProducts();
   renderProducts(productsToShow);
-  
+
   // Scroll to top of products
   document.querySelector('.products-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -492,11 +492,11 @@ function resetFilters() {
   if (filterNameEl) filterNameEl.value = '';
   document.getElementById('price-from').value = '';
   document.getElementById('price-to').value = '';
-  
+
   document.querySelectorAll('input[name="category"]').forEach(checkbox => {
     checkbox.checked = false;
   });
-  
+
   currentProducts = getVisibleProducts();
   currentSearchTerm = '';
   updateFilterResultsInfo(getVisibleProducts().length);
@@ -506,9 +506,9 @@ function resetFilters() {
 // Hàm cập nhật thông tin kết quả lọc
 function updateFilterResultsInfo(count) {
   const resultsInfo = document.getElementById('search-results-info');
-  
+
   if (!resultsInfo) return;
-  
+
   if (count === 0) {
     resultsInfo.innerHTML = 'Không tìm thấy sản phẩm nào phù hợp với bộ lọc.';
     resultsInfo.style.color = '#B22222';
@@ -572,7 +572,7 @@ function addToCart(productId) {
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const existingItem = cart.find(item => item.id === productId);
-  
+
   if (existingItem) {
     // Kiểm tra xem có đủ hàng không
     if (existingItem.quantity >= product.stock) {
@@ -589,7 +589,7 @@ function addToCart(productId) {
       quantity: 1
     });
   }
-  
+
   localStorage.setItem('cart', JSON.stringify(cart));
   showNotification(`Đã thêm "${product.name}" vào giỏ hàng!`);
   updateCartCount();
@@ -614,7 +614,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 2. Cập nhật số lượng giỏ hàng
   updateCartCount();
-  
+
   // 3. Initial render: show default (unfiltered) products on load
   const container = document.getElementById('product-list');
   const resultsInfo = document.getElementById('search-results-info');
@@ -637,12 +637,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 4. XỬ LÝ BẬT/TẮT DROPDOWN
 userIcon.addEventListener("click", e => {
-  e.stopPropagation(); 
+  e.stopPropagation();
   dropdown.classList.toggle("active");
 });
 
 document.addEventListener("click", e => {
-  if(!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+  if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
     dropdown.classList.remove("active");
   }
 });

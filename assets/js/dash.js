@@ -23,18 +23,18 @@ const dashboardData = {
     ]
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 1. Kiểm tra đăng nhập
     const currentUser = localStorage.getItem('loggedInUser');
     if (!currentUser) {
         // Chuyển hướng nếu chưa đăng nhập
         // window.location.href = '../login/admin-login.html';
         // Chỉ để test, tôi sẽ dùng 'admin' làm mặc định nếu không tìm thấy
-        updateUserDisplay('admin'); 
+        updateUserDisplay('admin');
     } else {
         updateUserDisplay(currentUser);
     }
-    
+
     // 2. Cập nhật thống kê
     document.getElementById('total-orders').textContent = dashboardData.totalOrders;
     document.getElementById('total-revenue').textContent = dashboardData.totalRevenue;
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupPeriodButtons();
 
     // 6. Xử lý đăng xuất
-    document.getElementById('logout-btn').addEventListener('click', function() {
+    document.getElementById('logout-btn').addEventListener('click', function () {
         localStorage.removeItem('loggedInUser');
         window.location.href = '../login/admin-login.html';
     });
@@ -73,11 +73,11 @@ function updateUserDisplay(username) {
 
     if (sidebarUsername) sidebarUsername.textContent = username;
     if (headerUsername) headerUsername.textContent = username;
-    
+
     let role = 'Nhân viên';
     if (username === 'admin') role = 'Quản trị viên';
     else if (username === 'staff') role = 'Nhân viên bán hàng';
-    
+
     if (sidebarRole) sidebarRole.textContent = role;
     if (headerRole) headerRole.textContent = role;
 }
@@ -88,32 +88,32 @@ function initRevenueChart() {
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','CN'],
-            datasets:[{
-                label:'Doanh thu (triệu VNĐ)',
+            labels: ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'],
+            datasets: [{
+                label: 'Doanh thu (triệu VNĐ)',
                 data: dashboardData.weeklyRevenue,
                 backgroundColor: 'rgba(230,190,138,0.12)',
                 borderColor: 'rgba(230,190,138,1)',
-                borderWidth:3,
-                tension:0.35,
+                borderWidth: 3,
+                tension: 0.35,
                 pointBackgroundColor: 'rgba(139,0,0,0.95)',
-                pointBorderColor:'#fff',
-                pointRadius:5,
-                fill:true
+                pointBorderColor: '#fff',
+                pointRadius: 5,
+                fill: true
             }]
         },
-        options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            scales:{
-                y:{beginAtZero:true,grid:{drawBorder:false},ticks:{callback:function(v){return v + 'M'}}},
-                x:{grid:{display:false}}
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, grid: { drawBorder: false }, ticks: { callback: function (v) { return v + 'M' } } },
+                x: { grid: { display: false } }
             },
-            plugins:{
-                legend:{display:false},
-                tooltip:{
-                    callbacks:{
-                        label:function(context){ return 'Doanh thu: ' + context.parsed.y + ' triệu VNĐ'; }
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) { return 'Doanh thu: ' + context.parsed.y + ' triệu VNĐ'; }
                     }
                 }
             }
@@ -125,10 +125,10 @@ function initRevenueChart() {
 function initInventoryChart() {
     const ctx = document.getElementById('inventoryChart').getContext('2d');
     new Chart(ctx, {
-        type:'doughnut',
-        data:{
+        type: 'doughnut',
+        data: {
             labels: dashboardData.inventoryData.labels,
-            datasets:[{
+            datasets: [{
                 data: dashboardData.inventoryData.data,
                 backgroundColor: [
                     'rgba(230,190,138,0.95)',
@@ -136,27 +136,27 @@ function initInventoryChart() {
                     'rgba(141,110,99,0.85)',
                     'rgba(121,85,72,0.85)'
                 ],
-                borderColor:[
+                borderColor: [
                     'rgba(230,190,138,1)',
                     'rgba(255,193,7,1)',
                     'rgba(141,110,99,1)',
                     'rgba(121,85,72,1)'
                 ],
-                borderWidth:1
+                borderWidth: 1
             }]
         },
-        options:{
-            responsive:true,maintainAspectRatio:false,
-            plugins:{legend:{position:'bottom'}}
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
         }
     });
 }
 
 // Bảng sản phẩm sắp hết hàng
-function updateProductTable(){
+function updateProductTable() {
     const tableBody = document.getElementById('product-table');
     tableBody.innerHTML = '';
-    dashboardData.lowStockProducts.forEach(product=>{
+    dashboardData.lowStockProducts.forEach(product => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td style="color:var(--brand-crimson);font-weight:700">${product.name}</td>
@@ -169,10 +169,10 @@ function updateProductTable(){
 }
 
 // Hoạt động gần đây
-function updateRecentActivities(){
+function updateRecentActivities() {
     const activityList = document.getElementById('activity-list');
     activityList.innerHTML = '';
-    dashboardData.recentActivities.forEach(activity=>{
+    dashboardData.recentActivities.forEach(activity => {
         const item = document.createElement('li');
         item.className = 'activity-item';
         item.innerHTML = `
@@ -188,25 +188,25 @@ function updateRecentActivities(){
 }
 
 // Hiệu ứng cho cards
-function animateCards(){
+function animateCards() {
     const cards = document.querySelectorAll('.card, .chart-box, .table-box, .activity-box, .summary-box');
-    cards.forEach((card, idx)=>{
-        card.style.opacity='0';card.style.transform='translateY(18px)';
-        setTimeout(()=>{
-            card.style.transition='opacity .45s ease, transform .45s ease';
-            card.style.opacity='1';
-            card.style.transform='translateY(0)';
-        }, idx*90);
+    cards.forEach((card, idx) => {
+        card.style.opacity = '0'; card.style.transform = 'translateY(18px)';
+        setTimeout(() => {
+            card.style.transition = 'opacity .45s ease, transform .45s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, idx * 90);
     });
 }
 
 // Nút chọn kỳ báo cáo
-function setupPeriodButtons(){
+function setupPeriodButtons() {
     const buttons = document.querySelectorAll('.btn-period');
-    buttons.forEach(btn=>{
+    buttons.forEach(btn => {
         // Xử lý style đã được chuyển sang CSS, chỉ cần lắng nghe sự kiện
-        btn.addEventListener('click', function(){
-            buttons.forEach(b=>b.classList.remove('active'));
+        btn.addEventListener('click', function () {
+            buttons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             // Thêm logic cập nhật biểu đồ tại đây nếu cần (ví dụ: switch(this.textContent))
         });
@@ -214,18 +214,18 @@ function setupPeriodButtons(){
 }
 
 // Mô phỏng cập nhật thời gian thực
-function simulateRealTimeUpdates(){
-    setInterval(()=>{
-        const activities=[
-            { icon:'fas fa-shopping-cart', title:'Đơn hàng mới', desc:'#ORD-'+ new Date().getTime().toString().slice(-6) + ' - ' + (Math.floor(Math.random()*10)+1) + '.000.000đ', time:'Vừa xong' },
-            { icon:'fas fa-box', title:'Sản phẩm mới được thêm', desc:'Bánh Trung Thu Nhân ' + ['Dừa','Trà Xanh','Khoai Mỡ','Mè Đen'][Math.floor(Math.random()*4)], time:'Vừa xong' }
+function simulateRealTimeUpdates() {
+    setInterval(() => {
+        const activities = [
+            { icon: 'fas fa-shopping-cart', title: 'Đơn hàng mới', desc: '#ORD-' + new Date().getTime().toString().slice(-6) + ' - ' + (Math.floor(Math.random() * 10) + 1) + '.000.000đ', time: 'Vừa xong' },
+            { icon: 'fas fa-box', title: 'Sản phẩm mới được thêm', desc: 'Bánh Trung Thu Nhân ' + ['Dừa', 'Trà Xanh', 'Khoai Mỡ', 'Mè Đen'][Math.floor(Math.random() * 4)], time: 'Vừa xong' }
         ];
-        const randomActivity = activities[Math.floor(Math.random()*activities.length)];
+        const randomActivity = activities[Math.floor(Math.random() * activities.length)];
         const activityList = document.getElementById('activity-list');
-        
+
         // Tạo và chèn hoạt động mới
         const newItem = document.createElement('li');
-        newItem.className='activity-item';
+        newItem.className = 'activity-item';
         newItem.innerHTML = `
             <div class="activity-icon"><i class="${randomActivity.icon}"></i></div>
             <div class="activity-content">
@@ -234,13 +234,13 @@ function simulateRealTimeUpdates(){
                 <div class="activity-time">${randomActivity.time}</div>
             </div>
         `;
-        
+
         // Chèn vào đầu danh sách
         activityList.insertBefore(newItem, activityList.firstChild);
-        
+
         // Giới hạn số lượng hoạt động
-        if(activityList.children.length > 4){ 
-            activityList.removeChild(activityList.lastChild); 
+        if (activityList.children.length > 4) {
+            activityList.removeChild(activityList.lastChild);
         }
     }, 15000); // Cập nhật mỗi 15 giây
 }

@@ -9,7 +9,7 @@ const cartLink = document.getElementById("cartLink");
  */
 function updateCartCount() {
   const currentUser = localStorage.getItem("currentUser");
-  
+
   // CHỈ HIỆN GIỎ HÀNG KHI ĐÃ ĐĂNG NHẬP
   if (!currentUser) {
     cartLink.style.display = 'none';
@@ -39,7 +39,7 @@ function updateCartCount() {
  */
 function updateUserMenu() {
   const currentUserString = localStorage.getItem("currentUser");
-  dropdown.innerHTML = ""; 
+  dropdown.innerHTML = "";
 
   if (currentUserString) {
     // --- TRƯỜNG HỢP: ĐÃ ĐĂNG NHẬP ---
@@ -51,15 +51,15 @@ function updateUserMenu() {
 
     // Thêm sự kiện click cho link Tài Khoản
     const profileLink = dropdown.querySelector('a[href="pages/profile.html"]');
-    profileLink.addEventListener('click', function(e) {
+    profileLink.addEventListener('click', function (e) {
       e.preventDefault();
       window.location.href = 'pages/profile.html';
     });
 
     document.getElementById("logoutBtn").addEventListener("click", e => {
       e.preventDefault();
-      localStorage.removeItem("currentUser"); 
-      updateUserMenu(); 
+      localStorage.removeItem("currentUser");
+      updateUserMenu();
       updateCartCount();
       dropdown.classList.remove("active");
     });
@@ -100,13 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function searchProducts() {
     const keyword = searchInput.value.trim().toLowerCase();
     resultsBox.innerHTML = "";
-    if(keyword === "") {
+    if (keyword === "") {
       resultsBox.classList.remove("active");
       return;
     }
 
     const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
-    if(filtered.length === 0) {
+    if (filtered.length === 0) {
       resultsBox.innerHTML = `<p style="text-align:center; padding:10px; color:#8B0000;">Không tìm thấy sản phẩm</p>`;
       resultsBox.classList.add("active");
       return;
@@ -132,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchButton.addEventListener("click", searchProducts);
   searchInput.addEventListener("keypress", e => {
-    if(e.key === "Enter") searchProducts();
+    if (e.key === "Enter") searchProducts();
   });
 
   document.addEventListener("click", e => {
-    if(!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
+    if (!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
       resultsBox.classList.remove("active");
     }
   });
@@ -144,12 +144,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 4. XỬ LÝ BẬT/TẮT DROPDOWN
 userIcon.addEventListener("click", e => {
-  e.stopPropagation(); 
+  e.stopPropagation();
   dropdown.classList.toggle("active");
 });
 
 document.addEventListener("click", e => {
-  if(!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+  if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
     dropdown.classList.remove("active");
   }
 });

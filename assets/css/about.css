@@ -46,7 +46,7 @@ main h1 {
 }
 
 .about-text {
-  flex-grow: 1; 
+  flex-grow: 1;
   text-align: justify;
 }
 
@@ -77,7 +77,7 @@ main h1 {
     max-width: 1000px;
     padding: 15px 30px 25px;
   }
-  
+
   .about-image {
     height: 280px;
   }
@@ -88,32 +88,32 @@ main h1 {
     padding: 15px 30px 25px;
     font-size: 18px;
   }
-  
+
   main h1 {
     font-size: 44px;
     margin-top: 15px;
     margin-bottom: 20px;
   }
-  
+
   .about-section {
     gap: 20px;
     margin-bottom: 20px;
   }
-  
+
   .about-image {
     height: 250px;
   }
-  
+
   .main-section-title {
     font-size: 36px;
     margin-top: 25px;
     margin-bottom: 15px;
   }
-  
+
   .intro-header {
     margin-bottom: 20px;
   }
-  
+
   .intro-header p {
     font-size: 22px;
   }
@@ -125,38 +125,39 @@ main h1 {
     font-size: 17px;
     line-height: 1.7;
   }
-  
+
   main h1 {
     font-size: 38px;
     margin-top: 10px;
     margin-bottom: 15px;
   }
-  
-  .about-section, .about-section.reverse {
+
+  .about-section,
+  .about-section.reverse {
     flex-direction: column;
     gap: 20px;
     margin-bottom: 20px;
   }
-  
+
   .about-image {
     width: 100%;
     height: 250px;
   }
-  
+
   .main-section-title {
     font-size: 32px;
     margin-top: 20px;
     margin-bottom: 12px;
   }
-  
+
   .intro-header {
     margin-bottom: 20px;
   }
-  
+
   .intro-header p {
     font-size: 20px;
   }
-  
+
   footer {
     font-size: 18px;
     padding: 20px 15px;
@@ -169,36 +170,36 @@ main h1 {
     font-size: 16px;
     line-height: 1.6;
   }
-  
+
   main h1 {
     font-size: 32px;
     margin-top: 8px;
     margin-bottom: 12px;
   }
-  
+
   .about-section {
     gap: 15px;
     margin-bottom: 15px;
   }
-  
+
   .about-image {
     height: 200px;
   }
-  
+
   .main-section-title {
     font-size: 28px;
     margin-top: 15px;
     margin-bottom: 10px;
   }
-  
+
   .intro-header {
     margin-bottom: 15px;
   }
-  
+
   .intro-header p {
     font-size: 18px;
   }
-  
+
   footer {
     font-size: 16px;
     padding: 15px 10px;
@@ -209,19 +210,19 @@ main h1 {
   main h1 {
     font-size: 28px;
   }
-  
+
   .main-section-title {
     font-size: 24px;
   }
-  
+
   .intro-header p {
     font-size: 16px;
   }
-  
+
   main {
     font-size: 15px;
   }
-  
+
   .about-image {
     height: 180px;
   }

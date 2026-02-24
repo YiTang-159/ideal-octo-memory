@@ -1,6 +1,6 @@
 body {
   font-family: "Century", serif;
-  background: linear-gradient(to right,#FFF4C2);
+  background: linear-gradient(to right, #FFF4C2);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -53,6 +53,7 @@ input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none;
 }
+
 input[type="password"]::-webkit-credentials-auto-fill-button,
 input[type="password"]::-webkit-password-toggle-button {
   display: none;

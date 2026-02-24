@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style_header.css">
-  
+
   <style>
     /* CSS riêng cho trang chi tiết sản phẩm */
     .product-detail-container {
@@ -147,7 +148,8 @@
       margin: 30px 0;
     }
 
-    .btn-add-cart, .btn-buy-now {
+    .btn-add-cart,
+    .btn-buy-now {
       flex: 1;
       padding: 18px 25px;
       border: none;
@@ -347,7 +349,7 @@
       background-color: #fffdf0;
       border: 1.5px solid #8B0000;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       max-height: 300px;
       overflow-y: auto;
       display: none;
@@ -400,7 +402,7 @@
       color: white;
       padding: 15px 25px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       z-index: 3000;
       display: none;
       font-size: 16px;
@@ -414,10 +416,25 @@
     }
 
     @keyframes fadeInOut {
-      0% { opacity: 0; transform: translateY(-20px); }
-      10% { opacity: 1; transform: translateY(0); }
-      90% { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-20px); }
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      10% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      90% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
     }
 
     /* ===== HEADER STYLES ===== */
@@ -509,7 +526,7 @@
       align-items: center;
       gap: 14px;
     }
-    
+
     .icon-link {
       position: relative;
       display: inline-block;
@@ -546,7 +563,7 @@
       font-size: 13px;
       font-weight: bold;
       border: 1px solid #fff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       opacity: 0;
       transform: scale(0.8);
       transition: opacity 0.2s, transform 0.2s;
@@ -596,7 +613,7 @@
     .dropdown.active {
       display: block;
     }
-    
+
     /* THANH MENU PHÍA DƯỚI */
     .nav-bar {
       display: flex;
@@ -630,11 +647,11 @@
         padding: 0 20px;
         gap: 15px;
       }
-      
+
       .search-bar {
         width: 500px;
       }
-      
+
       .product-detail {
         gap: 30px;
       }
@@ -646,40 +663,40 @@
         padding: 10px 20px;
         flex-wrap: wrap;
       }
-      
+
       .logo {
         font-size: 36px;
         margin-bottom: 10px;
       }
-      
+
       .logo-img {
         height: 45px;
       }
-      
+
       .search-bar {
         width: 100%;
         max-width: 500px;
         margin: 10px 0;
       }
-      
+
       .icon-group {
         width: 100%;
         justify-content: center;
         margin-top: 10px;
       }
-      
+
       .nav-bar {
         margin-top: 140px;
         flex-wrap: wrap;
         gap: 20px;
         padding: 10px 0;
       }
-      
+
       .product-detail {
         grid-template-columns: 1fr;
         gap: 30px;
       }
-      
+
       .search-results {
         width: 90%;
         max-width: 500px;
@@ -693,90 +710,90 @@
         gap: 10px;
         padding: 8px 15px;
       }
-      
+
       .logo {
         font-size: 32px;
         margin-bottom: 5px;
       }
-      
+
       .logo-img {
         height: 40px;
       }
-      
+
       .search-bar {
         width: 100%;
         margin: 5px 0;
       }
-      
+
       .search-bar input {
         font-size: 14px;
         padding: 6px 12px;
       }
-      
+
       .search-bar button {
         width: 32px;
         height: 32px;
       }
-      
+
       .icon-group {
         justify-content: center;
         gap: 20px;
         margin-top: 5px;
       }
-      
+
       .nav-bar {
         margin-top: 150px;
         flex-direction: column;
         gap: 12px;
         padding: 8px 0;
       }
-      
+
       .nav-bar a {
         font-size: 16px;
       }
-      
+
       .product-detail-container {
         margin: 150px auto 30px;
         padding: 0 15px;
       }
-      
+
       .product-info h1 {
         font-size: 24px;
       }
-      
+
       .action-buttons {
         flex-direction: column;
       }
-      
+
       .product-details-section,
       .related-products {
         padding: 20px;
       }
-      
+
       .details-grid {
         grid-template-columns: 1fr;
         gap: 10px;
       }
-      
+
       .search-results {
         width: 95%;
         max-width: 400px;
         top: 70px;
       }
-      
+
       .search-results .product-item {
         padding: 8px;
       }
-      
+
       .search-results img {
         width: 50px;
         height: 50px;
       }
-      
+
       .search-results h4 {
         font-size: 16px;
       }
-      
+
       .search-results p {
         font-size: 14px;
       }
@@ -786,75 +803,76 @@
       .header-container {
         padding: 5px 10px;
       }
-      
+
       .logo {
         font-size: 28px;
       }
-      
+
       .logo-img {
         height: 35px;
       }
-      
+
       .search-bar {
         padding: 3px 8px;
       }
-      
+
       .search-bar input {
         font-size: 13px;
         padding: 5px 10px;
       }
-      
+
       .search-bar button {
         width: 32px;
         height: 32px;
       }
-      
+
       .icon-group {
         gap: 15px;
       }
-      
+
       .icon-link svg,
       .user-icon {
         width: 24px;
         height: 24px;
       }
-      
+
       .nav-bar {
         margin-top: 140px;
         gap: 10px;
       }
-      
+
       .nav-bar a {
         font-size: 15px;
       }
-      
+
       .product-detail-container {
         margin: 140px auto 20px;
         padding: 0 10px;
       }
-      
+
       .product-info h1 {
         font-size: 22px;
       }
-      
+
       .original-price {
         font-size: 20px;
       }
-      
-      .btn-add-cart, .btn-buy-now {
+
+      .btn-add-cart,
+      .btn-buy-now {
         padding: 14px 20px;
         font-size: 16px;
       }
-      
+
       .product-details-section,
       .related-products {
         padding: 15px;
       }
-      
+
       .section-title {
         font-size: 24px;
       }
-      
+
       .cart-count {
         width: 18px;
         height: 18px;
@@ -884,7 +902,7 @@
           <svg xmlns="../assets/external/www.w3.org/2000/svg_file" viewBox="0 0 24 24">
             <path d="M21.71 20.29l-3.387-3.387A8.958 8.958 0 0019 11a9 9 0 10-9 9 
             8.958 8.958 0 005.903-1.677l3.387 3.387a1 1 0 001.414-1.414zM4 
-            11a7 7 0 1114 0 7 7 0 01-14 0z"/>
+            11a7 7 0 1114 0 7 7 0 01-14 0z" />
           </svg>
         </button>
       </div>
@@ -899,7 +917,7 @@
             14l.84-2h8.99c.89 0 1.67-.58 1.93-1.42l1.96-6.16A1 
             1 0 0019 3H6.21l-.94-2H1v2h3l3.6 
             7.59-1.35 3.32A1.99 1.99 0 006 17h12v-2H7.42a.5.5 0 
-            01-.47-.34L7.16 14z"/>
+            01-.47-.34L7.16 14z" />
           </svg>
           <span id="cartCountBadge" class="cart-count"></span>
         </a>
@@ -909,7 +927,7 @@
             <path d="M12 12c2.7 0 4.9-2.2 
             4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 
             7.1 9.3 12 12 12zm0 2.4c-3.3 0-9.8 
-            1.7-9.8 4.9V22h19.6v-2.7c0-3.2-6.5-4.9-9.8-4.9z"/>
+            1.7-9.8 4.9V22h19.6v-2.7c0-3.2-6.5-4.9-9.8-4.9z" />
           </svg>
           <div class="dropdown" id="userDropdown">
             <!-- Nội dung sẽ được cập nhật bằng JavaScript -->
@@ -955,7 +973,7 @@
       const notification = document.getElementById('notification');
       notification.textContent = message;
       notification.classList.add('show');
-      
+
       setTimeout(() => {
         notification.classList.remove('show');
       }, 3000);
@@ -966,7 +984,7 @@
       const currentUser = localStorage.getItem("currentUser");
       const cartLink = document.getElementById("cartLink");
       const cartCountBadge = document.getElementById("cartCountBadge");
-      
+
       // CHỈ HIỆN GIỎ HÀNG KHI ĐÃ ĐĂNG NHẬP
       if (!currentUser) {
         cartLink.style.display = 'none';
@@ -1007,7 +1025,7 @@
 
         // Thêm sự kiện click cho link Tài Khoản
         const profileLink = dropdown.querySelector('a[href="profile.html"]');
-        profileLink.addEventListener('click', function(e) {
+        profileLink.addEventListener('click', function (e) {
           e.preventDefault();
           window.location.href = 'profile.html';
         });
@@ -1034,16 +1052,16 @@
       try {
         // Đọc dữ liệu từ localStorage
         const storedProducts = localStorage.getItem('morico_products');
-        
+
         if (!storedProducts) {
           throw new Error('Chưa có dữ liệu sản phẩm. Vui lòng vào trang admin để khởi tạo.');
         }
-        
+
         products = JSON.parse(storedProducts);
-        
+
         // Hiển thị chi tiết sản phẩm
         displayProductDetail();
-        
+
       } catch (error) {
         console.error('Lỗi tải dữ liệu:', error);
         document.getElementById('product-content').innerHTML = `
@@ -1058,31 +1076,31 @@
     function checkStockAvailability(productId, requestedQuantity) {
       const product = products.find(p => p.id === productId);
       if (!product) return { available: false, message: "Sản phẩm không tồn tại" };
-      
+
       if (requestedQuantity > product.stock) {
-        return { 
-          available: false, 
-          message: `Chỉ còn ${product.stock} sản phẩm trong kho` 
+        return {
+          available: false,
+          message: `Chỉ còn ${product.stock} sản phẩm trong kho`
         };
       }
-      
+
       return { available: true, message: "" };
     }
 
     // Cập nhật trạng thái nút thêm vào giỏ hàng và mua ngay
     function updateButtonStates() {
       if (!currentProduct) return;
-      
+
       const quantityInput = document.getElementById('quantity');
       const addToCartBtn = document.querySelector('.btn-add-cart');
       const buyNowBtn = document.querySelector('.btn-buy-now');
       const stockWarning = document.querySelector('.stock-warning');
-      
+
       if (!quantityInput || !addToCartBtn || !buyNowBtn) return;
-      
+
       const requestedQuantity = parseInt(quantityInput.value);
       const stockCheck = checkStockAvailability(currentProduct.id, requestedQuantity);
-      
+
       if (stockCheck.available) {
         addToCartBtn.disabled = false;
         buyNowBtn.disabled = false;
@@ -1098,7 +1116,7 @@
     // Hiển thị chi tiết sản phẩm
     function displayProductDetail() {
       const productId = getProductIdFromURL();
-      
+
       if (!productId) {
         document.getElementById('product-content').innerHTML = `
           <div class="loading" style="color: #B22222;">
@@ -1110,7 +1128,7 @@
 
       // Tìm sản phẩm
       const product = products.find(p => p.id === productId);
-      
+
       if (!product) {
         document.getElementById('product-content').innerHTML = `
           <div class="loading" style="color: #B22222;">
@@ -1182,22 +1200,22 @@
       `;
 
       document.getElementById('product-content').innerHTML = productHTML;
-      
+
       // Thêm sự kiện cho input số lượng
       const quantityInput = document.getElementById('quantity');
       if (quantityInput) {
         quantityInput.addEventListener('input', updateButtonStates);
         quantityInput.addEventListener('change', updateButtonStates);
       }
-      
+
       // Cập nhật trạng thái nút ban đầu
       updateButtonStates();
     }
 
     // Hiển thị sản phẩm liên quan (HTML)
     function displayRelatedProductsHTML(relatedIds) {
-  // Hiển thị tối đa 4 sản phẩm ban đầu; nếu có nhiều hơn sẽ thêm nút "Xem thêm"
-  const MAX_INITIAL = 4;
+      // Hiển thị tối đa 4 sản phẩm ban đầu; nếu có nhiều hơn sẽ thêm nút "Xem thêm"
+      const MAX_INITIAL = 4;
 
       // Lấy danh sách id dùng relatedIds nếu có, ngược lại fallback lấy tất cả products (ngoại trừ current)
       let ids = [];
@@ -1302,17 +1320,17 @@
 
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
       const existingItem = cart.find(item => item.id === productId);
-      
+
       if (existingItem) {
         // Kiểm tra tổng số lượng sau khi thêm
         const newTotalQuantity = existingItem.quantity + quantity;
         const stockCheckAfterAdd = checkStockAvailability(productId, newTotalQuantity);
-        
+
         if (!stockCheckAfterAdd.available) {
           showNotification(stockCheckAfterAdd.message);
           return;
         }
-        
+
         existingItem.quantity = newTotalQuantity;
       } else {
         cart.push({
@@ -1323,11 +1341,11 @@
           quantity: quantity
         });
       }
-      
+
       localStorage.setItem('cart', JSON.stringify(cart));
       showNotification(`Đã thêm ${quantity} ${product.name} vào giỏ hàng!`);
       updateCartCount();
-      
+
       // Cập nhật lại trạng thái nút sau khi thêm vào giỏ
       updateButtonStates();
     }
@@ -1342,7 +1360,7 @@
 
       // Thêm vào giỏ hàng trước
       const added = addToCartFromDetail();
-      
+
       // Nếu thêm thành công thì chuyển hướng
       if (added !== false) {
         setTimeout(() => {
@@ -1360,21 +1378,21 @@
     function searchProducts() {
       const searchInput = document.querySelector('.search-bar input');
       const resultsBox = document.querySelector('.search-results');
-      
+
       const keyword = searchInput.value.trim().toLowerCase();
       resultsBox.innerHTML = "";
-      if(keyword === "") {
+      if (keyword === "") {
         resultsBox.classList.remove("active");
         return;
       }
-      
+
       const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
-      if(filtered.length === 0) {
+      if (filtered.length === 0) {
         resultsBox.innerHTML = `<p style="text-align:center; padding:10px; color:#8B0000;">Không tìm thấy sản phẩm</p>`;
         resultsBox.classList.add("active");
         return;
       }
-      
+
       filtered.forEach(p => {
         const item = document.createElement("div");
         item.classList.add("product-item");
@@ -1394,45 +1412,45 @@
     }
 
     // Khởi tạo trang
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       // Cập nhật menu user và giỏ hàng
       updateUserMenu();
       updateCartCount();
-      
+
       // Tải dữ liệu sản phẩm
       loadProductData();
-      
+
       // Thêm chức năng tìm kiếm
       const searchInput = document.querySelector('.search-bar input');
       const searchButton = document.querySelector('.search-bar button');
       const resultsBox = document.querySelector('.search-results');
-      
+
       // Thêm sự kiện cho nút tìm kiếm
       searchButton.addEventListener("click", searchProducts);
-      
+
       // Thêm sự kiện cho phím Enter
-      searchInput.addEventListener("keypress", e => { 
-        if(e.key === "Enter") searchProducts(); 
+      searchInput.addEventListener("keypress", e => {
+        if (e.key === "Enter") searchProducts();
       });
-      
+
       // Ẩn kết quả tìm kiếm khi click ra ngoài
       document.addEventListener("click", e => {
-        if(!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
+        if (!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
           resultsBox.classList.remove("active");
         }
       });
-      
+
       // Xử lý dropdown user menu
       const userIcon = document.getElementById("userIcon");
       const dropdown = document.getElementById("userDropdown");
-      
+
       userIcon.addEventListener("click", e => {
         e.stopPropagation();
         dropdown.classList.toggle("active");
       });
-      
+
       document.addEventListener("click", e => {
-        if(!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+        if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
           dropdown.classList.remove("active");
         }
       });
@@ -1455,4 +1473,5 @@
     });
   </script>
 </body>
+
 </html>

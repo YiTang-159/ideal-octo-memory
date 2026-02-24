@@ -79,7 +79,7 @@ phoneInput.addEventListener('blur', () => {
 function validatePhone() {
   const phoneValue = phoneInput.value.trim();
   const phoneRegex = /^[0-9]{10,11}$/;
-  
+
   if (phoneValue === '') {
     phoneError.textContent = '';
     return false;
@@ -121,7 +121,7 @@ form.addEventListener("submit", (e) => {
   } else {
     // Lấy danh sách user từ Local Storage
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    
+
     // Kiểm tra username đã tồn tại chưa
     const existingUser = users.find(u => u.username === user.username);
     if (existingUser) {
@@ -135,13 +135,13 @@ form.addEventListener("submit", (e) => {
       errorMsg.textContent = "Số điện thoại đã được đăng ký.";
       return;
     }
-    
+
     // Thêm user mới vào mảng
     users.push(user);
-    
+
     // Lưu lại vào Local Storage
     localStorage.setItem("users", JSON.stringify(users));
-    
+
     alert("Đăng ký thành công!");
     window.location.href = "login.html";
   }

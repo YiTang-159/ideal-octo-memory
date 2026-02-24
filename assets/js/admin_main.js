@@ -57,18 +57,18 @@ function initializeSampleData() {
   // Dữ liệu loại sản phẩm mẫu
   if (!localStorage.getItem('admin_categories_data')) {
     const sampleCategories = [
-      { 
-        name: "Bánh nướng", 
+      {
+        name: "Bánh nướng",
         subcategories: ["Thập cẩm", "Đậu xanh", "Khoai môn", "Hạt sen"],
         status: "active"
       },
-      { 
-        name: "Bánh dẻo", 
+      {
+        name: "Bánh dẻo",
         subcategories: ["Đậu xanh", "Hạt sen", "Thập cẩm"],
         status: "active"
       },
-      { 
-        name: "Bánh chay", 
+      {
+        name: "Bánh chay",
         subcategories: ["Đậu xanh", "Khoai môn"],
         status: "active"
       }
@@ -140,6 +140,6 @@ function initializeSampleData() {
 }
 
 // Khởi tạo dữ liệu mẫu khi trang được tải
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   initializeSampleData();
 });
