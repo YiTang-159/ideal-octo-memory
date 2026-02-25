@@ -48,6 +48,10 @@ class AuthManager {
   }
 
   renderLoggedInMenu(user) {
+    this.userIcon.style.display = 'inline-block';
+    let authContainer = document.querySelector('.user-menu .auth-buttons');
+    if (authContainer) authContainer.style.display = 'none';
+
     this.dropdown.innerHTML = `
       <a href="pages/profile.html">Tài khoản</a>
       <a href="#" id="logoutBtn">Đăng xuất</a>
@@ -60,17 +64,30 @@ class AuthManager {
   }
 
   renderLoggedOutMenu() {
-    this.dropdown.innerHTML = `
-      <a href="pages/login.html">Đăng nhập</a>
-      <a href="pages/register.html">Đăng ký</a>
-    `;
+    this.userIcon.style.display = 'none';
+    this.dropdown.classList.remove('active');
+
+    let authContainer = document.querySelector('.user-menu .auth-buttons');
+    if (!authContainer) {
+      const userMenu = document.querySelector('.user-menu');
+      if (userMenu) {
+        userMenu.insertAdjacentHTML('beforeend', `
+          <div class="auth-buttons">
+            <a href="pages/login.html" class="auth-btn sign-in-btn">Đăng nhập</a>
+            <a href="pages/register.html" class="auth-btn sign-up-btn">Đăng ký</a>
+          </div>
+        `);
+      }
+    } else {
+      authContainer.style.display = 'flex';
+    }
   }
 
   logout() {
     localStorage.removeItem('currentUser');
     this.updateUserMenu();
     this.dropdown.classList.remove('active');
-    
+
     // Dispatch event for other modules
     window.dispatchEvent(new Event('userLoggedOut'));
   }

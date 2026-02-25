@@ -43,6 +43,11 @@ function updateUserMenu() {
 
   if (currentUserString) {
     // --- TRƯỜNG HỢP: ĐÃ ĐĂNG NHẬP ---
+    userIcon.style.display = 'inline-block';
+
+    let authContainer = document.querySelector('.user-menu .auth-buttons');
+    if (authContainer) authContainer.style.display = 'none';
+
     const currentUser = JSON.parse(currentUserString);
     dropdown.innerHTML = `
       <a href="pages/profile.html">Tài khoản</a>
@@ -66,10 +71,23 @@ function updateUserMenu() {
 
   } else {
     // --- TRƯỜNG HỢP: CHƯA ĐĂNG NHẬP ---
-    dropdown.innerHTML = `
-      <a href="pages/login.html">Đăng nhập</a>
-      <a href="pages/register.html">Đăng ký</a>
-    `;
+    userIcon.style.display = 'none';
+    dropdown.classList.remove("active");
+
+    let authContainer = document.querySelector(".user-menu .auth-buttons");
+    if (!authContainer) {
+      const userMenu = document.querySelector(".user-menu");
+      if (userMenu) {
+        userMenu.insertAdjacentHTML('beforeend', `
+          <div class="auth-buttons">
+            <a href="pages/login.html" class="auth-btn sign-in-btn">Đăng nhập</a>
+            <a href="pages/register.html" class="auth-btn sign-up-btn">Đăng ký</a>
+          </div>
+        `);
+      }
+    } else {
+      authContainer.style.display = 'flex';
+    }
   }
 }
 

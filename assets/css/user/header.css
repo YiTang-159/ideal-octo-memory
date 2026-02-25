@@ -43,7 +43,7 @@ header {
   background-color: #FFFCF5;
   border: 2px solid #8B0000;
   border-radius: 40px;
-  padding: 4px 10px;
+  padding: 4px 4px;
   position: relative;
 }
 
@@ -439,4 +439,42 @@ header {
     top: -8px;
     right: -8px;
   }
+}
+
+/* AUTHENTICATION BUTTONS */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-family: "Century", serif;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.sign-in-btn {
+  background-color: transparent;
+  color: #8B0000;
+  border: 1.5px solid #8B0000;
+}
+
+.sign-in-btn:hover {
+  background-color: #ffe4b5;
+}
+
+.sign-up-btn {
+  background-color: #8B0000;
+  color: #ffffff;
+  border: 1.5px solid #8B0000;
+}
+
+.sign-up-btn:hover {
+  background-color: #b22222;
+  border-color: #b22222;
 }
