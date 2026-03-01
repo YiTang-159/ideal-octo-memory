@@ -107,14 +107,14 @@ body {
 }
 
 /* ===== FOOTER ===== */
-.footer {
+footer {
   text-align: center;
   padding: 25px;
   background-color: var(--bg-medium);
   color: var(--primary-color);
   font-size: 18px;
-  font-family: 'Dancing Script', cursive;
   border-top: 1.5px solid var(--border-color);
+  margin-top: 50px;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */

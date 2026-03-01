@@ -244,18 +244,6 @@ body {
   transform: scale(1.1);
 }
 
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 25px;
-  background-color: #FFFBE6;
-  color: #8B0000;
-  font-size: 18px;
-  font-family: 'Dancing Script', cursive;
-  border-top: 1.5px solid #8B0000;
-  margin-top: 50px;
-}
-
 /* Stock status badges - CHỈ HIỆN KHI HẾT HÀNG */
 .stock-badge {
   position: absolute;
