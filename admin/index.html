@@ -6,47 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - Hệ thống Bánh Trung Thu</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5.3 -->
+    <link href="../assets/vendor/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 7.2 -->
+    <link href="../assets/vendor/fontawesome-free-7.2.0/css/all.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/admin/login-admin.css">
+    <style>
+        .logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        /* Đồng bộ viền focus với theme màu đỏ (danger) */
+        .form-control:focus {
+            border-color: var(--bs-danger);
+            box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), .25);
+        }
+    </style>
 </head>
 
-<body>
-    <div class="login-container">
-        <div class="login-header">
-            <img src="../assets/image/login/logo.png" alt="Logo Bánh Trung Thu" class="logo">
-            <h1>Đăng nhập hệ thống</h1>
-            <p>Chào mừng đến với hệ thống quản lý Bánh Trung Thu</p>
-        </div>
+<body class="bg-warning-subtle d-flex align-items-center justify-content-center vh-100 px-3">
+    <div class="card shadow-lg border-0 rounded-4 w-100" style="max-width: 420px;">
+        <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-4">
+                <div class="bg-white rounded-circle d-inline-block p-2 shadow-sm mb-3">
+                    <img src="../assets/image/login/logo.png" alt="Logo Bánh Trung Thu" class="logo">
+                </div>
+                <h1 class="h4 fw-bold text-danger mb-2">Đăng nhập hệ thống</h1>
+                <p class="text-secondary small mb-0">Hệ thống quản lý Bánh Trung Thu</p>
+            </div>
 
-        <div class="login-form">
             <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Tên đăng nhập</label>
-                    <input type="text" id="username" class="form-control" placeholder="Nhập tên đăng nhập" required>
+                <div class="mb-4">
+                    <label for="username" class="form-label fw-semibold text-danger">Tên đăng nhập</label>
+                    <div class="input-group input-group-lg shadow-sm">
+                        <span class="input-group-text bg-white text-danger border-end-0">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="username" class="form-control border-start-0"
+                            placeholder="Nhập tên đăng nhập" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-semibold text-danger">Mật khẩu</label>
+                    <div class="input-group input-group-lg shadow-sm">
+                        <span class="input-group-text bg-white text-danger border-end-0">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="password" class="form-control border-start-0"
+                            placeholder="Nhập mật khẩu" required>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-login" id="loginButton">
-                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                <button type="submit" class="btn btn-danger btn-lg w-100 rounded-3 fw-bold shadow-sm mt-2"
+                    id="loginButton">
+                    <i class="fa-solid fa-arrow-right-to-bracket me-2"></i> Đăng nhập
                 </button>
             </form>
 
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p style="color: var(--primary); font-weight: 600;">Đang đăng nhập...</p>
+            <div class="text-center mt-4 d-none" id="loading">
+                <div class="spinner-border text-danger mb-2" role="status">
+                    <span class="visually-hidden">Đang xử lý...</span>
+                </div>
+                <p class="fw-semibold text-danger mb-0">Đang đăng nhập...</p>
             </div>
 
-            <div class="error-message" id="errorMessage">
-                <i class="fas fa-exclamation-triangle"></i> Tên đăng nhập hoặc mật khẩu không đúng!
+            <div class="alert alert-danger mt-4 d-none d-flex align-items-center border-0 bg-danger-subtle text-danger rounded-3"
+                role="alert" id="errorMessage">
+                <i class="fa-solid fa-triangle-exclamation fs-4 me-3"></i>
+                <div class="small fw-semibold">
+                    Tên đăng nhập hoặc mật khẩu không đúng!
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="../assets/vendor/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/admin/login-admin.js"></script>
 </body>
 

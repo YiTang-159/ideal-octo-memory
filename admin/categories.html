@@ -2,243 +2,263 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Loại Sản phẩm</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Loại Sản phẩm</title>
 
-  <link rel="stylesheet" href="../bootstrap-5.3.2-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../assets/css/admin/admin_style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* Thêm CSS cho nút hành động */
-    .form-actions .btn {
-      margin-left: 5px;
-    }
+    <link rel="stylesheet" href="../assets/css/admin/admin_style.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/vendor/fontawesome-free-7.2.0/css/all.min.css" />
+    <style>
+        /* Thêm CSS cho nút hành động */
+        .form-actions .btn {
+            margin-left: 5px;
+        }
 
-    .table .btn {
-      margin-right: 5px;
-      margin-bottom: 5px;
-    }
-
-    /* Responsive cho thiết bị di động (max-width: 768px) */
-    @media (max-width: 768px) {
-      body {
-        display: flex !important;
-        flex-direction: column !important;
-        overflow-x: hidden;
-      }
-
-      .sidebar {
-        width: 100% !important;
-        height: auto !important;
-        flex-shrink: 0;
-        display: flex !important;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-
-      .main-content {
-        width: 100%;
-        min-width: auto;
-      }
-
-      .page-content {
-        padding: 15px !important;
-      }
-
-      /* Đảm bảo bảng có thể cuộn ngang trên di động */
-      .table-responsive {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-    }
-  </style>
+        .table .btn {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-wrap">
-        <div class="logo-img">
-          <i class="fas fa-moon" style="font-size: 2rem; color: var(--brand-crimson);"></i>
+    <div class="container-fluid overflow-hidden p-0">
+        <div class="row g-0 flex-nowrap min-vh-100">
+            <!-- Sidebar -->
+            <aside class="col-auto col-md-3 col-lg-2 sidebar d-flex flex-column">
+                <div class="sidebar-header">
+                    <div class="logo-wrap">
+                        <div class="logo-img">
+                            <i class="fa-solid fa-moon" style="font-size: 2rem; color: var(--brand-crimson);"></i>
+                        </div>
+                        <div class="d-none d-md-block text-start">
+                            <div class="fw-bold text-white" style="font-size: 1rem;">MORICO</div>
+                            <div style="font-size:0.75rem;color:rgba(255,255,255,0.92)">Bánh Trung Thu</div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="nav-menu flex-grow-1">
+                    <div class="nav-section">
+                        <div class="nav-title d-none d-md-block">Bảng điều khiển</div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="dashboard.html">
+                                    <i class="fa-solid fa-home"></i>
+                                    <span class="d-none d-md-inline">
+                                        Trang chủ
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-section mt-3">
+                        <div class="nav-title d-none d-md-block">Quản lý</div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="users.html"><i
+                                        class="fa-solid fa-users"></i><span class="d-none d-md-inline">Người
+                                        dùng</span></a></li>
+                            <li class="nav-item"><a class="nav-link active" href="categories.html"><i
+                                        class="fa-solid fa-tags"></i><span class="d-none d-md-inline">Loại sản
+                                        phẩm</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="products.html"><i
+                                        class="fa-solid fa-box"></i><span class="d-none d-md-inline">Sản phẩm</span></a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="purchase-orders.html"><i
+                                        class="fa-solid fa-truck-loading"></i><span class="d-none d-md-inline">Nhập
+                                        hàng</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="pricing.html"><i
+                                        class="fa-solid fa-dollar-sign"></i><span class="d-none d-md-inline">Quản lý
+                                        giá</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="orders.html"><i
+                                        class="fa-solid fa-shopping-cart"></i><span class="d-none d-md-inline">Đơn
+                                        hàng</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="inventory.html"><i
+                                        class="fa-solid fa-warehouse"></i><span class="d-none d-md-inline">Tồn
+                                        kho</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main content -->
+            <main class="col col-md-9 col-lg-10 main-content d-flex flex-column p-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-3 border-bottom">
+                    <h1 class="h3 fw-bold mb-3 mb-md-0" style="color: var(--brand-crimson);">
+                        <i class="fa-solid fa-tags me-2" style="color: var(--brand-gold);"></i>
+                        Quản Lý Loại Sản Phẩm
+                    </h1>
+                    <div class="d-flex align-items-center bg-white rounded-pill shadow-sm px-2 py-2 border">
+                        <div class="ms-2 me-3">
+                            <i class="fa-solid fa-user" style="font-size: 1.2rem; color: var(--brand-crimson);"></i>
+                        </div>
+                        <div class="me-2 d-none d-sm-block text-start" style="line-height: 1.2;">
+                            <div class="fw-bold" style="color: var(--brand-crimson);" id="header-username">
+                                admin
+                            </div>
+                            <div class="text-muted" style="font-size: 0.78rem;" id="header-role">
+                                Quản trị viên
+                            </div>
+                        </div>
+                        <button class="btn btn-danger btn-sm rounded-pill px-3 py-1 fw-bold ms-3 me-1" id="logout-btn">
+                            Đăng xuất
+                        </button>
+                    </div>
+                </div>
+
+                <div class="page-content container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card shadow-sm border p-4">
+                                <div
+                                    class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 pt-0 pb-0">
+                                    <h3 class="h5 mb-0" id="category-form-title">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        Thêm loại mới
+                                    </h3>
+                                </div>
+                                <form id="categoryForm" class="card-body" onsubmit="return handleSubmitCategory(event)">
+                                    <div class="mb-3">
+                                        <label for="category-name" class="form-label">
+                                            Tên loại sản phẩm
+                                        </label>
+                                        <input type="text" class="form-control" id="category-name" required
+                                            placeholder="Ví dụ: Bánh dẻo, Bánh nướng 1 trứng,..." />
+                                    </div>
+                                    <div class="form-actions text-end">
+                                        <button type="button" class="btn btn-secondary" onclick="resetCategoryForm()">
+                                            Hủy
+                                        </button>
+                                        <button type="submit" class="btn btn-primary ms-2">
+                                            Lưu
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="card shadow-sm border p-4">
+                                <div
+                                    class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 pt-0 pb-0">
+                                    <h3 class="h5 mb-0">
+                                        <i class="fa-solid fa-list"></i>
+                                        Danh sách loại sản phẩm
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên loại</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="categoryTableBody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-auto text-center py-3 text-muted small border-top">
+                    <p>© 2023 Hệ thống Quản lý MORICO | Phiên bản 2.1.0</p>
+                </div>
+            </main>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-start">
-          <div style="font-weight:800;color:#fff;font-size:1rem">MORICO</div>
-          <div style="font-size:0.75rem;color:rgba(255,255,255,0.92)">Bánh Trung Thu</div>
-        </div>
-      </div>
     </div>
-    <nav class="nav-menu">
-      <div class="nav-section">
-        <div class="nav-title">Bảng điều khiển</div>
-        <a href="dashboard.html"><i class="fas fa-home"></i><span>Trang chủ</span></a>
-      </div>
-      <div class="nav-section">
-        <div class="nav-title">Quản lý</div>
-        <a href="users.html"><i class="fas fa-users"></i><span>Người dùng</span></a>
-        <a href="categories.html" class="active"><i class="fas fa-tags"></i><span>Loại sản phẩm</span></a>
-        <a href="products.html"><i class="fas fa-box"></i><span>Sản phẩm</span></a>
-        <a href="purchase-orders.html"><i class="fas fa-truck-loading"></i><span>Nhập hàng</span></a>
-        <a href="pricing.html"><i class="fas fa-dollar-sign"></i><span>Quản lý giá</span></a>
-        <a href="orders.html"><i class="fas fa-shopping-cart"></i><span>Đơn hàng</span></a>
-        <a href="inventory.html"><i class="fas fa-warehouse"></i><span>Tồn kho</span></a>
-      </div>
-    </nav>
-  </aside>
 
-  <main class="main-content">
-    <div class="main-header">
-      <h1><i class="fas fa-tags"></i> Quản Lý Loại Sản Phẩm</h1>
-      <div class="header-actions">
-        <div class="user-info">
-          <div class="user-avatar">
-            <i class="fas fa-user" style="font-size: 1.2rem; color: var(--brand-crimson);"></i>
-          </div>
-          <div class="user-details">
-            <div class="user-name" id="header-username">Người dùng</div>
-            <div class="user-role" id="header-role">Quản lý</div>
-          </div>
-          <button class="logout-btn" id="logout-btn">Đăng xuất</button>
-        </div>
-      </div>
-    </div>
+    <script src="../assets/vendor/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/admin/admin_actions.js"></script>
 
-    <div class="page-content container-fluid">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="h5 mb-0" id="category-form-title"><i class="fas fa-plus-circle"></i> Thêm loại mới</h3>
-            </div>
-            <form id="categoryForm" class="card-body" onsubmit="return handleSubmitCategory(event)">
-              <div class="mb-3">
-                <label for="category-name" class="form-label">Tên loại sản phẩm</label>
-                <input type="text" class="form-control" id="category-name" required
-                  placeholder="Ví dụ: Bánh dẻo, Bánh nướng 1 trứng,..." />
-              </div>
-              <div class="form-actions text-end">
-                <button type="button" class="btn btn-secondary" onclick="resetCategoryForm()">Hủy</button>
-                <button type="submit" class="btn btn-primary ms-2">Lưu</button>
-              </div>
-            </form>
-          </div>
-        </div>
+    <script>
+        function handleSubmitCategory(event) {
+            event.preventDefault();
 
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="h5 mb-0"><i class="fas fa-list"></i> Danh sách loại sản phẩm</h3>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Tên loại</th>
-                      <th>Trạng thái</th>
-                      <th>Hành động</th>
-                    </tr>
-                  </thead>
-                  <tbody id="categoryTableBody">
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer">
-      <p>© 2023 Hệ thống Quản lý MORICO | Phiên bản 2.1.0</p>
-    </div>
-  </main>
+            // Lấy giá trị từ form
+            const nameInput = document.getElementById("category-name");
+            const name = nameInput.value.trim();
 
-  <script src="../bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/admin/admin_actions.js"></script>
+            if (!name) {
+                alert("Vui lòng nhập tên loại sản phẩm");
+                return false;
+            }
 
-  <script>
-    function handleSubmitCategory(event) {
-      event.preventDefault();
+            // Tạo category mới
+            const newCategory = {
+                name: name,
+                subcategories: [],
+                status: "active"
+            };
 
-      // Lấy giá trị từ form
-      const nameInput = document.getElementById("category-name");
-      const name = nameInput.value.trim();
+            // Lấy danh sách hiện tại và thêm vào
+            let categories = [];
+            try {
+                categories = JSON.parse(localStorage.getItem('admin_categories_data')) || [];
+            } catch (e) {
+                categories = [];
+            }
 
-      if (!name) {
-        alert("Vui lòng nhập tên loại sản phẩm");
-        return false;
-      }
+            categories.push(newCategory);
 
-      // Tạo category mới
-      const newCategory = {
-        name: name,
-        subcategories: [],
-        status: "active"
-      };
+            // Lưu vào localStorage
+            localStorage.setItem('admin_categories_data', JSON.stringify(categories));
 
-      // Lấy danh sách hiện tại và thêm vào
-      let categories = [];
-      try {
-        categories = JSON.parse(localStorage.getItem('admin_categories_data')) || [];
-      } catch (e) {
-        categories = [];
-      }
-
-      categories.push(newCategory);
-
-      // Lưu vào localStorage
-      localStorage.setItem('admin_categories_data', JSON.stringify(categories));
-
-      // Render lại danh sách
-      const tbody = document.getElementById("categoryTableBody");
-      if (tbody) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${name}</td>
-            <td><span class="status in-stock">Đang hiển thị</span></td>
-            <td>
-              <button class="btn btn-sm btn-edit" onclick="editCategory(${categories.length - 1})">
-                <i class="fas fa-edit"></i> Sửa
+            // Render lại danh sách
+            const tbody = document.getElementById("categoryTableBody");
+            if (tbody) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+            <td class="align-middle">${name}</td>
+            <td class="align-middle"><span class="badge rounded-pill bg-success">Đang hiển thị</span></td>
+            <td class="align-middle">
+              <button class="btn btn-sm btn-warning text-dark" onclick="editCategory(${categories.length - 1})">
+                <i class="fa-solid fa-edit"></i> Sửa
               </button>
               <button class="btn btn-sm btn-danger" onclick="deleteCategory(${categories.length - 1})">
-                <i class="fas fa-trash"></i> Xóa
+                <i class="fa-solid fa-trash"></i> Xóa
               </button>
-              <button class="btn btn-sm btn-hide" data-status="active" onclick="toggleCategoryStatus(${categories.length - 1})">
-                <i class="fas fa-eye-slash"></i> Ẩn
+              <button class="btn btn-sm btn-secondary" data-status="active" onclick="toggleCategoryStatus(${categories.length - 1})">
+                <i class="fa-solid fa-eye-slash"></i> Ẩn
               </button>
             </td>
           `;
-        tbody.appendChild(tr);
-      }
+                tbody.appendChild(tr);
+            }
 
-      // Reset form
-      nameInput.value = "";
-      alert("Đã thêm loại sản phẩm mới thành công!");
-      return false;
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      // Khởi tạo dữ liệu ban đầu
-      initializeSampleCategories();
-
-      // Gắn sự kiện logout
-      const logoutBtn = document.getElementById('logout-btn');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', handleLogout);
-      }
-
-      // Hiển thị thông tin người dùng
-      const usernameEl = document.getElementById('header-username');
-      const userRoleEl = document.getElementById('header-role');
-      const loggedInUser = localStorage.getItem('loggedInUser');
-      if (loggedInUser && usernameEl) {
-        usernameEl.textContent = loggedInUser.charAt(0).toUpperCase() + loggedInUser.slice(1);
-        if (userRoleEl) {
-          userRoleEl.textContent = 'Quản trị viên';
+            // Reset form
+            nameInput.value = "";
+            alert("Đã thêm loại sản phẩm mới thành công!");
+            return false;
         }
-      }
-    });
-  </script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Khởi tạo dữ liệu ban đầu
+            initializeSampleCategories();
+
+            // Gắn sự kiện logout
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+
+            // Hiển thị thông tin người dùng
+            const usernameEl = document.getElementById('header-username');
+            const userRoleEl = document.getElementById('header-role');
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser && usernameEl) {
+                usernameEl.textContent = loggedInUser.charAt(0).toUpperCase() + loggedInUser.slice(1);
+                if (userRoleEl) {
+                    userRoleEl.textContent = 'Quản trị viên';
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

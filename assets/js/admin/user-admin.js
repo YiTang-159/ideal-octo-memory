@@ -1,23 +1,36 @@
 window.onload = function () {
     let users = JSON.parse(localStorage.getItem("users")) || [];
+    let addUserModal, resetPassModal;
+
+    try {
+        addUserModal = new bootstrap.Modal(document.getElementById('add-user-modal'));
+        resetPassModal = new bootstrap.Modal(document.getElementById('reset-modal'));
+    } catch (e) {
+        console.warn("Bootstrap modals not initialized", e);
+    }
 
     function renderUsers() {
         const tbody = document.getElementById("users-table-body");
         tbody.innerHTML = "";
         users.forEach(user => {
             const tr = document.createElement("tr");
+            var badgeClass = user.status === "active" ? "bg-success" : "bg-danger";
+            var statusText = user.status === "active" ? "Đang hoạt động" : "Đã khóa";
+
             tr.innerHTML = `
-                <td>${user.id}</td>
-                <td>${user.fullname}</td>
+                <td><span class="fw-bold text-primary">#${user.id}</span></td>
+                <td><span class="fw-bold">${user.fullname}</span></td>
                 <td>${user.username}</td>
-                <td>${user.password}</td>
+                <td><span class="text-muted" style="letter-spacing: 2px;">••••••</span></td>
                 <td>${user.phone}</td>
                 <td>${user.date}</td>
-                <td>${user.status === "active" ? "Đang hoạt động" : "Đã khóa"}</td>
-                <td style="text-align:center;">
-                    <button class="action-button btn-reset" data-username="${user.username}">Đặt lại</button>
-                    <button class="action-button ${user.status === "active" ? "btn-lock" : "btn-unlock"}" data-id="${user.id}">
-                        ${user.status === "active" ? "Khóa" : "Mở khóa"}
+                <td class="text-center"><span class="badge rounded-pill ${badgeClass}">${statusText}</span></td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-outline-warning btn-reset" style="padding: 0.2rem 0.5rem; font-size: 0.8rem;" data-username="${user.username}">
+                        <i class="fas fa-key me-1"></i> Đặt lại
+                    </button>
+                    <button class="btn btn-sm ${user.status === "active" ? "btn-outline-danger btn-lock" : "btn-outline-success btn-unlock"}" style="padding: 0.2rem 0.5rem; font-size: 0.8rem;" data-id="${user.id}">
+                        ${user.status === "active" ? '<i class="fas fa-lock me-1"></i> Khóa' : '<i class="fas fa-unlock me-1"></i> Mở khóa'}
                     </button>
                 </td>
             `;
@@ -34,11 +47,7 @@ window.onload = function () {
 
     // Thêm khách hàng
     document.getElementById("add-user-btn").addEventListener("click", () => {
-        document.getElementById("add-user-modal").style.display = "flex";
-    });
-
-    document.getElementById("cancel-add-user").addEventListener("click", () => {
-        document.getElementById("add-user-modal").style.display = "none";
+        if (addUserModal) addUserModal.show();
     });
 
     document.getElementById("confirm-add-user").addEventListener("click", () => {
@@ -83,7 +92,7 @@ window.onload = function () {
         users.push(newUser);
         localStorage.setItem("users", JSON.stringify(users));
         renderUsers();
-        document.getElementById("add-user-modal").style.display = "none";
+        if (addUserModal) addUserModal.hide();
 
         document.getElementById("new-fullname").value = "";
         document.getElementById("new-username").value = "";
@@ -102,7 +111,7 @@ window.onload = function () {
 
                 document.getElementById("reset-username").textContent = user.username;
                 document.getElementById("current-password").textContent = user.password;
-                document.getElementById("reset-modal").style.display = "flex";
+                if (resetPassModal) resetPassModal.show();
 
                 document.getElementById("confirm-reset").onclick = () => {
                     const newPass = document.getElementById("new-password").value.trim();
@@ -127,14 +136,10 @@ window.onload = function () {
                     user.password = newPass;
                     localStorage.setItem("users", JSON.stringify(users));
                     renderUsers();
-                    document.getElementById("reset-modal").style.display = "none";
+                    if (resetPassModal) resetPassModal.hide();
 
                     document.getElementById("new-password").value = "";
                     document.getElementById("confirm-password").value = "";
-                };
-
-                document.getElementById("cancel-reset").onclick = () => {
-                    document.getElementById("reset-modal").style.display = "none";
                 };
             });
         });

@@ -2,305 +2,370 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bảng điều khiển Admin - MoonCake Delight</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="../assets/css/admin/admin_style.css" />
-  <style>
-    /* Style riêng cho dashboard */
-    .stat-card {
-      border-top: 4px solid #FFC107;
-      padding: 1.5rem;
-      text-align: center;
-      height: 100%;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bảng điều khiển Admin - MoonCake Delight</title>
 
-    .stat-card h2 {
-      font-size: 2.5rem;
-      margin-bottom: 0.2rem;
-      color: var(--brand-crimson);
-    }
+    <link rel="stylesheet" href="../assets/css/admin/admin_style.css" />
+    <link rel="stylesheet" href="../assets/vendor/fontawesome-free-7.2.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <style>
+        /* Style riêng cho dashboard */
+        /* .stat-card {
+            border-top: 4px solid #FFC107;
+            padding: 1.5rem;
+            text-align: center;
+            height: 100%;
+        } */
 
-    .stat-card span {
-      color: var(--muted-brown);
-      font-weight: 600;
-    }
+        .stat-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            color: var(--brand-crimson);
+            font-weight: bold;
+        }
 
-    .low-stock {
-      color: #D32F2F !important;
-      font-weight: bold;
-    }
-  </style>
+        .stat-card span {
+            color: var(--muted-brown);
+            font-weight: 600;
+        }
+
+        .low-stock {
+            color: #D32F2F !important;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-wrap">
-        <div class="logo-img">
-          <i class="fas fa-moon" style="font-size: 2rem; color: var(--brand-crimson);"></i>
+    <div class="container-fluid overflow-hidden p-0">
+        <div class="row g-0 flex-nowrap min-vh-100">
+            <!-- Sidebar -->
+            <aside class="col-auto col-md-3 col-lg-2 sidebar d-flex flex-column">
+                <div class="sidebar-header">
+                    <div class="logo-wrap">
+                        <div class="logo-img">
+                            <i class="fa-solid fa-moon" style="font-size: 2rem; color: var(--brand-crimson);"></i>
+                        </div>
+                        <div class="d-none d-md-block text-start">
+                            <div class="fw-bold text-white" style="font-size: 1rem;">MORICO</div>
+                            <div style="font-size:0.75rem;color:rgba(255,255,255,0.92)">Bánh Trung Thu</div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="nav-menu flex-grow-1">
+                    <div class="nav-section">
+                        <div class="nav-title d-none d-md-block">Bảng điều khiển</div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="dashboard.html">
+                                    <i class="fa-solid fa-home"></i>
+                                    <span class="d-none d-md-inline">
+                                        Trang chủ
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-section mt-3">
+                        <div class="nav-title d-none d-md-block">Quản lý</div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="users.html"><i
+                                        class="fa-solid fa-users"></i><span class="d-none d-md-inline">Người
+                                        dùng</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="categories.html"><i
+                                        class="fa-solid fa-tags"></i><span class="d-none d-md-inline">Loại sản
+                                        phẩm</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="products.html"><i
+                                        class="fa-solid fa-box"></i><span class="d-none d-md-inline">Sản phẩm</span></a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="purchase-orders.html"><i
+                                        class="fa-solid fa-truck-loading"></i><span class="d-none d-md-inline">Nhập
+                                        hàng</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="pricing.html"><i
+                                        class="fa-solid fa-dollar-sign"></i><span class="d-none d-md-inline">Quản lý
+                                        giá</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="orders.html"><i
+                                        class="fa-solid fa-shopping-cart"></i><span class="d-none d-md-inline">Đơn
+                                        hàng</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="inventory.html"><i
+                                        class="fa-solid fa-warehouse"></i><span class="d-none d-md-inline">Tồn
+                                        kho</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main content -->
+            <main class="col col-md-9 col-lg-10 main-content d-flex flex-column p-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-3 border-bottom">
+                    <h1 class="h3 fw-bold mb-3 mb-md-0" style="color: var(--brand-crimson);">
+                        <i class="fa-solid fa-home me-2" style="color: var(--brand-gold);"></i>
+                        Bảng điều khiển
+                    </h1>
+                    <div class="d-flex align-items-center bg-white rounded-pill shadow-sm px-2 py-2 border">
+                        <div class="ms-2 me-3">
+                            <i class="fa-solid fa-user" style="font-size: 1.2rem; color: var(--brand-crimson);"></i>
+                        </div>
+                        <div class="me-2 d-none d-sm-block text-start" style="line-height: 1.2;">
+                            <div class="fw-bold" style="color: var(--brand-crimson);" id="header-username">
+                                admin
+                            </div>
+                            <div class="text-muted" style="font-size: 0.78rem;" id="header-role">
+                                Quản trị viên
+                            </div>
+                        </div>
+                        <button class="btn btn-danger btn-sm rounded-pill px-3 py-1 fw-bold ms-3 me-1" id="logout-btn">
+                            Đăng xuất
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="row g-4 mb-4">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card stat-card shadow-sm border p-4">
+                            <h2 id="total-products">0</h2><span>Sản phẩm</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card stat-card shadow-sm border p-4">
+                            <h2 id="total-orders">0</h2><span>Đơn hàng</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card stat-card shadow-sm border p-4">
+                            <h2 id="pending-orders">0</h2><span>Chờ xử lý</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card stat-card shadow-sm border p-4">
+                            <h2 id="total-revenue">0₫</h2><span>Doanh thu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm border p-4">
+                            <div
+                                class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 pt-0 pb-0">
+                                <h3 class="h6 mb-0 fw-bold">
+                                    <i class="fa-solid fa-warehouse text-warning me-2"></i>
+                                    Tồn kho thấp (< 20) </h3>
+                                        <a href="inventory.html" class="btn btn-primary btn-sm rounded-pill px-3">
+                                            Xem tất cả
+                                        </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0 border-top mt-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Sản phẩm</th>
+                                                <th class="text-center">Còn lại</th>
+                                                <th class="text-center">Trạng thái</th>
+                                                <th class="text-end">Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="low-stock-body">
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">
+                                                    Đang tải dữ liệu...
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card shadow-sm border p-4">
+                            <div
+                                class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 pt-0 pb-0">
+                                <h3 class="h6 mb-0 fw-bold">
+                                    <i class="fa-solid fa-dollar-sign text-success me-2"></i>
+                                    Sản phẩm 0% lợi nhuận
+                                </h3>
+                                <a href="pricing.html" class="btn btn-primary btn-sm rounded-pill px-3">
+                                    Xem tất cả
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0 border-top mt-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Sản phẩm</th>
+                                                <th class="text-end">Giá vốn</th>
+                                                <th class="text-end">Giá bán</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="pricing-summary-body">
+                                            <tr>
+                                                <td colspan="3" class="text-center text-muted">
+                                                    Đang tải dữ liệu...
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-12">
+                        <div class="card shadow-sm border p-4">
+                            <div
+                                class="card-header d-flex justify-content-between align-items-center bg-transparent border-bottom-0 pt-0 pb-0">
+                                <h3 class="h6 mb-0 fw-bold">
+                                    <i class="fa-solid fa-shopping-cart text-info me-2"></i>
+                                    Đơn hàng gần đây
+                                </h3>
+                                <a href="orders.html" class="btn btn-primary btn-sm rounded-pill px-3">
+                                    Xem tất cả
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0 border-top mt-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Mã ĐH</th>
+                                                <th>Khách hàng</th>
+                                                <th>Ngày đặt</th>
+                                                <th class="text-end">Tổng tiền</th>
+                                                <th class="text-center">Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recent-orders-body">
+                                            <tr>
+                                                <td colspan="5" class="text-center text-muted">Đang tải dữ
+                                                    liệu...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-auto text-center py-3 text-muted small border-top">
+                    <p>© 2023 Hệ thống Quản lý Bánh Trung Thu MORICO | Phiên bản 2.1.0</p>
+                </div>
+            </main>
         </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-start">
-          <div style="font-weight:800;color:#fff;font-size:1rem">MORICO</div>
-          <div style="font-size:0.75rem;color:rgba(255,255,255,0.92)">Bánh Trung Thu</div>
-        </div>
-      </div>
     </div>
-    <nav class="nav-menu">
-      <div class="nav-section">
-        <div class="nav-title">Bảng điều khiển</div>
-        <a href="dashboard.html" class="active"><i class="fas fa-home"></i><span>Trang chủ</span></a>
-      </div>
-      <div class="nav-section">
-        <div class="nav-title">Quản lý</div>
-        <a href="users.html"><i class="fas fa-users"></i><span>Người dùng</span></a>
-        <a href="categories.html"><i class="fas fa-tags"></i><span>Loại sản phẩm</span></a>
-        <a href="products.html"><i class="fas fa-box"></i><span>Sản phẩm</span></a>
-        <a href="purchase-orders.html"><i class="fas fa-truck-loading"></i><span>Nhập hàng</span></a>
-        <a href="pricing.html"><i class="fas fa-dollar-sign"></i><span>Quản lý giá</span></a>
-        <a href="orders.html"><i class="fas fa-shopping-cart"></i><span>Đơn hàng</span></a>
-        <a href="inventory.html"><i class="fas fa-warehouse"></i><span>Tồn kho</span></a>
 
-      </div>
-    </nav>
-  </aside>
+    <script src="../assets/vendor/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/admin/admin_actions.js"></script>
+    <script>
+        // Dashboard dynamic data loader
+        (function () {
+            function safeParse(key) { try { return JSON.parse(localStorage.getItem(key) || 'null') || []; } catch (e) { return []; } }
+            function fmtCurrency(n) {
+                if (window.formatCurrency) return window.formatCurrency(n);
+                try { return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n); } catch (e) { return (n || 0).toLocaleString('vi-VN') + '₫'; }
+            }
 
-  <main class="main-content">
-    <div class="main-header">
-      <h1><i class="fas fa-home"></i> Bảng điều khiển</h1>
-      <div class="header-actions">
-        <div class="user-info">
-          <div class="user-avatar">
-            <i class="fas fa-user" style="font-size: 1.2rem; color: var(--brand-crimson);"></i>
-          </div>
-          <div class="user-details">
-            <div class="user-name" id="header-username">Người dùng</div>
-            <div class="user-role" id="header-role">Quản lý</div>
-          </div>
-          <button class="logout-btn" id="logout-btn">Đăng xuất</button>
-        </div>
-      </div>
-    </div>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Products
+                var products = [];
+                if (window.getProductData) products = window.getProductData();
+                else products = safeParse('morico_products') || [];
 
-    <div class="row g-4 mb-4" style="display:flex; gap: 20px;">
-      <div style="flex: 1;">
-        <div class="card stat-card">
-          <h2 id="total-products">0</h2><span>Sản phẩm</span>
-        </div>
-      </div>
-      <div style="flex: 1;">
-        <div class="card stat-card" style="border-top-color: var(--brand-crimson);">
-          <h2 id="total-orders">0</h2><span>Đơn hàng</span>
-        </div>
-      </div>
-      <div style="flex: 1;">
-        <div class="card stat-card" style="border-top-color: #4CAF50;">
-          <h2 id="pending-orders">0</h2><span>Chờ xử lý</span>
-        </div>
-      </div>
-      <div style="flex: 1;">
-        <div class="card stat-card" style="border-top-color: #17a2b8;">
-          <h2 id="total-revenue">0₫</h2><span>Doanh thu</span>
-        </div>
-      </div>
-    </div>
+                // Orders
+                var orders = safeParse('orders') || [];
 
-    <div class="row g-4 mb-4" style="display:flex; gap: 20px;">
-      <div style="flex: 1;">
-        <div class="card h-100">
-          <div class="card-header">
-            <h2><i class="fas fa-warehouse"></i> Tồn kho thấp (Dưới 20)</h2>
-            <a href="inventory.html" class="btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Xem tất cả</a>
-          </div>
-          <div style="overflow-x: auto;">
-            <table>
-              <thead>
-                <tr>
-                  <th>Sản phẩm</th>
-                  <th style="text-align:center;">Còn lại</th>
-                  <th style="text-align:center;">Trạng thái</th>
-                  <th style="text-align:center;">Hành động</th>
-                </tr>
-              </thead>
-              <tbody id="low-stock-body">
-                <tr>
-                  <td colspan="4" style="text-align:center;">Đang tải dữ liệu...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+                // Totals
+                var totalProducts = (products && products.length) || 0;
+                var totalOrders = (orders && orders.length) || 0;
+                var pendingOrders = (orders && orders.filter(function (o) { return (o && o.status === 'pending') || (o && o.status === 'pending'); }).length) || 0;
+                var totalRevenue = (orders && orders.reduce(function (s, o) { return s + (Number(o && o.total) || 0); }, 0)) || 0;
 
-      <div style="flex: 1;">
-        <div class="card h-100">
-          <div class="card-header">
-            <h2><i class="fas fa-dollar-sign"></i> Sản phẩm 0% lợi nhuận</h2>
-            <a href="pricing.html" class="btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Xem tất cả</a>
-          </div>
-          <div style="overflow-x: auto;">
-            <table>
-              <thead>
-                <tr>
-                  <th>Sản phẩm</th>
-                  <th style="text-align:right;">Giá vốn</th>
-                  <th style="text-align:right;">Giá bán</th>
-                </tr>
-              </thead>
-              <tbody id="pricing-summary-body">
-                <tr>
-                  <td>Bánh trung thu khoai môn</td>
-                  <td style="text-align:right; color: #D32F2F;">45,000đ</td>
-                  <td style="text-align:right;">45,000đ</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+                var elTotalProducts = document.getElementById('total-products');
+                var elTotalOrders = document.getElementById('total-orders');
+                var elPending = document.getElementById('pending-orders');
+                var elRevenue = document.getElementById('total-revenue');
+                if (elTotalProducts) elTotalProducts.textContent = totalProducts;
+                if (elTotalOrders) elTotalOrders.textContent = totalOrders;
+                if (elPending) elPending.textContent = pendingOrders;
+                if (elRevenue) elRevenue.textContent = fmtCurrency(totalRevenue);
 
-    <div class="card">
-      <div class="card-header">
-        <h2><i class="fas fa-shopping-cart"></i> Đơn hàng gần đây</h2>
-        <a href="orders.html" class="btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Xem tất cả</a>
-      </div>
-      <div style="overflow-x: auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Mã ĐH</th>
-              <th>Khách hàng</th>
-              <th>Ngày đặt</th>
-              <th style="text-align:right;">Tổng tiền</th>
-              <th>Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody id="recent-orders-body">
-            <tr>
-              <td>#DH001</td>
-              <td>Nguyễn Văn A</td>
-              <td>15/10/2023</td>
-              <td style="text-align:right;">350,000đ</td>
-              <td><span class="status delivered">Đã giao</span></td>
-            </tr>
-            <tr>
-              <td>#DH002</td>
-              <td>Trần Thị B</td>
-              <td>16/10/2023</td>
-              <td style="text-align:right;">520,000đ</td>
-              <td><span class="status processed">Đã xử lý</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="footer">
-      <p>© 2023 Hệ thống Quản lý Bánh Trung Thu MORICO | Phiên bản 2.1.0</p>
-    </div>
-  </main>
+                // Low stock list (stock < 20)
+                var lowBody = document.getElementById('low-stock-body');
+                if (lowBody) {
+                    var lowStock = products.filter(function (p) { return Number(p && p.stock) < 20; });
+                    lowBody.innerHTML = '';
+                    if (!lowStock.length) {
+                        lowBody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">Không có sản phẩm</td></tr>';
+                    } else {
+                        lowStock.forEach(function (p) {
+                            var name = p.name || p.code || ('Sản phẩm ' + (p.id || ''));
+                            var stock = Number(p.stock) || 0;
+                            var badgeClass = stock === 0 ? 'bg-danger' : (stock <= 10 ? 'bg-warning text-dark' : 'bg-success');
+                            var statusText = stock === 0 ? 'HẾT HÀNG' : (stock <= 10 ? 'SẮP HẾT!' : 'Bình thường');
+                            lowBody.innerHTML += '<tr>' +
+                                '<td><div class="fw-bold">' + name + '</div></td>' +
+                                '<td class="text-center fw-bold text-danger">' + (stock.toLocaleString('vi-VN')) + '</td>' +
+                                '<td class="text-center"><span class="badge rounded-pill ' + badgeClass + '">' + statusText + '</span></td>' +
+                                '<td class="text-end"><button class="btn btn-sm btn-outline-primary" onclick="location.href=\'products.html\'">Chi tiết</button></td>' +
+                                '</tr>';
+                        });
+                    }
+                }
 
-  <script src="../assets/js/admin/admin_actions.js"></script>
-  <script>
-    // Dashboard dynamic data loader
-    (function () {
-      function safeParse(key) { try { return JSON.parse(localStorage.getItem(key) || 'null') || []; } catch (e) { return []; } }
-      function fmtCurrency(n) {
-        if (window.formatCurrency) return window.formatCurrency(n);
-        try { return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n); } catch (e) { return (n || 0).toLocaleString('vi-VN') + '₫'; }
-      }
+                // Pricing summary: products with zero profit (price === cost or profitMargin === 0)
+                var pricingBody = document.getElementById('pricing-summary-body');
+                if (pricingBody) {
+                    var zeroProfit = products.filter(function (p) {
+                        var price = Number(p && p.price) || 0;
+                        var cost = Number(p && p.cost) || 0;
+                        var margin = p && (p.profitMargin || p.profit_margin || p.profit);
+                        if (margin !== undefined && margin !== null) return Number(margin) === 0;
+                        return price === cost;
+                    });
+                    pricingBody.innerHTML = '';
+                    if (!zeroProfit.length) pricingBody.innerHTML = '<tr><td colspan="3" class="text-center text-muted">Không có sản phẩm</td></tr>';
+                    else zeroProfit.forEach(function (p) {
+                        pricingBody.innerHTML += '<tr>' +
+                            '<td>' + (p.name || p.code || 'Sản phẩm') + '</td>' +
+                            '<td class="text-end text-danger fw-bold">' + fmtCurrency(Number(p.cost) || 0) + '</td>' +
+                            '<td class="text-end">' + fmtCurrency(Number(p.price) || 0) + '</td>' +
+                            '</tr>';
+                    });
+                }
 
-      document.addEventListener('DOMContentLoaded', function () {
-        // Products
-        var products = [];
-        if (window.getProductData) products = window.getProductData();
-        else products = safeParse('morico_products') || [];
+                // Recent orders (last 5 by date)
+                var recentBody = document.getElementById('recent-orders-body');
+                if (recentBody) {
+                    recentBody.innerHTML = '';
+                    var sorted = (orders || []).slice().sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+                    var top = sorted.slice(0, 5);
+                    if (!top.length) recentBody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Không có đơn hàng</td></tr>';
+                    else top.forEach(function (o) {
+                        var isDelivered = (o && o.status === 'delivered');
+                        var badgeClass = isDelivered ? 'bg-success' : ((o && o.status === 'pending') ? 'bg-warning text-dark' : 'bg-primary');
+                        var statusText = (o && o.status) ? (o.status === 'pending' ? 'Chờ xử lý' : (o.status === 'confirmed' ? 'Đã xác nhận' : (o.status === 'shipping' ? 'Đang giao' : (o.status === 'delivered' ? 'Đã giao' : (o.status === 'cancelled' ? 'Đã huỷ' : o.status))))) : '';
+                        recentBody.innerHTML += '<tr>' +
+                            '<td><span class="fw-bold">#' + (o.id || '') + '</span></td>' +
+                            '<td>' + (o.customer || o.name || '') + '</td>' +
+                            '<td>' + (o.date || '') + '</td>' +
+                            '<td class="text-end fw-bold">' + fmtCurrency(Number(o.total) || 0) + '</td>' +
+                            '<td class="text-center"><span class="badge rounded-pill ' + badgeClass + '">' + statusText + '</span></td>' +
+                            '</tr>';
+                    });
+                }
 
-        // Orders
-        var orders = safeParse('orders') || [];
-
-        // Totals
-        var totalProducts = (products && products.length) || 0;
-        var totalOrders = (orders && orders.length) || 0;
-        var pendingOrders = (orders && orders.filter(function (o) { return (o && o.status === 'pending') || (o && o.status === 'pending'); }).length) || 0;
-        var totalRevenue = (orders && orders.reduce(function (s, o) { return s + (Number(o && o.total) || 0); }, 0)) || 0;
-
-        var elTotalProducts = document.getElementById('total-products');
-        var elTotalOrders = document.getElementById('total-orders');
-        var elPending = document.getElementById('pending-orders');
-        var elRevenue = document.getElementById('total-revenue');
-        if (elTotalProducts) elTotalProducts.textContent = totalProducts;
-        if (elTotalOrders) elTotalOrders.textContent = totalOrders;
-        if (elPending) elPending.textContent = pendingOrders;
-        if (elRevenue) elRevenue.textContent = fmtCurrency(totalRevenue);
-
-        // Low stock list (stock < 20)
-        var lowBody = document.getElementById('low-stock-body');
-        if (lowBody) {
-          var lowStock = products.filter(function (p) { return Number(p && p.stock) < 20; });
-          lowBody.innerHTML = '';
-          if (!lowStock.length) {
-            lowBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Không có sản phẩm</td></tr>';
-          } else {
-            lowStock.forEach(function (p) {
-              var name = p.name || p.code || ('Sản phẩm ' + (p.id || ''));
-              var stock = Number(p.stock) || 0;
-              var statusClass = stock === 0 ? 'out-of-stock' : (stock <= 10 ? 'out-of-stock' : 'in-stock');
-              var statusText = stock === 0 ? 'HẾT HÀNG' : (stock <= 10 ? 'SẮP HẾT!' : 'Bình thường');
-              lowBody.innerHTML += '<tr>' +
-                '<td>' + name + '</td>' +
-                '<td style="text-align:center;">' + (stock.toLocaleString('vi-VN')) + '</td>' +
-                '<td style="text-align:center;"><span class="status ' + statusClass + '">' + statusText + '</span></td>' +
-                '<td style="text-align:center;"><button class="btn-primary" onclick="location.href=\'products.html\'">Chi tiết</button></td>' +
-                '</tr>';
             });
-          }
-        }
-
-        // Pricing summary: products with zero profit (price === cost or profitMargin === 0)
-        var pricingBody = document.getElementById('pricing-summary-body');
-        if (pricingBody) {
-          var zeroProfit = products.filter(function (p) {
-            var price = Number(p && p.price) || 0;
-            var cost = Number(p && p.cost) || 0;
-            var margin = p && (p.profitMargin || p.profit_margin || p.profit);
-            if (margin !== undefined && margin !== null) return Number(margin) === 0;
-            return price === cost;
-          });
-          pricingBody.innerHTML = '';
-          if (!zeroProfit.length) pricingBody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Không có sản phẩm</td></tr>';
-          else zeroProfit.forEach(function (p) {
-            pricingBody.innerHTML += '<tr>' +
-              '<td>' + (p.name || p.code || 'Sản phẩm') + '</td>' +
-              '<td style="text-align:right;">' + fmtCurrency(Number(p.cost) || 0) + '</td>' +
-              '<td style="text-align:right;">' + fmtCurrency(Number(p.price) || 0) + '</td>' +
-              '</tr>';
-          });
-        }
-
-        // Recent orders (last 5 by date)
-        var recentBody = document.getElementById('recent-orders-body');
-        if (recentBody) {
-          recentBody.innerHTML = '';
-          var sorted = (orders || []).slice().sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
-          var top = sorted.slice(0, 5);
-          if (!top.length) recentBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Không có đơn hàng</td></tr>';
-          else top.forEach(function (o) {
-            var statusText = (o && o.status) ? (o.status === 'pending' ? 'Chờ xử lý' : (o.status === 'confirmed' ? 'Đã xác nhận' : (o.status === 'shipping' ? 'Đang giao' : (o.status === 'delivered' ? 'Đã giao' : (o.status === 'cancelled' ? 'Đã huỷ' : o.status))))) : '';
-            recentBody.innerHTML += '<tr>' +
-              '<td>' + (o.id || '') + '</td>' +
-              '<td>' + (o.customer || o.name || '') + '</td>' +
-              '<td>' + (o.date || '') + '</td>' +
-              '<td style="text-align:right;">' + fmtCurrency(Number(o.total) || 0) + '</td>' +
-              '<td><span class="status">' + statusText + '</span></td>' +
-              '</tr>';
-          });
-        }
-
-      });
-    })();
-  </script>
+        })();
+    </script>
 </body>
 
 </html>
