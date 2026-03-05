@@ -131,6 +131,11 @@
 
             if (currentUserString) {
                 // ĐÃ ĐĂNG NHẬP
+                userIcon.style.display = 'inline-block';
+
+                let authContainer = document.querySelector('.user-menu .auth-buttons');
+                if (authContainer) authContainer.style.display = 'none';
+
                 const currentUser = JSON.parse(currentUserString);
                 dropdown.innerHTML = `
                 <a href="profile.html">Tài khoản</a>
@@ -154,10 +159,23 @@
 
             } else {
                 // CHƯA ĐĂNG NHẬP
-                dropdown.innerHTML = `
-                <a href="login.html">Đăng nhập</a>
-                <a href="register.html">Đăng ký</a>
-                `;
+                userIcon.style.display = 'none';
+                dropdown.classList.remove("active");
+
+                let authContainer = document.querySelector(".user-menu .auth-buttons");
+                if (!authContainer) {
+                    const userMenu = document.querySelector(".user-menu");
+                    if (userMenu) {
+                        userMenu.insertAdjacentHTML('beforeend', `
+                      <div class="auth-buttons">
+                        <a href="login.html" class="auth-btn sign-in-btn">Đăng nhập</a>
+                        <a href="register.html" class="auth-btn sign-up-btn">Đăng ký</a>
+                      </div>
+                    `);
+                    }
+                } else {
+                    authContainer.style.display = 'flex';
+                }
             }
         }
 
@@ -555,16 +573,16 @@
             });
 
             // Xử lý dropdown user menu
-            const userIcon = document.getElementById("userIcon");
-            const dropdown = document.getElementById("userDropdown");
-
-            userIcon.addEventListener("click", e => {
-                e.stopPropagation();
-                dropdown.classList.toggle("active");
-            });
-
             document.addEventListener("click", e => {
-                if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+                const userIcon = document.getElementById("userIcon");
+                const dropdown = document.getElementById("userDropdown");
+
+                if (!userIcon || !dropdown) return;
+
+                if (userIcon.contains(e.target)) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle("active");
+                } else if (!dropdown.contains(e.target)) {
                     dropdown.classList.remove("active");
                 }
             });

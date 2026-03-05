@@ -7,17 +7,45 @@
     <title>Thanh Toán Đơn Hàng - MORICO</title>
     <link rel="stylesheet" href="../assets/vendor/bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/user/common.css">
+    <link rel="stylesheet" href="../assets/css/user/header.css">
     <link rel="stylesheet" href="../assets/vendor/fontawesome-free-7.2.0/css/all.min.css" />
     <link rel="stylesheet" href="../assets/css/user/checkout.css">
 </head>
 
 <body>
-    <div class="header">
-        <div class="logo">
-            <i class=""></i>
-            <div class="logo-text">MORICO</div>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="../assets/image/login/logo.png" alt="Logo Morico" class="logo-img">
+                <span>Morico</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Bạn muốn tìm bánh gì...">
+                <button>
+                    <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                </button>
+            </div>
+            <div class="icon-group">
+                <a href="cart.html" class="icon-link" id="cartLink">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCountBadge" class="cart-count">0</span>
+                </a>
+                <div class="user-menu">
+                    <i class="fa-solid fa-user user-icon" id="userIcon"></i>
+                    <div class="dropdown" id="userDropdown"></div>
+                </div>
+            </div>
         </div>
-        <h1>THANH TOÁN ĐƠN HÀNG</h1>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="../index.html">TRANG CHỦ</a>
+        <a href="about.html">GIỚI THIỆU</a>
+        <a href="product.html">SẢN PHẨM</a>
+    </nav>
+
+    <div class="header text-center mt-4">
+        <h1 class="page-title">THANH TOÁN ĐƠN HÀNG</h1>
         <div class="subtitle">Hoàn tất đơn hàng của bạn một cách dễ dàng và an toàn</div>
     </div>
 
@@ -555,6 +583,7 @@
             }
         });
     </script>
+    <script src="../assets/js/user/header.js"></script>
 </body>
 
 </html>

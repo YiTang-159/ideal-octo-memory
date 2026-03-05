@@ -7,8 +7,6 @@ let currentPage = 1;
 const itemsPerPage = 6;
 
 // --- KHAI BÁO BIẾN TOÀN CỤC ---
-const userIcon = document.getElementById("userIcon");
-const dropdown = document.getElementById("userDropdown");
 const cartCountBadge = document.getElementById("cartCountBadge");
 const cartLink = document.getElementById("cartLink");
 
@@ -209,11 +207,21 @@ function updateCartCount() {
  * Cập nhật menu người dùng dựa trên trạng thái đăng nhập
  */
 function updateUserMenu() {
+    const userIcon = document.getElementById("userIcon");
+    const dropdown = document.getElementById("userDropdown");
     const currentUserString = localStorage.getItem("currentUser");
+
+    if (!userIcon || !dropdown) return; // Bảo vệ nếu DOM chưa sẵn sàng
+
     dropdown.innerHTML = "";
 
     if (currentUserString) {
         // --- TRƯỜNG HỢP: ĐÃ ĐĂNG NHẬP ---
+        userIcon.style.display = 'inline-block';
+
+        let authContainer = document.querySelector('.user-menu .auth-buttons');
+        if (authContainer) authContainer.style.display = 'none';
+
         const currentUser = JSON.parse(currentUserString);
         dropdown.innerHTML = `
       <a href="profile.html">Tài Khoản</a>
@@ -222,26 +230,44 @@ function updateUserMenu() {
 
         // Thêm sự kiện click cho link Tài Khoản
         const profileLink = dropdown.querySelector('a[href="profile.html"]');
-        profileLink.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.location.href = 'profile.html';
-        });
+        if (profileLink) {
+            profileLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = 'profile.html';
+            });
+        }
 
-        document.getElementById("logoutBtn").addEventListener("click", e => {
-            e.preventDefault();
-            localStorage.removeItem("currentUser");
-            updateUserMenu();
-            updateCartCount(); // Cập nhật lại giỏ hàng khi logout
-            dropdown.classList.remove("active");
-            showNotification("Đã đăng xuất thành công!");
-        });
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", e => {
+                e.preventDefault();
+                localStorage.removeItem("currentUser");
+                updateUserMenu();
+                updateCartCount(); // Cập nhật lại giỏ hàng khi logout
+                dropdown.classList.remove("active");
+                showNotification("Đã đăng xuất thành công!");
+            });
+        }
 
     } else {
         // --- TRƯỜNG HỢP: CHƯA ĐĂNG NHẬP ---
-        dropdown.innerHTML = `
-      <a href="login.html">Đăng nhập</a>
-      <a href="register.html">Đăng ký</a>
-    `;
+        userIcon.style.display = 'none';
+        dropdown.classList.remove("active");
+
+        let authContainer = document.querySelector(".user-menu .auth-buttons");
+        if (!authContainer) {
+            const userMenu = document.querySelector(".user-menu");
+            if (userMenu) {
+                userMenu.insertAdjacentHTML('beforeend', `
+              <div class="auth-buttons">
+                <a href="login.html" class="auth-btn sign-in-btn">Đăng nhập</a>
+                <a href="register.html" class="auth-btn sign-up-btn">Đăng ký</a>
+              </div>
+            `);
+            }
+        } else {
+            authContainer.style.display = 'flex';
+        }
     }
 }
 
@@ -632,13 +658,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 4. XỬ LÝ BẬT/TẮT DROPDOWN
-userIcon.addEventListener("click", e => {
-    e.stopPropagation();
-    dropdown.classList.toggle("active");
-});
-
 document.addEventListener("click", e => {
-    if (!dropdown.contains(e.target) && !userIcon.contains(e.target)) {
+    const userIcon = document.getElementById("userIcon");
+    const dropdown = document.getElementById("userDropdown");
+
+    if (!userIcon || !dropdown) return;
+
+    if (userIcon.contains(e.target)) {
+        e.stopPropagation();
+        dropdown.classList.toggle("active");
+    } else if (!dropdown.contains(e.target)) {
         dropdown.classList.remove("active");
     }
 });

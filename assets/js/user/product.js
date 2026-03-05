@@ -160,8 +160,6 @@ function initializeSampleProducts() {
         console.log('Đã thêm dữ liệu sản phẩm mẫu vào localStorage');
     }
 }
-}
-
 
 // Gọi hàm này khi trang được tải
 initializeSampleProducts();

@@ -7,13 +7,10 @@
     <title>Hồ sơ cá nhân</title>
     <link rel="stylesheet" href="../assets/vendor/bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/user/common.css">
+    <link rel="stylesheet" href="../assets/css/user/header.css">
+    <link rel="stylesheet" href="../assets/vendor/fontawesome-free-7.2.0/css/all.min.css">
 
     <style>
-        body {
-            align-items: center;
-            justify-content: center;
-        }
-
         .profile-card {
             background: #fff8c9;
             border: 2px solid var(--primary-color);
@@ -58,6 +55,37 @@
 </head>
 
 <body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="../assets/image/login/logo.png" alt="Logo Morico" class="logo-img">
+                <span>Morico</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Bạn muốn tìm bánh gì...">
+                <button>
+                    <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
+                </button>
+            </div>
+            <div class="icon-group">
+                <a href="cart.html" class="icon-link" id="cartLink">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCountBadge" class="cart-count">0</span>
+                </a>
+                <div class="user-menu">
+                    <i class="fa-solid fa-user user-icon" id="userIcon"></i>
+                    <div class="dropdown" id="userDropdown"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="../index.html">TRANG CHỦ</a>
+        <a href="about.html">GIỚI THIỆU</a>
+        <a href="product.html">SẢN PHẨM</a>
+    </nav>
+    <div class="mt-5 pt-5"></div>
 
     <div class="profile-card p-4 p-md-5 mx-auto" style="max-width: 520px; width: 100%;">
         <h2 class="text-center mb-4" style="color: var(--primary-color); font-size: 2rem;">Hồ sơ cá nhân</h2>
@@ -191,7 +219,7 @@
             window.location.href = "../index.html"; // Đường dẫn tới trang chủ
         });
     </script>
-
+    <script src="../assets/js/user/header.js"></script>
 </body>
 
 </html>
