@@ -133,19 +133,8 @@
     flex: 1;
 }
 
-.page-title {
-    font-size: 32px;
-    color: #8B0000;
-    margin-bottom: 10px;
-    text-align: center;
-}
 
-.page-subtitle {
-    font-size: 18px;
-    color: #5a2d0c;
-    text-align: center;
-    margin-bottom: 30px;
-}
+/* Redundant .page-title and .page-subtitle are now in common.css */
 
 .search-results-info {
     margin-bottom: 20px;

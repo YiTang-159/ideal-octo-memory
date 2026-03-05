@@ -40,20 +40,8 @@ body {
     color: var(--brand-crimson);
 }
 
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: var(--brand-crimson);
-    font-weight: 700;
-}
 
-.subtitle {
-    text-align: center;
-    color: var(--muted-brown);
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-}
+/* Unified page title handled by common.css */
 
 #checkout-container {
     max-width: 1000px;

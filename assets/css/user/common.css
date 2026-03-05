@@ -32,6 +32,66 @@ body {
     flex-direction: column;
 }
 
+/* ===== UNIFIED PAGE TITLE ===== */
+.page-title {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 52px;
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.page-subtitle {
+    font-size: 20px;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 30px;
+    font-style: italic;
+    font-family: "Century", serif;
+}
+
+/* Responsive Page Title */
+@media (max-width: 992px) {
+    .page-title {
+        font-size: 44px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 38px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .page-subtitle {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 32px;
+        margin-top: 8px;
+        margin-bottom: 12px;
+    }
+
+    .page-subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .page-title {
+        font-size: 28px;
+    }
+}
+
 /* ===== FOOTER ===== */
 footer {
     text-align: center;

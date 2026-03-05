@@ -2,17 +2,7 @@
 /* Header/nav/search/dropdown rules are in header.css — not duplicated here */
 
 /* Page title */
-.page-title {
-    font-size: 32px;
-    color: #8B0000;
-    padding: 15px 20px;
-    font-family: 'Dancing Script', cursive;
-    font-weight: 700;
-    text-align: center;
-    background-color: #FFFFFF;
-    border-bottom: none;
-    margin: 0;
-}
+/* Page title handled by common.css */
 
 /* History container */
 #history-container {
