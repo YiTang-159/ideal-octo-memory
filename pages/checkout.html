@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../assets/css/user/header.css">
     <link rel="stylesheet" href="../assets/vendor/fontawesome-free-7.2.0/css/all.min.css" />
     <link rel="stylesheet" href="../assets/css/user/checkout.css">
+    <script src="../assets/js/user/auth-guard.js"></script>
 </head>
 
 <body>
@@ -546,6 +547,8 @@
 
         // Khởi tạo trang
         document.addEventListener('DOMContentLoaded', function () {
+            if (!user) return; // Prevent double alerts during redirect by auth-guard
+
             loadUserInfo();
             loadOrderDetails();
             loadUserAddresses();

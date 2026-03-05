@@ -6,6 +6,8 @@ const cartLink = document.getElementById("cartLink");
  * Cập nhật số lượng hiển thị trên icon giỏ hàng
  */
 function updateCartCount() {
+    if (!cartLink) return;
+
     const currentUser = localStorage.getItem("currentUser");
 
     // CHỈ HIỆN GIỎ HÀNG KHI ĐÃ ĐĂNG NHẬP
@@ -23,12 +25,14 @@ function updateCartCount() {
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     // 3. Cập nhật giao diện
-    if (totalCount > 0) {
-        cartCountBadge.textContent = totalCount;
-        cartCountBadge.classList.add("visible");
-    } else {
-        cartCountBadge.textContent = "0";
-        cartCountBadge.classList.remove("visible");
+    if (cartCountBadge) {
+        if (totalCount > 0) {
+            cartCountBadge.textContent = totalCount;
+            cartCountBadge.classList.add("visible");
+        } else {
+            cartCountBadge.textContent = "0";
+            cartCountBadge.classList.remove("visible");
+        }
     }
 }
 
@@ -44,6 +48,10 @@ function updateUserMenu() {
 
     dropdown.innerHTML = "";
 
+    // Determine path prefix based on location
+    const isRoot = !window.location.pathname.includes('/pages/');
+    const pathPrefix = isRoot ? 'pages/' : '';
+
     if (currentUserString) {
         // --- TRƯỜNG HỢP: ĐÃ ĐĂNG NHẬP ---
         userIcon.style.display = 'inline-block';
@@ -51,20 +59,11 @@ function updateUserMenu() {
         let authContainer = document.querySelector('.user-menu .auth-buttons');
         if (authContainer) authContainer.style.display = 'none';
 
-        const currentUser = JSON.parse(currentUserString);
         dropdown.innerHTML = `
-      <a href="profile.html">Tài khoản</a>
-      <a href="#" id="logoutBtn">Đăng xuất</a>
-    `;
-
-        // Thêm sự kiện click cho link Tài Khoản
-        const profileLink = dropdown.querySelector('a[href="profile.html"]');
-        if (profileLink) {
-            profileLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                window.location.href = 'profile.html';
-            });
-        }
+            <a href="${pathPrefix}profile.html">Tài khoản</a>
+            <a href="${pathPrefix}history.html">Lịch sử mua hàng</a>
+            <a href="#" id="logoutBtn">Đăng xuất</a>
+        `;
 
         const logoutBtn = document.getElementById("logoutBtn");
         if (logoutBtn) {
@@ -74,6 +73,13 @@ function updateUserMenu() {
                 updateUserMenu();
                 updateCartCount();
                 dropdown.classList.remove("active");
+
+                // Redirect to login if on a protected page
+                const protectedPages = ['cart.html', 'history.html', 'checkout.html', 'profile.html'];
+                const currentPage = window.location.pathname.split('/').pop();
+                if (protectedPages.includes(currentPage)) {
+                    window.location.href = isRoot ? 'pages/login.html' : 'login.html';
+                }
             });
         }
 
@@ -87,11 +93,11 @@ function updateUserMenu() {
             const userMenu = document.querySelector(".user-menu");
             if (userMenu) {
                 userMenu.insertAdjacentHTML('beforeend', `
-          <div class="auth-buttons">
-            <a href="login.html" class="auth-btn sign-in-btn">Đăng nhập</a>
-            <a href="register.html" class="auth-btn sign-up-btn">Đăng ký</a>
-          </div>
-        `);
+                    <div class="auth-buttons">
+                        <a href="${pathPrefix}login.html" class="auth-btn sign-in-btn">Đăng nhập</a>
+                        <a href="${pathPrefix}register.html" class="auth-btn sign-up-btn">Đăng ký</a>
+                    </div>
+                `);
             }
         } else {
             authContainer.style.display = 'flex';
@@ -112,60 +118,66 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchButton = document.querySelector('.search-bar button');
     const resultsBox = document.querySelector('.search-results');
 
-    const products = [
-        { id: 1, name: "Bánh Trung Thu Golden Plum", price: "189.000đ", image: "assets/image/banh-trung-thu-golden-plum.png" },
-        { id: 2, name: "Bánh Trung Thu Hotate XO Mixed Nuts", price: "139.000đ", image: "assets/image/banh-trung-thu-hotate-xo-mixed-nuts.png" },
-        { id: 3, name: "Bánh Trung Thu Matcha", price: "99.000đ", image: "assets/image/banh-trung-thu-matcha.png" },
-        { id: 4, name: "Bánh Trung Thu Murasaki Imo", price: "115.000đ", image: "assets/image/banh-trung-thu-murasaki-imo.png" },
-        { id: 5, name: "Bánh Trung Thu Mushroom Mixed Nuts", price: "129.000đ", image: "assets/image/banh-trung-thu-mushroom-mixed-nuts.png" },
-        { id: 6, name: "Bánh Trung Thu Pink Nocturne", price: "105.000đ", image: "assets/image/banh-trung-thu-pink-nocturne.png" },
-        { id: 7, name: "Bánh Trung Thu Takesumi Orange", price: "125.000đ", image: "assets/image/banh-trung-thu-takesumi-orange.png" },
-        { id: 8, name: "Bánh Trung Thu Xôi Gấc", price: "95.000đ", image: "assets/image/banh-trung-thu-xoi-gac.png" }
-    ];
+    if (searchInput && searchButton && resultsBox) {
+        const isRoot = !window.location.pathname.includes('/pages/');
+        const imgPathPrefix = isRoot ? '' : '../';
+        const pagePathPrefix = isRoot ? 'pages/' : '';
 
-    function searchProducts() {
-        const keyword = searchInput.value.trim().toLowerCase();
-        resultsBox.innerHTML = "";
-        if (keyword === "") {
-            resultsBox.classList.remove("active");
-            return;
-        }
+        const products = [
+            { id: 1, name: "Bánh Trung Thu Golden Plum", price: "189.000đ", image: "assets/image/product/banh-trung-thu-golden-plum.png" },
+            { id: 2, name: "Bánh Trung Thu Hotate XO Mixed Nuts", price: "139.000đ", image: "assets/image/product/banh-trung-thu-hotate-xo-mixed-nuts.png" },
+            { id: 3, name: "Bánh Trung Thu Matcha", price: "99.000đ", image: "assets/image/product/banh-trung-thu-matcha.png" },
+            { id: 4, name: "Bánh Trung Thu Murasaki Imo", price: "115.000đ", image: "assets/image/product/banh-trung-thu-murasaki-Imo.png" },
+            { id: 5, name: "Bánh Trung Thu Mushroom Mixed Nuts", price: "129.000đ", image: "assets/image/product/banh-trung-thu-mushroom-mixed-nuts.png" },
+            { id: 6, name: "Bánh Trung Thu Pink Nocturne", price: "105.000đ", image: "assets/image/product/banh-trung-thu-pink-nocturne.png" },
+            { id: 7, name: "Bánh Trung Thu Takesumi Orange", price: "125.000đ", image: "assets/image/product/banh-trung-thu-takesumi-orange.png" },
+            { id: 8, name: "Bánh Trung Thu Xôi Gấc", price: "95.000đ", image: "assets/image/product/banh-trung-thu-xoi-gac.png" }
+        ];
 
-        const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
-        if (filtered.length === 0) {
-            resultsBox.innerHTML = `<p style="text-align:center; padding:10px; color:#8B0000;">Không tìm thấy sản phẩm</p>`;
-            resultsBox.classList.add("active");
-            return;
-        }
+        function searchProducts() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            resultsBox.innerHTML = "";
+            if (keyword === "") {
+                resultsBox.classList.remove("active");
+                return;
+            }
 
-        filtered.forEach(p => {
-            const item = document.createElement("div");
-            item.classList.add("product-item");
-            item.innerHTML = `
-        <img src="${p.image}" alt="${p.name}">
-        <div>
-          <h4>${p.name}</h4>
-          <p>Giá: ${p.price}</p>
-        </div>
-      `;
-            item.addEventListener("click", () => {
-                window.location.href = `pages/product-detail.html?id=${p.id}`;
+            const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
+            if (filtered.length === 0) {
+                resultsBox.innerHTML = `<p style="text-align:center; padding:10px; color:#8B0000;">Không tìm thấy sản phẩm</p>`;
+                resultsBox.classList.add("active");
+                return;
+            }
+
+            filtered.forEach(p => {
+                const item = document.createElement("div");
+                item.classList.add("product-item");
+                item.innerHTML = `
+                    <img src="${imgPathPrefix}${p.image}" alt="${p.name}">
+                    <div>
+                        <h4>${p.name}</h4>
+                        <p>Giá: ${p.price}</p>
+                    </div>
+                `;
+                item.addEventListener("click", () => {
+                    window.location.href = `${pagePathPrefix}product-detail.html?id=${p.id}`;
+                });
+                resultsBox.appendChild(item);
             });
-            resultsBox.appendChild(item);
-        });
-        resultsBox.classList.add("active");
-    }
-
-    searchButton.addEventListener("click", searchProducts);
-    searchInput.addEventListener("keypress", e => {
-        if (e.key === "Enter") searchProducts();
-    });
-
-    document.addEventListener("click", e => {
-        if (!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
-            resultsBox.classList.remove("active");
+            resultsBox.classList.add("active");
         }
-    });
+
+        searchButton.addEventListener("click", searchProducts);
+        searchInput.addEventListener("keypress", e => {
+            if (e.key === "Enter") searchProducts();
+        });
+
+        document.addEventListener("click", e => {
+            if (!e.target.closest(".search-bar") && !e.target.closest(".search-results")) {
+                resultsBox.classList.remove("active");
+            }
+        });
+    }
 });
 
 // 4. XỬ LÝ BẬT/TẮT DROPDOWN

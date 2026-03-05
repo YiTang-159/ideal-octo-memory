@@ -5,10 +5,7 @@ const currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 const ordersList = document.getElementById('orders-list');
 
 function initHistory() {
-    if (!currentUser) {
-        window.location.href = '../pages/login.html';
-        return;
-    }
+    if (!currentUser) return; // auth-guard.js will handle redirect
     renderOrders();
 }
 
