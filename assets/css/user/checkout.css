@@ -1,3 +1,5 @@
+/* ===== CHECKOUT PAGE SPECIFIC CSS ===== */
+
 :root {
     --brand-gold: #E6BE8A;
     --brand-crimson: #8B0000;
@@ -6,18 +8,11 @@
     --card-white: #ffffff;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
     background: linear-gradient(to right, #FFFDF2, #FFF9DC, #FFF4C2);
     color: #8B0000;
     padding: 20px;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .header {
@@ -26,7 +21,7 @@ body {
     padding: 20px;
 }
 
-.logo {
+.header .logo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +29,7 @@ body {
     margin-bottom: 10px;
 }
 
-.logo i {
+.header .logo i {
     font-size: 2.5rem;
     color: var(--brand-crimson);
 }
@@ -283,7 +278,7 @@ strong {
     text-decoration: underline;
 }
 
-/* Style cho phần địa chỉ */
+/* Address section */
 .address-section {
     margin-top: 20px;
 }

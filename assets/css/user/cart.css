@@ -1,13 +1,4 @@
-/* styles.css - CSS chung cho toàn bộ website */
-body {
-    margin: 0;
-    font-family: "Century", serif;
-    background: linear-gradient(to right, #FFFDF2, #FFF9DC, #FFF4C2);
-    color: #8B0000;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+/* ===== CART PAGE SPECIFIC CSS ===== */
 
 /* ===== NỘI DUNG CHÍNH & GIỎ HÀNG ===== */
 #cart-container {
@@ -288,18 +279,6 @@ body {
     background-color: #3e1f06;
 }
 
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 25px;
-    background-color: #FFFBE6;
-    color: #8B0000;
-    font-size: 18px;
-    font-family: 'Dancing Script', cursive;
-    border-top: 1.5px solid #8B0000;
-    margin-top: 0;
-    flex-shrink: 0;
-}
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -373,32 +352,4 @@ footer {
         margin-right: 0;
     }
 
-    .search-results {
-        width: 90%;
-        max-width: 500px;
-    }
-}
-
-@media (max-width: 480px) {
-    .search-results {
-        width: 95%;
-        max-width: 400px;
-    }
-
-    .search-results .product-item {
-        padding: 8px;
-    }
-
-    .search-results img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .search-results h4 {
-        font-size: 16px;
-    }
-
-    .search-results p {
-        font-size: 14px;
-    }
 }

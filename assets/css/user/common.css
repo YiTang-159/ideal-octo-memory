@@ -1,0 +1,60 @@
+/* ===== COMMON CSS — Shared across all user pages ===== */
+
+/* ===== CSS VARIABLES ===== */
+:root {
+    --primary-color: #8B0000;
+    --primary-hover: #B22222;
+    --accent-color: #FFB6C1;
+    --accent-hover: #FF7F50;
+    --bg-light: #FFFDF2;
+    --bg-medium: #f9f9f9;
+    --text-dark: #5a2d0c;
+    --text-light: #FFEFD5;
+    --border-color: #8B0000;
+    --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Century", serif;
+    background: linear-gradient(to right, var(--bg-light), var(--bg-medium));
+    color: var(--primary-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #FFFBE6;
+    color: var(--primary-color);
+    font-size: 18px;
+    font-family: 'Dancing Script', cursive;
+    border-top: 1.5px solid var(--border-color);
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    footer {
+        font-size: 16px;
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        font-size: 14px;
+        padding: 15px 10px;
+    }
+}
