@@ -121,7 +121,7 @@
                 <span class="shipping-free">Miễn phí</span>
             </div>
 
-            <div class="total-row" style="border-top: 2px solid var(--brand-crimson); margin-top: 10px;">
+            <div class="total-row" style="border-top: 2px solid var(--primary-color); margin-top: 10px;">
                 <span>TỔNG THANH TOÁN:</span>
                 <span class="total-amount" id="final-total">0₫</span>
             </div>
@@ -138,7 +138,7 @@
                 </div>
 
                 <div id="transfer-options">
-                    <p style="margin-bottom: 15px; font-weight: bold; color: var(--brand-crimson);">
+                    <p style="margin-bottom: 15px; font-weight: bold; color: var(--primary-color);">
                         <i class=""></i> Chọn Ngân hàng/Ví điện tử:
                     </p>
                     <div class="payment-option">
@@ -305,7 +305,7 @@
                         <input type="radio" name="address" value="${address.id}" ${address.isDefault ? 'checked' : ''}>
                         <span class="address-label">
                             ${address.name}
-                            ${address.id === 'profile' ? '<i class="fas fa-user" style="color: var(--brand-crimson);"></i>' : ''}
+                            ${address.id === 'profile' ? '<i class="fas fa-user" style="color: var(--primary-color);"></i>' : ''}
                         </span>
                         <div class="address-details">${address.details}</div>
                         <div class="address-contact">
@@ -456,7 +456,7 @@
                             <div class="item-name">${item.name}</div>
                             <div class="item-quantity">Số lượng: ${item.quantity}</div>
                         </div>
-                        <span style="font-weight: bold; color: var(--brand-crimson);">
+                        <span style="font-weight: bold; color: var(--primary-color);">
                             ${formatCurrency(totalPrice)}
                         </span>
                     </li>

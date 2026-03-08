@@ -1,20 +1,5 @@
 /* ===== CHECKOUT PAGE SPECIFIC CSS ===== */
 
-:root {
-    --brand-gold: #E6BE8A;
-    --brand-crimson: #8B0000;
-    --bg-cream: #FFF8E7;
-    --muted-brown: #5D4037;
-    --card-white: #ffffff;
-}
-
-body {
-    background: linear-gradient(to right, #FFFDF2, #FFF9DC, #FFF4C2);
-    color: #8B0000;
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .header {
     text-align: center;
     margin-bottom: 30px;
@@ -31,13 +16,13 @@ body {
 
 .header .logo i {
     font-size: 2.5rem;
-    color: var(--brand-crimson);
+    color: var(--primary-color);
 }
 
 .logo-text {
     font-size: 2rem;
     font-weight: 800;
-    color: var(--brand-crimson);
+    color: var(--primary-color);
 }
 
 
@@ -47,7 +32,7 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     background-color: var(--card-white);
-    border: 2px solid var(--brand-crimson);
+    border: 2px solid var(--primary-color);
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(139, 0, 0, 0.15);
     padding: 30px;
@@ -77,7 +62,7 @@ h2 {
 }
 
 h2 i {
-    color: var(--brand-crimson);
+    color: var(--primary-color);
 }
 
 p {
@@ -88,7 +73,7 @@ p {
 }
 
 strong {
-    color: var(--brand-crimson);
+    color: var(--primary-color);
 }
 
 #order-summary {
@@ -122,7 +107,7 @@ strong {
 
 .item-name {
     font-weight: 600;
-    color: var(--brand-crimson);
+    color: var(--primary-color);
 }
 
 .item-quantity {
@@ -138,11 +123,11 @@ strong {
     font-weight: 600;
     padding: 15px 0;
     margin-top: 15px;
-    border-top: 2px solid var(--brand-crimson);
+    border-top: 2px solid var(--primary-color);
 }
 
 .total-amount {
-    color: var(--brand-crimson) !important;
+    color: var(--primary-color) !important;
     font-size: 1.4rem;
     font-weight: 700;
 }
@@ -164,7 +149,7 @@ strong {
 
 .payment-option:hover {
     background: var(--bg-cream);
-    border-color: var(--brand-crimson);
+    border-color: var(--primary-color);
 }
 
 .payment-option input {
@@ -183,7 +168,7 @@ strong {
     width: 100%;
     padding: 18px;
     margin-top: 30px;
-    background: linear-gradient(135deg, var(--brand-crimson) 0%, #6a0000 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #6a0000 100%);
     color: white;
     border: none;
     border-radius: 10px;
@@ -197,7 +182,7 @@ strong {
 .confirm-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(139, 0, 0, 0.4);
-    background: linear-gradient(135deg, #6a0000 0%, var(--brand-crimson) 100%);
+    background: linear-gradient(135deg, #6a0000 0%, var(--primary-color) 100%);
 }
 
 .confirm-btn:active {
@@ -216,7 +201,7 @@ strong {
     display: block;
     font-weight: 700;
     margin-bottom: 8px;
-    color: var(--brand-crimson);
+    color: var(--primary-color);
     font-size: 1rem;
 }
 
@@ -233,7 +218,7 @@ strong {
 
 #customer-info input:focus {
     outline: none;
-    border-color: var(--brand-crimson);
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
 }
 
@@ -252,7 +237,7 @@ strong {
 }
 
 .back-link {
-    color: var(--brand-crimson);
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
     display: inline-flex;
@@ -283,12 +268,12 @@ strong {
 }
 
 .address-option:hover {
-    border-color: var(--brand-crimson);
+    border-color: var(--primary-color);
     background: var(--bg-cream);
 }
 
 .address-option.selected {
-    border-color: var(--brand-crimson);
+    border-color: var(--primary-color);
     background: var(--bg-cream);
     box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
 }
@@ -300,7 +285,7 @@ strong {
 
 .address-label {
     font-weight: 700;
-    color: var(--brand-crimson);
+    color: var(--primary-color);
     margin-bottom: 5px;
     display: flex;
     align-items: center;
@@ -337,7 +322,7 @@ strong {
 }
 
 .delete-address-btn:hover {
-    color: var(--brand-crimson);
+    color: var(--primary-color);
     background: rgba(139, 0, 0, 0.1);
 }
 
@@ -350,8 +335,8 @@ strong {
     padding: 12px;
     margin-top: 10px;
     background: transparent;
-    color: var(--brand-crimson);
-    border: 2px dashed var(--brand-crimson);
+    color: var(--primary-color);
+    border: 2px dashed var(--primary-color);
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
@@ -373,7 +358,7 @@ strong {
 }
 
 .new-address-form h3 {
-    color: var(--brand-crimson);
+    color: var(--primary-color);
     margin-bottom: 15px;
     display: flex;
     align-items: center;
@@ -396,7 +381,7 @@ strong {
 .save-address-btn {
     flex: 1;
     padding: 10px;
-    background: var(--brand-crimson);
+    background: var(--primary-color);
     color: white;
     border: none;
     border-radius: 6px;

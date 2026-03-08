@@ -8,106 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/vendor/bootstrap-5.3.8-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/user/common.css">
+    <link rel="stylesheet" href="../assets/css/user/auth.css">
     <link rel="stylesheet" href="../assets/vendor/fontawesome-free-7.2.0/css/all.min.css">
-
-    <style>
-        body {
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(to right, #FFF4C2, #FFF4C2);
-        }
-
-        .register-card {
-            width: 400px;
-            max-width: 95%;
-            background-color: #fff8c9;
-            border: 2px solid var(--primary-color);
-            border-radius: 1.25rem;
-            box-shadow: var(--shadow);
-            color: var(--primary-color);
-        }
-
-        .register-card .form-control {
-            border: 1.5px solid var(--primary-color);
-            background-color: #FFFCEE;
-            color: var(--primary-color);
-            font-family: "Century", serif;
-        }
-
-        .register-card .form-control:focus {
-            border-color: var(--primary-hover);
-            background-color: #FFF8B5;
-            box-shadow: 0 0 0 0.2rem rgba(139, 0, 0, 0.15);
-        }
-
-        /* Ẩn icon con mắt mặc định của Chrome */
-        input[type="password"]::-ms-reveal,
-        input[type="password"]::-ms-clear {
-            display: none;
-        }
-
-        input[type="password"]::-webkit-credentials-auto-fill-button,
-        input[type="password"]::-webkit-password-toggle-button {
-            display: none;
-            visibility: hidden;
-        }
-
-        .password-wrapper {
-            position: relative;
-        }
-
-        .eye-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            opacity: 0.7;
-            color: var(--primary-color);
-            display: none;
-        }
-
-        .eye-icon:hover {
-            opacity: 1;
-        }
-
-        .btn-morico {
-            background-color: var(--primary-color);
-            color: #FFFBD1;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .btn-morico:hover {
-            background-color: var(--primary-hover);
-            color: #FFFBD1;
-            transform: scale(1.03);
-        }
-
-        .error {
-            color: var(--primary-hover);
-            font-weight: bold;
-            height: 20px;
-        }
-
-        .login-link a {
-            color: var(--primary-hover);
-            font-weight: bold;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-            color: #FF4500;
-        }
-    </style>
 </head>
 
-<body>
+<body class="auth-standalone">
     <div class="register-card mx-auto p-4 p-md-5">
         <h1 class="page-title">Đăng ký</h1>
 

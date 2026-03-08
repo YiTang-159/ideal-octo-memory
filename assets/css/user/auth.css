@@ -1,0 +1,174 @@
+/* ===== AUTH PAGES — login.html, register.html, profile.html ===== */
+/* Extracted from inline <style> blocks to eliminate duplication       */
+
+/* === Body override for standalone auth pages (no header/nav) === */
+body.auth-standalone {
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #FFF4C2, #FFF4C2);
+}
+
+/* === Card containers === */
+.login-card {
+    background-color: #FFF4C2;
+    border: 2px solid var(--primary-color);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    max-width: 850px;
+    width: 100%;
+}
+
+.register-card {
+    width: 400px;
+    max-width: 95%;
+    background-color: #fff8c9;
+    border: 2px solid var(--primary-color);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow);
+    color: var(--primary-color);
+}
+
+.profile-card {
+    background: #fff8c9;
+    border: 2px solid var(--primary-color);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+}
+
+/* === Form controls (shared across all auth pages) === */
+.login-section .form-control,
+.register-card .form-control,
+.profile-card .form-control {
+    border: 1.5px solid var(--primary-color);
+    background-color: #FFFCEE;
+    color: var(--primary-color);
+    font-family: "Century", serif;
+    font-size: 1rem;
+}
+
+.login-section .form-control:focus,
+.register-card .form-control:focus,
+.profile-card .form-control:focus {
+    border-color: var(--primary-hover);
+    background-color: #FFF8B5;
+    box-shadow: 0 0 0 0.2rem rgba(139, 0, 0, 0.15);
+}
+
+/* Profile: disabled state */
+.profile-card .form-control:disabled {
+    background-color: #fdf3b5;
+    color: #6b0000;
+}
+
+/* === Button Morico (shared) === */
+.btn-morico {
+    background-color: var(--primary-color);
+    color: #FFFBD1;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    box-shadow: 0 3px 8px rgba(139, 0, 0, 0.3);
+}
+
+.btn-morico:hover {
+    background-color: var(--primary-hover);
+    color: #FFFBD1;
+    transform: scale(1.03);
+}
+
+/* === Error messages === */
+.error {
+    color: var(--primary-hover);
+    font-size: 0.95rem;
+    font-weight: bold;
+    height: 20px;
+}
+
+/* === Auth navigation links === */
+.link a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.link a:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+}
+
+.login-link a {
+    color: var(--primary-hover);
+    font-weight: bold;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+    color: #FF4500;
+}
+
+/* ===== LOGIN PAGE SPECIFIC ===== */
+.image-section {
+    background-color: #fff3b0;
+}
+
+.image-section img {
+    width: 90%;
+    height: auto;
+}
+
+.login-section {
+    color: var(--primary-color);
+}
+
+.demo-account {
+    background-color: #FFF8B5;
+    border: 1px dashed var(--primary-color);
+}
+
+/* Custom modal — can't use BS modal without JS bundle */
+.custom-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== REGISTER PAGE SPECIFIC ===== */
+/* Hide default browser password icons */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-password-toggle-button {
+    display: none;
+    visibility: hidden;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0.7;
+    color: var(--primary-color);
+    display: none;
+}
+
+.eye-icon:hover {
+    opacity: 1;
+}

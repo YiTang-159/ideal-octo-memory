@@ -1,5 +1,7 @@
 /* ===== COMMON CSS — Shared across all user pages ===== */
 
+@import url('https://fonts.googleapis.com/css2?family=Labrada:ital,wght@0,100..900;1,100..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
 /* ===== CSS VARIABLES ===== */
 :root {
     --primary-color: #8B0000;
@@ -7,10 +9,12 @@
     --accent-color: #FFB6C1;
     --accent-hover: #FF7F50;
     --bg-light: #FFFDF2;
-    --bg-medium: #f9f9f9;
     --text-dark: #5a2d0c;
     --text-light: #FFEFD5;
-    --border-color: #8B0000;
+    --brand-gold: #E6BE8A;
+    --muted-brown: #5D4037;
+    --bg-cream: #FFF8E7;
+    --card-white: #ffffff;
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
 }
@@ -24,7 +28,7 @@
 
 body {
     font-family: "Century", serif;
-    background: linear-gradient(to right, var(--bg-light), var(--bg-medium));
+    background: var(--bg-light);
     color: var(--primary-color);
     line-height: 1.6;
     min-height: 100vh;
@@ -100,7 +104,7 @@ footer {
     color: var(--primary-color);
     font-size: 18px;
     font-family: 'Dancing Script', cursive;
-    border-top: 1.5px solid var(--border-color);
+    border-top: 1.5px solid var(--primary-color);
     margin-top: auto;
     flex-shrink: 0;
 }

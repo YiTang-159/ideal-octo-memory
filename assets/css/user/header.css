@@ -1,7 +1,7 @@
 /* HEADER CHÍNH */
 header {
   background-color: #ffffff;
-  border-bottom: 2px solid #8B0000;
+  border-bottom: 2px solid var(--primary-color);
   position: fixed;
   top: 0;
   left: 0;
@@ -27,7 +27,7 @@ header {
   font-family: 'Dancing Script', cursive;
   font-size: 42px;
   font-weight: bold;
-  color: #8B0000;
+  color: var(--primary-color);
 }
 
 .logo-img {
@@ -41,7 +41,7 @@ header {
   align-items: center;
   width: 600px;
   background-color: #FFFCF5;
-  border: 2px solid #8B0000;
+  border: 2px solid var(--primary-color);
   border-radius: 40px;
   padding: 4px 4px;
   position: relative;
@@ -58,7 +58,7 @@ header {
 }
 
 .search-bar button {
-  background-color: #8B0000;
+  background-color: var(--primary-color);
   border: none;
   border-radius: 50%;
   width: 38px;
@@ -77,7 +77,7 @@ header {
 }
 
 .search-bar button:hover {
-  background-color: #b22222;
+  background-color: var(--primary-hover);
   transform: scale(1.05);
 }
 
@@ -97,7 +97,7 @@ header {
 .user-icon {
   width: 28px;
   height: 28px;
-  fill: #8B0000;
+  fill: var(--primary-color);
   cursor: pointer;
   transition: transform 0.3s, fill 0.3s;
 }
@@ -105,7 +105,7 @@ header {
 .icon-link svg:hover,
 .user-icon:hover {
   transform: scale(1.1);
-  fill: #B22222;
+  fill: var(--primary-hover);
 }
 
 /* BADGE ĐẾM SỐ LƯỢNG GIỎ HÀNG */
@@ -113,7 +113,7 @@ header {
   position: absolute;
   top: -10px;
   right: -12px;
-  background-color: #B22222;
+  background-color: var(--primary-hover);
   color: white;
   border-radius: 50%;
   width: 22px;
@@ -147,7 +147,7 @@ header {
   left: 50%;
   transform: translateX(-50%);
   background-color: #fffdf0;
-  border: 1.5px solid #8B0000;
+  border: 1.5px solid var(--primary-color);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   min-width: 160px;
@@ -158,7 +158,7 @@ header {
 
 .dropdown a {
   display: block;
-  color: #8B0000;
+  color: var(--primary-color);
   text-decoration: none;
   padding: 10px 15px;
   font-family: "Century", serif;
@@ -168,14 +168,14 @@ header {
 
 .dropdown a:hover {
   background-color: #FFDAB9;
-  color: #B22222;
+  color: var(--primary-hover);
 }
 
 .dropdown .user-greeting {
   padding: 10px 15px;
   font-weight: bold;
   border-bottom: 1px solid #f0e0d0;
-  color: #5a2d0c;
+  color: var(--text-dark);
   font-size: 17px;
   cursor: default;
 }
@@ -191,14 +191,14 @@ header {
   align-items: center;
   background-color: #FFFBE6;
   padding: 12px 0;
-  border-top: 1px solid #8B0000;
-  border-bottom: 1.5px solid #8B0000;
+  border-top: 1px solid var(--primary-color);
+  border-bottom: 1.5px solid var(--primary-color);
   margin-top: 85px;
   gap: 30px;
 }
 
 .nav-bar a {
-  color: #5a2d0c;
+  color: var(--text-dark);
   text-decoration: none;
   font-size: 18px;
   font-weight: 600;
@@ -207,7 +207,7 @@ header {
 }
 
 .nav-bar a:hover {
-  color: #8B0000;
+  color: var(--primary-color);
   text-decoration: underline;
 }
 
@@ -219,7 +219,7 @@ header {
   transform: translateX(-50%);
   width: 600px;
   background-color: #fffdf0;
-  border: 1.5px solid #8B0000;
+  border: 1.5px solid var(--primary-color);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   max-height: 300px;
@@ -255,14 +255,14 @@ header {
 .search-results h4 {
   margin: 0;
   font-size: 18px;
-  color: #8B0000;
+  color: var(--primary-color);
   font-family: "Century", serif;
 }
 
 .search-results p {
   margin: 2px 0 0;
   font-size: 16px;
-  color: #5a2d0c;
+  color: var(--text-dark);
 }
 
 /* RESPONSIVE HEADER */
@@ -460,8 +460,8 @@ header {
 
 .sign-in-btn {
   background-color: transparent;
-  color: #8B0000;
-  border: 1.5px solid #8B0000;
+  color: var(--primary-color);
+  border: 1.5px solid var(--primary-color);
 }
 
 .sign-in-btn:hover {
@@ -469,12 +469,12 @@ header {
 }
 
 .sign-up-btn {
-  background-color: #8B0000;
+  background-color: var(--primary-color);
   color: #ffffff;
-  border: 1.5px solid #8B0000;
+  border: 1.5px solid var(--primary-color);
 }
 
 .sign-up-btn:hover {
-  background-color: #b22222;
-  border-color: #b22222;
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
