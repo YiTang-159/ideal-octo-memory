@@ -9,15 +9,17 @@ function getProductIdFromURL() {
     return id ? parseInt(id) : null;
 }
 
-// Hiển thị thông báo tự động
-function showNotification(message) {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.classList.add('show');
-
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 3000);
+// Hiển thị thông báo tự động (Bootstrap Toast)
+function showNotification(message, type = 'success') {
+    const toastEl = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMessage');
+    if (!toastEl || !toastMsg) return;
+    // Map 'error' → 'danger' to align with Bootstrap text-bg-* classes
+    const bsType = type === 'error' ? 'danger' : type;
+    toastMsg.textContent = message;
+    toastEl.className = 'toast align-items-center border-0 text-bg-' + bsType;
+    const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 3000 });
+    toast.show();
 }
 
 // Redundant updateCartCount removed
@@ -219,7 +221,7 @@ function displayRelatedProductsHTML(relatedIds) {
 function addToCartFromDetail() {
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
-        showNotification('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!');
+        showNotification("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!", "warning");
         return;
     }
 
@@ -228,14 +230,14 @@ function addToCartFromDetail() {
     const quantity = parseInt(document.getElementById('quantity').value);
 
     if (!product) {
-        showNotification('Sản phẩm không tồn tại!');
+        showNotification("Sản phẩm không tồn tại!", "error");
         return;
     }
 
     // Kiểm tra số lượng tồn kho
     const stockCheck = checkStockAvailability(productId, quantity);
     if (!stockCheck.available) {
-        showNotification(stockCheck.message);
+        showNotification(stockCheck.message, "error");
         return;
     }
 
@@ -248,7 +250,7 @@ function addToCartFromDetail() {
         const stockCheckAfterAdd = checkStockAvailability(productId, newTotalQuantity);
 
         if (!stockCheckAfterAdd.available) {
-            showNotification(stockCheckAfterAdd.message);
+            showNotification(stockCheckAfterAdd.message, "error");
             return;
         }
 
@@ -264,7 +266,7 @@ function addToCartFromDetail() {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    showNotification(`Đã thêm ${quantity} ${product.name} vào giỏ hàng!`);
+    showNotification(`Đã thêm ${quantity} ${product.name} vào giỏ hàng!`, "success");
     updateCartCount();
 
     // Cập nhật lại trạng thái nút sau khi thêm vào giỏ
@@ -275,7 +277,7 @@ function addToCartFromDetail() {
 function buyNow() {
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
-        showNotification('Vui lòng đăng nhập để mua hàng!');
+        showNotification("Vui lòng đăng nhập để mua hàng!", "warning");
         return;
     }
 

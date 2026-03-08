@@ -20,17 +20,17 @@ function isUserLoggedIn() {
 // Redundant updateUserMenu removed
 
 
-// Hàm hiển thị thông báo tự động
+// Hàm hiển thị thông báo tự động (Bootstrap Toast)
 function showNotification(message, type = 'success') {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.className = 'notification'; // Reset classes
-    notification.classList.add(type);
-    notification.classList.add('show');
-
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 3000);
+    const toastEl = document.getElementById('liveToast');
+    const toastMsg = document.getElementById('toastMessage');
+    if (!toastEl || !toastMsg) return;
+    // Map 'error' → 'danger' to align with Bootstrap text-bg-* classes
+    const bsType = type === 'error' ? 'danger' : type;
+    toastMsg.textContent = message;
+    toastEl.className = 'toast align-items-center border-0 text-bg-' + bsType;
+    const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 3000 });
+    toast.show();
 }
 
 // Hàm lấy sản phẩm hiển thị (loại bỏ sản phẩm ẩn)
@@ -362,7 +362,7 @@ function addToCart(productId) {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    showNotification(`Đã thêm "${product.name}" vào giỏ hàng!`);
+    showNotification(`Đã thêm 1 "${product.name}" vào giỏ hàng!`, "success");
     updateCartCount();
 }
 

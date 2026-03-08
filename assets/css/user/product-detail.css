@@ -397,33 +397,3 @@
         font-size: 24px;
     }
 }
-
-/* ===== NOTIFICATION (shared with product-list) ===== */
-.notification {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    transform: translateX(150%);
-    transition: transform 0.3s ease-in-out;
-    max-width: 300px;
-    font-size: 16px;
-}
-
-.notification.show {
-    transform: translateX(0);
-}
-
-.notification.error {
-    background-color: #f44336;
-}
-
-.notification.warning {
-    background-color: #ff9800;
-}
-
