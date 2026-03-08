@@ -207,3 +207,25 @@ window.addEventListener('storage', (e) => {
         updateCartCount();
     }
 });
+
+// --- XỬ LÝ ẨN/HIỆN NAVBAR KHI CUỘN ---
+(function () {
+    const navBar = document.querySelector('.nav-bar');
+    if (!navBar) return;
+
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > lastScrollY && currentScrollY > 10) {
+            // Đang cuộn xuống → ẩn nav
+            navBar.classList.add('nav-hidden');
+        } else {
+            // Đang cuộn lên → hiện nav
+            navBar.classList.remove('nav-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+    }, { passive: true });
+})();

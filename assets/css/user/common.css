@@ -34,6 +34,26 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    /* Offset for fixed header (~85px) + fixed nav-bar (~45px) */
+    padding-top: 130px;
+}
+
+@media (max-width: 992px) {
+    body {
+        padding-top: 190px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 210px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 200px;
+    }
 }
 
 /* ===== UNIFIED PAGE TITLE ===== */
