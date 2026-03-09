@@ -1,6 +1,6 @@
 /* HEADER CHÍNH */
 header {
-    background-color: #ffffff;
+    background-color: var(--bg-green);
     border-bottom: 2px solid var(--primary-color);
     position: fixed;
     top: 0;
@@ -21,17 +21,15 @@ header {
 
 /* LOGO */
 .logo {
-    display: flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 42px;
+    font-family: 'Mona Sans', sans-serif;
     font-weight: bold;
     color: var(--primary-color);
 }
 
 .logo-img {
-    height: 50px;
+    height: 85px;
     width: auto;
 }
 
@@ -40,8 +38,8 @@ header {
     display: flex;
     align-items: center;
     width: 600px;
-    background-color: #FFFCF5;
-    border: 2px solid var(--primary-color);
+    background-color: var(--bg-light);
+    /* border: 2px solid var(--primary-color); */
     border-radius: 40px;
     padding: 4px 4px;
     position: relative;
@@ -281,7 +279,7 @@ header {
 /* RESPONSIVE HEADER */
 @media (max-width: 1200px) {
     .header-container {
-        padding: 0 20px;
+        /* padding: 0 20px; */
         gap: 15px;
     }
 
@@ -462,9 +460,9 @@ header {
 
 .auth-btn {
     padding: 8px 16px;
-    border-radius: 20px;
+    border-radius: 4px;
     text-decoration: none;
-    font-family: "Century", serif;
+    font-family: "Luna Sans", sans-serif;
     font-size: 15px;
     font-weight: bold;
     transition: all 0.3s ease;
@@ -472,19 +470,20 @@ header {
 }
 
 .sign-in-btn {
-    background-color: transparent;
+    background-color: var(--bg-light);
     color: var(--primary-color);
     border: 1.5px solid var(--primary-color);
 }
 
 .sign-in-btn:hover {
-    background-color: #ffe4b5;
+    background-color: var(--secondary-hover);
+    color: var(--bg-light);
 }
 
 .sign-up-btn {
     background-color: var(--primary-color);
     color: #ffffff;
-    border: 1.5px solid var(--primary-color);
+    /* border: 1.5px solid var(--primary-color); */
 }
 
 .sign-up-btn:hover {

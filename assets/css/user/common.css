@@ -1,19 +1,25 @@
 /* ===== COMMON CSS — Shared across all user pages ===== */
 
-@import url('https://fonts.googleapis.com/css2?family=Labrada:ital,wght@0,100..900;1,100..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Labrada:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 
 /* ===== CSS VARIABLES ===== */
 :root {
-    --primary-color: #8B0000;
-    --primary-hover: #B22222;
-    --accent-color: #FFB6C1;
-    --accent-hover: #FF7F50;
-    --bg-light: #FFFDF2;
+    --primary-color: #8b0000;
+    --primary-hover: #b22222;
+    --secondary-color: #375e2e;
+    --secondary-hover: #4a7a3e;
+
+    --accent-color: #ffb6c1;
+    --accent-hover: #ff7f50;
+    
+    --bg-light: #fffdf2;
+    --bg-green: #375e2e;
     --text-dark: #5a2d0c;
-    --text-light: #FFEFD5;
-    --brand-gold: #E6BE8A;
-    --muted-brown: #5D4037;
-    --bg-cream: #FFF8E7;
+    --text-light: #ffefd5;
+    --brand-gold: #e6be8a;
+    --muted-brown: #5d4037;
+    --bg-cream: #fff8e7;
     --card-white: #ffffff;
     --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;

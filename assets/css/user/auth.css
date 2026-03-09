@@ -113,7 +113,7 @@ body.auth-standalone {
 
 /* ===== LOGIN PAGE SPECIFIC ===== */
 .image-section {
-    background-color: #fff3b0;
+    background-color: var(--bg-green);
 }
 
 .image-section img {
