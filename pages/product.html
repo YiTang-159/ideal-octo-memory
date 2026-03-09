@@ -31,7 +31,7 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <img src="../assets/image/login/logo.png" alt="Logo Morico" class="logo-img">
+                <img src="../assets/image/common/logo.png" alt="Logo Morico" class="logo-img">
                 <span>Morico</span>
             </div>
 
@@ -66,70 +66,70 @@
 
     <div class="main-content">
 
-        <aside class="filter-sidebar">
-            <div class="filter-section">
-                <h3>Tên bánh</h3>
-                <input type="text" id="filter-name" placeholder="Nhập tên bánh..." class="price-input">
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="filter-section">
-                <h3>Loại bánh</h3>
-
-                <div class="filter-option">
-                    <input type="checkbox" id="category1" name="category" value="man">
-                    <label for="category1">Bánh mặn</label>
+            <aside class="filter-sidebar">
+                <div class="filter-section">
+                    <h3>Tên bánh</h3>
+                    <input type="text" id="filter-name" placeholder="Nhập tên bánh..." class="price-input">
                 </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="category2" name="category" value="ngot">
-                    <label for="category2">Bánh ngọt</label>
+
+                <div class="divider"></div>
+
+                <div class="filter-section">
+                    <h3>Loại bánh</h3>
+
+                    <div class="filter-option">
+                        <input type="checkbox" id="category1" name="category" value="man">
+                        <label for="category1">Bánh mặn</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="category2" name="category" value="ngot">
+                        <label for="category2">Bánh ngọt</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="category3" name="category" value="chay">
+                        <label for="category3">Bánh chay</label>
+                    </div>
                 </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="category3" name="category" value="chay">
-                    <label for="category3">Bánh chay</label>
+
+                <div class="divider"></div>
+
+                <div class="filter-section">
+                    <h3>Khoảng Giá</h3>
+
+                    <div class="price-input-group">
+                        <input type="number" id="price-from" placeholder="Từ" class="price-input">
+                        <div class="price-separator">-</div>
+                        <input type="number" id="price-to" placeholder="Đến" class="price-input">
+                    </div>
                 </div>
-            </div>
 
-            <div class="divider"></div>
-
-            <div class="filter-section">
-                <h3>Khoảng Giá</h3>
-
-                <div class="price-input-group">
-                    <input type="number" id="price-from" placeholder="Từ" class="price-input">
-                    <div class="price-separator">-</div>
-                    <input type="number" id="price-to" placeholder="Đến" class="price-input">
+                <div class="filter-buttons">
+                    <button id="apply-filter-btn" class="filter-btn filter-apply-btn">Áp dụng</button>
+                    <button id="reset-filter-btn" class="filter-btn filter-reset-btn">Đặt lại</button>
                 </div>
+            </aside>
+
+            <main class="products-area">
+                <h1 class="page-title">Sản Phẩm Bánh Trung Thu</h1>
+                <p class="page-subtitle">Thưởng thức hương vị trung thu truyền thống với những chiếc bánh thơm ngon</p>
+                <div id="search-results-info" style="text-align: center; margin-bottom: 15px; font-size: 16px;"></div>
+
+                <div class="products-grid" id="product-list">
+                    <!-- Sản phẩm sẽ được render bằng JavaScript -->
+                </div>
+            </main>
             </div>
 
-            <div class="filter-buttons">
-                <button id="apply-filter-btn" class="filter-btn filter-apply-btn">Áp dụng</button>
-                <button id="reset-filter-btn" class="filter-btn filter-reset-btn">Đặt lại</button>
-            </div>
-        </aside>
+            <footer>
+                © 2025 Morico Bakery | Hotline: 0909 123 456 | Email: contact@morico.vn
+            </footer>
 
-        <main class="products-area">
-            <h1 class="page-title">Sản Phẩm Bánh Trung Thu</h1>
-            <p class="page-subtitle">Thưởng thức hương vị trung thu truyền thống với những chiếc bánh thơm ngon</p>
-            <div id="search-results-info" style="text-align: center; margin-bottom: 15px; font-size: 16px;"></div>
+            <!-- Bootstrap JS bundle (required for Toast) -->
+            <script src="../assets/vendor/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
 
-            <div class="products-grid" id="product-list">
-                <!-- Sản phẩm sẽ được render bằng JavaScript -->
-            </div>
-        </main>
-    </div>
-
-    <footer>
-        © 2025 Morico Bakery | Hotline: 0909 123 456 | Email: contact@morico.vn
-    </footer>
-
-    <!-- Bootstrap JS bundle (required for Toast) -->
-    <script src="../assets/vendor/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="../assets/js/user/header.js"></script>
-    <script src="../assets/js/user/product.js"></script>
-    <script src="../assets/js/user/product-page.js"></script>
+            <script src="../assets/js/user/header.js"></script>
+            <script src="../assets/js/user/product.js"></script>
+            <script src="../assets/js/user/product-page.js"></script>
 
 </body>
 
