@@ -44,7 +44,7 @@ body.auth-standalone {
     border: 1.5px solid var(--primary-color);
     background-color: #FFFCEE;
     color: var(--primary-color);
-    font-family: "Century", serif;
+    font-family: "Labrada", serif;
     font-size: 1rem;
 }
 
@@ -171,4 +171,8 @@ input[type="password"]::-webkit-password-toggle-button {
 
 .eye-icon:hover {
     opacity: 1;
+}
+
+.logo-img {
+    filter: invert(100%);
 }

@@ -47,7 +47,7 @@
     font-size: 28px;
     color: var(--primary-color);
     margin-bottom: 10px;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Mona Sans', cursive;
 }
 
 .product-tag {
@@ -148,7 +148,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
-    font-family: "Century", serif;
+    font-family: "Labrada", serif;
     text-transform: uppercase;
 }
 
@@ -204,7 +204,7 @@
     font-size: 28px;
     color: var(--primary-color);
     margin-bottom: 25px;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Mona Sans', cursive;
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 10px;
 }
@@ -255,7 +255,7 @@
     color: var(--primary-color);
     margin-bottom: 30px;
     text-align: center;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Mona Sans', cursive;
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 15px;
 }
