@@ -98,18 +98,21 @@ header {
     display: inline-block;
 }
 
+.icon-link i,
 .icon-link svg,
 .user-icon {
-    width: 28px;
-    height: 28px;
-    fill: var(--primary-color);
+    font-size: 24px;
+    color: #ffffff;
+    fill: #ffffff;
     cursor: pointer;
-    transition: transform 0.3s, fill 0.3s;
+    transition: transform 0.3s, color 0.3s, fill 0.3s;
 }
 
+.icon-link i:hover,
 .icon-link svg:hover,
 .user-icon:hover {
     transform: scale(1.1);
+    color: var(--primary-hover);
     fill: var(--primary-hover);
 }
 
@@ -128,6 +131,7 @@ header {
     justify-content: center;
     font-size: 13px;
     font-weight: bold;
+    font-family: "Mona Sans", sans-serif;
     border: 1px solid #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     opacity: 0;
@@ -435,10 +439,10 @@ header {
         gap: 15px;
     }
 
+    .icon-link i,
     .icon-link svg,
     .user-icon {
-        width: 24px;
-        height: 24px;
+        font-size: 20px;
     }
 
     .nav-bar {
