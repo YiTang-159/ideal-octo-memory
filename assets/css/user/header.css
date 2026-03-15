@@ -24,7 +24,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 0.5rem;
     font-family: 'Mona Sans', sans-serif;
     font-weight: 500;
     font-size: 32px;
@@ -36,7 +36,7 @@ header {
 .logo-img {
     height: 50px;
     width: auto;
-    filter: invert(1);
+    filter: brightness(0) invert(1);
     margin: 6px;
 }
 
