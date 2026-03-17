@@ -46,7 +46,7 @@ Thực hiện website động sử dụng JS, PHP và CSDL mySQL giới thiệu 
 	-  Sửa phiếu nhập kho (đi kèm với chức năng tìm kiếm phiếu nhập kho) và hoàn thành phiếu nhập kho. (lưu ý: chỉ có thể sửa phiếu nhập trước khi hoàn thành phiếu. 
 - Quản lý giá bán:
 	- Hiển thị & nhập / sửa thông tin tỉ lệ % lợi nhuận theo sản phẩm.
-	- Hiển thị & tra cứu giá vốn, % lợi nhuận, giá bán của sản phẩm theo phiếu nhập.
+	- Hiển thị & tra cứu giá vốn, % lợi nhuận, giá bán của sản phẩm và loại sản phẩm.
 - Quản lý đơn đặt hàng của khách: 
     - đánh dấu đơn đặt hàng: chưa xử lý (khách hàng mới đặt), đã xác nhận, đã giao thành công hoặc đã huỷ. (lưu ý trạng thái đơn hàng cập nhật 1 chiều không được quay lui trạng thái).
 	- lọc các đơn đặt hàng trong 1 khoảng thời gian (dựa trên thời gian đơn), thiết kế đường link cho người quản trị xem chi tiết một đơn đặt hàng trong các đơn đặt hàng trên.
