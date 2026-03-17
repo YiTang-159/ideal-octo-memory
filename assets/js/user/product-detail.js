@@ -133,7 +133,7 @@ function displayProductDetail() {
         <div class="product-tag">Size Lớn 180g</div>
                       
         <div class="price-section">
-          <span class="original-price">${product.price.toLocaleString()}đ</span>
+          <span class="original-price">${new Intl.NumberFormat('vi-VN').formatToParts(product.price || 0).map(p => (p.type === 'group' ? '\u00A0' : p.value)).join('')}\u00A0₫</span>
         </div>
 
         <div class="quantity-section">
@@ -207,7 +207,7 @@ function displayRelatedProductsHTML(relatedIds) {
         <div class="related-product-card">
           <img src="${relatedProduct.thumbnail}" alt="${relatedProduct.name}">
           <h4>${relatedProduct.name}</h4>
-          <div class="price">${relatedProduct.price.toLocaleString()}đ</div>
+          <div class="price">${new Intl.NumberFormat('vi-VN').formatToParts(relatedProduct.price || 0).map(p => (p.type === 'group' ? '\u00A0' : p.value)).join('')}\u00A0₫</div>
           <button onclick="viewProductDetail(${relatedProduct.id})">Xem Chi Tiết</button>
         </div>
       `;

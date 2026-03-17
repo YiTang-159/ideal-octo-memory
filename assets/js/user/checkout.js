@@ -48,7 +48,8 @@ function renderCartItems() {
         const price = document.createElement('div');
         price.className = 'item-price';
         const itemTotal = item.price * item.quantity;
-        price.textContent = itemTotal.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+        const partsItem = new Intl.NumberFormat('vi-VN').formatToParts(itemTotal || 0);
+        price.textContent = partsItem.map(p => (p.type === 'group' ? '\u00A0' : p.value)).join('') + '\u00A0₫';
 
         li.appendChild(info);
         li.appendChild(price);
@@ -57,7 +58,8 @@ function renderCartItems() {
         total += itemTotal;
     });
 
-    totalAmountEl.textContent = total.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+    const partsTotal = new Intl.NumberFormat('vi-VN').formatToParts(total || 0);
+    totalAmountEl.textContent = partsTotal.map(p => (p.type === 'group' ? '\u00A0' : p.value)).join('') + '\u00A0₫';
 }
 
 function renderAddresses() {
@@ -112,7 +114,7 @@ saveAddressBtn.addEventListener('click', () => {
         return;
     }
 
-    addresses.push({label, full, phone});
+    addresses.push({ label, full, phone });
     localStorage.setItem('addresses', JSON.stringify(addresses));
     newAddressForm.style.display = 'none';
     renderAddresses();

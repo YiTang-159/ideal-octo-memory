@@ -8,7 +8,12 @@ admin - actions.js
 
 // ===== 1️⃣ UTILITY FUNCTIONS =====
 function formatCurrency(amount) {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    const parts = new Intl.NumberFormat('vi-VN').formatToParts(amount || 0);
+
+    return parts.map(p => {
+        if (p.type === 'group') return '\u00A0';
+        return p.value;
+    }).join('') + '\u00A0₫';
 }
 function formatNumber(num) {
     return num.toLocaleString('vi-VN');

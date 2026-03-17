@@ -138,7 +138,7 @@ function renderProducts(productList) {
       <h3>${product.name}</h3>
       <div class="description">${description}</div>
       <div class="price-container">
-        <span class="price">${product.price.toLocaleString()}đ</span>
+        <span class="price">${new Intl.NumberFormat('vi-VN').formatToParts(product.price || 0).map(p => (p.type === 'group' ? '\u00A0' : p.value)).join('')}\u00A0₫</span>
       </div>
       <div class="product-actions">
         <div class="action-icon" onclick="viewProductDetail(${product.id})">
@@ -306,8 +306,8 @@ function updateFilterSummaryIfIdle() {
 
     const parts = [];
     if (selectedCategories.length) parts.push(`Loại: ${selectedCategories.join(', ')}`);
-    if (priceFrom) parts.push(`Giá từ ${Number(priceFrom).toLocaleString('vi-VN')}₫`);
-    if (priceTo) parts.push(`đến ${Number(priceTo).toLocaleString('vi-VN')}₫`);
+    if (priceFrom) parts.push(`Giá từ ${new Intl.NumberFormat('vi-VN').formatToParts(Number(priceFrom)).map(p => (p.type === 'group' ? '\u00A0' : p.value)).join('')}\u00A0₫`);
+    if (priceTo) parts.push(`đến ${new Intl.NumberFormat('vi-VN').formatToParts(Number(priceTo)).map(p => (p.type === 'group' ? '\u00A0' : p.value)).join('')}\u00A0₫`);
 
     if (parts.length === 0) {
         resultsInfo.textContent = 'Nhấn "Áp dụng" để xem sản phẩm.';

@@ -167,11 +167,11 @@
     <script>
         // Dữ liệu giả lập (mock data) cho các sản phẩm
         const mockProducts = [
-            { id: 1, name: 'Hộp Bánh Thập Cẩm (Lớn)', price: '100,000₫' },
-            { id: 2, name: 'Hộp Bánh Đậu Xanh (Nhỏ)', price: '50,000₫' },
-            { id: 3, name: 'Hộp Bánh Lava Trứng Muối', price: '41,000₫' },
-            { id: 4, name: 'Hộp Giấy Cao Cấp (Loại 4 bánh)', price: '9,500₫' },
-            { id: 5, name: 'Túi đựng bánh (Set 100)', price: '20,000₫' }
+            { id: 1, name: 'Hộp Bánh Thập Cẩm (Lớn)', price: '100\u00A0000\u00A0₫' },
+            { id: 2, name: 'Hộp Bánh Đậu Xanh (Nhỏ)', price: '50\u00A0000\u00A0₫' },
+            { id: 3, name: 'Hộp Bánh Lava Trứng Muối', price: '41\u00A0000\u00A0₫' },
+            { id: 4, name: 'Hộp Giấy Cao Cấp (Loại 4 bánh)', price: '9\u00A0500\u00A0₫' },
+            { id: 5, name: 'Túi đựng bánh (Set 100)', price: '20\u00A0000\u00A0₫' }
         ];
 
         // === THAY ĐỔI CẤU TRÚC DỮ LIỆU: MỘT SẢN PHẨM MỖI PHIẾU ===
@@ -180,34 +180,34 @@
                 id: 'PN001',
                 supplier: 'Công ty ABC',
                 date: '2023-10-25',
-                total: '10,000,000₫', // Cập nhật tổng tiền
+                total: '10\u00A0000\u00A0000\u00A0₫', // Cập nhật tổng tiền
                 status: 'completed',
                 productId: 1,
                 productName: 'Hộp Bánh Thập Cẩm (Lớn)',
                 qty: 100,
-                price: '100,000₫'
+                price: '100\u00A0000\u00A0₫'
             },
             'PN002': {
                 id: 'PN002',
                 supplier: 'Doanh nghiệp Bánh Kẹo X',
                 date: '2023-10-28',
-                total: '8,200,000₫',
+                total: '8\u00A0200\u00A0000\u00A0₫',
                 status: 'draft',
                 productId: 3,
                 productName: 'Hộp Bánh Lava Trứng Muối',
                 qty: 200,
-                price: '41,000₫'
+                price: '41\u00A0000\u00A0₫'
             },
             'PN003': {
                 id: 'PN003',
                 supplier: 'Xưởng sản xuất D',
                 date: '2023-11-01',
-                total: '4,750,000₫',
+                total: '4\u00A0750\u00A0000\u00A0₫',
                 status: 'pending',
                 productId: 4,
                 productName: 'Hộp Giấy Cao Cấp (Loại 4 bánh)',
                 qty: 500,
-                price: '9,500₫'
+                price: '9\u00A0500\u00A0₫'
             }
         };
 

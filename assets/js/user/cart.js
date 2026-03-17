@@ -9,7 +9,12 @@ const selectAllCheckbox = document.getElementById("select-all");
 
 // Định dạng tiền tệ
 function formatCurrency(amount) {
-    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    const parts = new Intl.NumberFormat('vi-VN').formatToParts(amount || 0);
+
+    return parts.map(p => {
+        if (p.type === 'group') return '\u00A0';
+        return p.value;
+    }).join('') + '\u00A0₫';
 }
 
 // Cập nhật trạng thái giỏ hàng

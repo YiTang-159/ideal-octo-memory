@@ -93,14 +93,14 @@ class SearchManager {
 
   getProducts() {
     return [
-      { id: 1, name: "Bánh Trung Thu Golden Plum", price: "189.000đ", image: "assets/image/product/banh-trung-thu-golden-plum.png" },
-      { id: 2, name: "Bánh Trung Thu Hotate XO Mixed Nuts", price: "139.000đ", image: "assets/image/product/banh-trung-thu-hotate-xo-mixed-nuts.png" },
-      { id: 3, name: "Bánh Trung Thu Matcha", price: "99.000đ", image: "assets/image/product/banh-trung-thu-matcha.png" },
-      { id: 4, name: "Bánh Trung Thu Murasaki Imo", price: "115.000đ", image: "assets/image/product/banh-trung-thu-murasaki-imo.png" },
-      { id: 5, name: "Bánh Trung Thu Mushroom Mixed Nuts", price: "129.000đ", image: "assets/image/product/banh-trung-thu-mushroom-mixed-nuts.png" },
-      { id: 6, name: "Bánh Trung Thu Pink Nocturne", price: "105.000đ", image: "assets/image/product/banh-trung-thu-pink-nocturne.png" },
-      { id: 7, name: "Bánh Trung Thu Takesumi Orange", price: "125.000đ", image: "assets/image/product/banh-trung-thu-takesumi-orange.png" },
-      { id: 8, name: "Bánh Trung Thu Xôi Gấc", price: "95.000đ", image: "assets/image/product/banh-trung-thu-xoi-gac.png" }
+      { id: 1, name: "Bánh Trung Thu Golden Plum", price: "189\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-golden-plum.png" },
+      { id: 2, name: "Bánh Trung Thu Hotate XO Mixed Nuts", price: "139\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-hotate-xo-mixed-nuts.png" },
+      { id: 3, name: "Bánh Trung Thu Matcha", price: "99\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-matcha.png" },
+      { id: 4, name: "Bánh Trung Thu Murasaki Imo", price: "115\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-murasaki-imo.png" },
+      { id: 5, name: "Bánh Trung Thu Mushroom Mixed Nuts", price: "129\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-mushroom-mixed-nuts.png" },
+      { id: 6, name: "Bánh Trung Thu Pink Nocturne", price: "105\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-pink-nocturne.png" },
+      { id: 7, name: "Bánh Trung Thu Takesumi Orange", price: "125\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-takesumi-orange.png" },
+      { id: 8, name: "Bánh Trung Thu Xôi Gấc", price: "95\u00A0000\u00A0₫", image: "assets/image/product/banh-trung-thu-xoi-gac.png" }
     ];
   }
 }
