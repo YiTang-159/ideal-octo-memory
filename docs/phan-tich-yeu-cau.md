@@ -30,16 +30,16 @@ Hệ thống có 2 tác nhân chính: **Người dùng cuối (Khách hàng)** v
 ### 1.2 Người quản trị (Admin)
 - **Đăng nhập riêng biệt**: Truy cập qua URL riêng, không dùng chung giao diện với người mua. Có menu chức năng dành riêng cho admin.
 - **Quản lý Tài khoản**: 
-  - Thêm tài khoản quản trị/nhân viên, khởi tạo mật khẩu, khóa (ngừng kích hoạt) tài khoản.
+  - Thêm tài khoản quản trị/nhân viên, khởi tạo mật khẩu, khóa (ngừng kích hoạt) tài khoản. (*Lưu ý: KHÔNG cho phép Sửa hay Xóa tài khoản*).
 - **Quản lý Danh mục & Sản phẩm**:
-  - Thêm danh mục sản phẩm (loại sản phẩm).
-  - Thêm, Sửa sản phẩm (Mã, tên, loại, mô tả, ảnh, số lượng đầu, tỷ lệ lợi nhuận, hiện trạng bán...).
-  - *Luật xóa sản phẩm*: 
-    - Xóa cứng (Hard delete) khỏi database nếu sản phẩm chưa từng được nhập hàng (chưa phát sinh giao dịch).
-    - Xóa mềm (Soft delete / Ẩn hiện trạng) nếu sản phẩm đã phát sinh nghiệp vụ.
+  - Thêm, Sửa, Xóa danh mục sản phẩm (loại sản phẩm). (*Luật xóa áp dụng tương tự như sản phẩm*).
+  - Thêm, Sửa sản phẩm (Mã, tên, loại, mô tả, ảnh, số lượng đầu, tỷ lệ lợi nhuận, nhà cung cấp, hiện trạng bán...). (*Lưu ý: Trường "Nhà cung cấp" chỉ mang tính hình thức, không dùng khi nhập hàng*).
+  - *Luật xóa sản phẩm và danh mục*: 
+    - Xóa cứng (Hard delete) khỏi database nếu chưa từng phát sinh giao dịch (chưa nhập/bán).
+    - Xóa mềm (Soft delete / Ẩn hiện trạng) nếu đã phát sinh nghiệp vụ.
 - **Quản lý Nhập hàng (Kho)**:
   - Tạo / Sửa phiếu nhập hàng (Chỉ được sửa khi chưa ấn "Hoàn thành").
-  - Một phiếu nhập có thể nhập nhiều sản phẩm. (*Lưu ý: bỏ qua thông tin Nhà cung cấp trong phiếu nhập*).
+  - Một phiếu nhập có thể nhập nhiều sản phẩm. (*Chỉ cần tăng số lượng sản phẩm và cập nhật giá vốn, hoàn toàn bỏ qua Nhà cung cấp*).
 - **Quản lý Giá bán**:
   - Tự động duy trì công thức Cập nhật Giá nhập bình quân gia quyền mỗi khi có phiếu nhập mới:
     `Giá nhập mới = (SL tồn * Giá đang tính + SL nhập * Giá nhập lô này) / (Tổng SL)`
@@ -68,19 +68,20 @@ Hệ thống có 2 tác nhân chính: **Người dùng cuối (Khách hàng)** v
 
 ---
 
-## 3. Các Điểm Mơ Hồ / Cần Đặt Câu Hỏi Để Làm Rõ Thêm
+## 3. Các Quy Ước / Thống Nhất Nghiệp Vụ (Đã chốt)
 
-Khi đọc tài liệu gốc, có một số điểm chưa đề cập hoặc mâu thuẫn nhẹ, ta cần thống nhất trước khi code:
+Dựa trên các phân tích và thống nhất với yêu cầu đồ án, hệ thống sẽ tuân theo các quy ước sau để đảm bảo đi đúng hướng:
 
 1. **Quản lý đối tượng cơ bản (CRUD)**:
-   - Trong mô tả Admin, phần Quản lý Người Dùng và Danh Mục chỉ mô tả "Thêm", không nhắc đến "Sửa", "Xóa". Trong thực tế bắt buộc cần có các chức năng này. *Đề xuất bổ sung đẩy đủ các hàm CRUD cho Quản lý Danh mục và Người dùng.*
+   - **Loại sản phẩm (Danh mục)**: Cho phép đầy đủ Thêm, Sửa, Xóa (áp dụng luật xóa tương tự như sản phẩm).
+   - **Người dùng (Tài khoản)**: Chỉ cho phép Thêm, Khởi tạo mật khẩu và Khóa tài khoản. KHÔNG có chức năng Sửa thông tin cá nhân hay Xóa tài khoản người dùng từ phía Admin.
 2. **Thanh toán trực tuyến**:
-   - Tài liệu ghi "chưa cần xử lý tiếp" -> Hiểu là phần Đặt hàng phía End-user cứ làm Option chọn qua Cổng thanh toán, nhưng chỉ lưu dữ liệu Database là "Đang chờ thanh toán trực tuyến", KHÔNG cần tích hợp API của VNPay, MoMo, tích hợp thẻ ngân hàng thật?
-3. **Thông tin Nhà Cung Cấp**:
-   - Ở phần Sản phẩm yêu cầu có trường "nhà cung cấp", nhưng ở phần Nhập hàng lại ghi "bỏ qua nhà cung cấp". -> Có thể hiểu là thuộc tính "Nhà cung cấp" ghim cố định ở Table Sản phẩm chứ không quản lý động tách biệt qua bảng Nhà Cung Cấp riêng, hoặc lúc làm phiếu nhập không cần chọn lại nhà cung cấp.
+   - Chỉ làm ở mức thiết kế lựa chọn trên Giao diện (Option Cổng thanh toán) và lưu trạng thái đơn hàng là "Đang chờ thanh toán trực tuyến" xuống CSDL. **KHÔNG CẦN** tích hợp API thanh toán thật (VNPay, MoMo) hay cổng thanh toán thẻ ngân hàng.
+3. **Quản lý Nhập hàng và Nhà cung cấp**:
+   - Chức năng Nhập hàng chỉ quan tâm đến việc **tăng số lượng sản phẩm** và cập nhật giá vốn (giá nhập bình quân).
+   - Hoàn toàn **bỏ qua** thông tin Nhà cung cấp khi tạo phiếu nhập. Trường "Nhà cung cấp" lưu ở bảng Sản Phẩm chỉ mang tính hình thức/trưng bày.
 4. **Tính toán Tồn kho "tại thời điểm"**:
-   - Câu: "Tra cứu số lượng tồn của một loại sản phẩm tại 1 thời điểm do người dùng định".
-   - Đây là bài toán khó. Để làm được, database không chỉ lưu `stock_quantity` hiện tại mà phải lưu nhật ký (Log/Transaction) của mọi lần Nhập và Xuất. Khi admin chọn ngày `X`, hệ thống lấy `Tổng Nhập từ đầu đến ngày X` trừ `Tổng Xuất (bán) từ đầu đến ngày X`. Cần thiết kế CSDL cẩn thận (bảng `inventory_logs` hoặc `stock_movements`).
+   - Sẽ **thiết kế CSDL cẩn thận**, có bảng lưu vết (Log/Transaction - ví dụ: `inventory_logs` hoặc `stock_movements`) ghi nhận chi tiết mọi biến động Nhập/Xuất để có thể tính toán ngược quá khứ và xuất báo cáo tồn kho tại bất kỳ 1 khoảng thời gian hay 1 thời điểm nào do người dùng chỉ định.
 
 ---
 
