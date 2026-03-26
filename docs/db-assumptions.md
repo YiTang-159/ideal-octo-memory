@@ -117,3 +117,13 @@ WHERE product_id = X AND created_at <= T;
 
 **Giả định & Giải pháp:**
 - Trong `orders`, địa chỉ sẽ không phải 1 đoạn string gõ tay ngẫu nhiên hoàn toàn. `shipping_ward` (Phường / Xã) cần được lưu ở một cột text riêng biệt (hoặc ít nhất yêu cầu end-user nhập tách ô Input) thì Database mới `ORDER BY/GROUP BY` chính xác được khu vực giao hàng.
+
+---
+
+## 8. Quản Lý Giỏ Hàng (Cart Handling)
+
+**Giả định & Giải pháp:**
+- Khách hàng bắt buộc đăng nhập để dùng giỏ hàng, do đó giỏ hàng sẽ được lưu trực tiếp vào CSDL thay vì LocalStorage để duy trì quyền truy cập xuyên suốt các thiết bị.
+- **Ràng buộc Active Cart:** Mỗi User (`users`) chỉ được phép có **tối đa 1 giỏ hàng (`carts`) đang active** tại một thời điểm (Ràng buộc UNIQUE KEY trên `user_id`).
+- **Không ảnh hưởng tồn kho:** Sản phẩm nằm trong giỏ hàng (`cart_items`) hoàn toàn không làm trừ hay khóa tồn kho (`products.stock_quantity`). Tồn kho chỉ thực sự bị trừ khi Request biến thành `orders` (trạng thái Pending).
+- Khi đặt hàng, dữ liệu được chọn từ `cart_items` sẽ được dọn đi và chép vào `order_details`.
