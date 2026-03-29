@@ -347,7 +347,8 @@ erDiagram
 
     carts {
         BIGINT_UNSIGNED id PK
-        BIGINT_UNSIGNED user_id FK_UK
+        %% carts.user_id is both a FK to users.id and a UK, so each user can have at most one cart. %%
+        BIGINT_UNSIGNED user_id FK
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }
