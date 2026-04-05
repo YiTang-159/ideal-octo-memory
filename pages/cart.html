@@ -50,16 +50,7 @@
     </nav>
 
     <h1 class="page-title">Giỏ hàng của bạn</h1>
-
     <div id="cart-container">
-        <div class="select-all" id="select-all-container" style="display: none;">
-            <div>
-                <input type="checkbox" id="select-all" onchange="toggleSelectAll()">
-                <label for="select-all">Chọn tất cả</label>
-            </div>
-            <button onclick="clearCart()" class="remove-btn">Xóa giỏ hàng</button>
-        </div>
-
         <div class="cart-header">
             <div>Sản phẩm</div>
             <div>Đơn giá</div>
@@ -78,17 +69,20 @@
             </div>
         </div>
 
-        <!-- Tách riêng nút Lịch sử mua hàng khỏi summary-box -->
-        <div class="history-link-container">
-            <a href="history.html">Lịch sử mua hàng</a>
-        </div>
-
         <div class="summary-box" id="summary-box">
-            <span class="total-label">Tổng số tiền cần thanh toán:</span>
-            <div class="checkout-group">
+            <div class="summary-row">
+                <span class="total-label">Tổng cộng:</span>
                 <span class="total-amount" id="final-total">0 ₫</span>
+            </div>
+            <div class="checkout-group">
                 <button class="order-btn" onclick="handleCheckout()">Thanh toán</button>
             </div>
+        </div>
+
+        <div>
+            <a href="products.html" class="continue-shopping">
+                <i class="fa-solid fa-arrow-left me-2"></i>Tiếp tục mua hàng
+            </a>
         </div>
     </div>
 

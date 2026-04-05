@@ -126,4 +126,4 @@ WHERE product_id = X AND created_at <= T;
 - Khách hàng bắt buộc đăng nhập để dùng giỏ hàng, do đó giỏ hàng sẽ được lưu trực tiếp vào CSDL thay vì LocalStorage để duy trì quyền truy cập xuyên suốt các thiết bị.
 - **Ràng buộc Active Cart:** Mỗi User (`users`) chỉ được phép có **tối đa 1 giỏ hàng (`carts`) đang active** tại một thời điểm (Ràng buộc UNIQUE KEY trên `user_id`).
 - **Không ảnh hưởng tồn kho:** Sản phẩm nằm trong giỏ hàng (`cart_items`) hoàn toàn không làm trừ hay khóa tồn kho (`products.stock_quantity`). Tồn kho chỉ thực sự bị trừ khi Request biến thành `orders` (trạng thái Pending).
-- Khi đặt hàng, dữ liệu được chọn từ `cart_items` sẽ được dọn đi và chép vào `order_details`.
+- Khi đặt hàng, dữ liệu từ `cart_items` sẽ được dọn đi và chép vào `order_details`.

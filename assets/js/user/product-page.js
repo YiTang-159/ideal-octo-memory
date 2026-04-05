@@ -67,18 +67,25 @@ function searchProducts(searchTerm) {
     renderProducts(currentProducts);
 }
 
-// Hàm cập nhật thông tin kết quả tìm kiếm
-function updateSearchResultsInfo() {
+// Hàm cập nhật thông tin kết quả (tìm kiếm hoặc lọc)
+function updateSearchResultsInfo(count) {
     const resultsInfo = document.getElementById('search-results-info');
+    if (!resultsInfo) return;
 
     if (currentSearchTerm) {
-        if (currentProducts.length === 0) {
+        if (count === 0) {
             resultsInfo.innerHTML = `Không tìm thấy sản phẩm nào cho từ khóa "<strong>${currentSearchTerm}</strong>"`;
             resultsInfo.style.color = '#B22222';
         } else {
-            resultsInfo.innerHTML = `Tìm thấy <strong>${currentProducts.length}</strong> sản phẩm cho từ khóa "<strong>${currentSearchTerm}</strong>"`;
+            resultsInfo.innerHTML = `Tìm thấy <strong>${count}</strong> sản phẩm cho từ khóa "<strong>${currentSearchTerm}</strong>"`;
             resultsInfo.style.color = '#5a2d0c';
         }
+    } else if (count < getVisibleProducts().length && count > 0) {
+        resultsInfo.innerHTML = `Tìm thấy <strong>${count}</strong> sản phẩm phù hợp với bộ lọc.`;
+        resultsInfo.style.color = '#5a2d0c';
+    } else if (count === 0 && !currentSearchTerm) {
+        resultsInfo.innerHTML = 'Không tìm thấy sản phẩm nào phù hợp với bộ lọc.';
+        resultsInfo.style.color = '#B22222';
     } else {
         resultsInfo.innerHTML = '';
     }
@@ -212,11 +219,13 @@ function goToPage(page) {
     document.querySelector('.products-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Hàm áp dụng bộ lọc
+// Hàm áp dụng bộ lọc (kết hợp cả tìm kiếm tên và bộ lọc sidebar)
 function applyFilters() {
-    // Only filter by category and price. Results are shown when user clicks "Áp dụng".
-    // Reset to first page if pagination used later
     currentPage = 1;
+
+    // Lấy từ khóa tìm kiếm từ header
+    const searchInput = document.getElementById('search-input');
+    const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
     const priceFromRaw = document.getElementById('price-from') && document.getElementById('price-from').value;
     const priceToRaw = document.getElementById('price-to') && document.getElementById('price-to').value;
@@ -244,23 +253,39 @@ function applyFilters() {
     }
 
     let filteredProducts = getVisibleProducts().filter(p => {
+        // 1. Kiểm tra tìm kiếm tên (header)
+        if (searchTerm) {
+            const productName = normalizeText(p.name);
+            const searchWords = normalizeText(searchTerm).split(' ');
+            const matchesName = searchWords.every(word => productName.includes(word));
+            if (!matchesName) return false;
+        }
+
+        // 2. Kiểm tra loại bánh
         if (!matchesCategory(p, selectedCategories)) return false;
-        if (priceFrom !== null && typeof p.price === 'number' && p.price < priceFrom) return false;
-        if (priceTo !== null && typeof p.price === 'number' && p.price > priceTo) return false;
+
+        // 3. Kiểm tra khoảng giá
+        if (priceFrom !== null && !isNaN(priceFrom) && p.price < priceFrom) return false;
+        if (priceTo !== null && !isNaN(priceTo) && p.price > priceTo) return false;
+
         return true;
     });
 
     currentProducts = filteredProducts;
-    currentSearchTerm = '';
-    updateFilterResultsInfo(filteredProducts.length);
+    currentSearchTerm = searchTerm;
+    updateSearchResultsInfo(filteredProducts.length); // Cập nhật thông tin tìm kiếm
     renderProducts(filteredProducts);
+
+    // Đóng dropdown tìm kiếm nhanh nếu có
+    const resultsBox = document.querySelector('.search-results');
+    if (resultsBox) resultsBox.classList.remove('active');
 }
 
 // Hàm đặt lại bộ lọc
 function resetFilters() {
     currentPage = 1;
-    const filterNameEl = document.getElementById('filter-name');
-    if (filterNameEl) filterNameEl.value = '';
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = '';
     document.getElementById('price-from').value = '';
     document.getElementById('price-to').value = '';
 
@@ -274,22 +299,6 @@ function resetFilters() {
     renderProducts(getVisibleProducts());
 }
 
-// Hàm cập nhật thông tin kết quả lọc
-function updateFilterResultsInfo(count) {
-    const resultsInfo = document.getElementById('search-results-info');
-
-    if (!resultsInfo) return;
-
-    if (count === 0) {
-        resultsInfo.innerHTML = 'Không tìm thấy sản phẩm nào phù hợp với bộ lọc.';
-        resultsInfo.style.color = '#B22222';
-    } else if (count === getVisibleProducts().length) {
-        resultsInfo.innerHTML = '';
-    } else {
-        resultsInfo.innerHTML = `Tìm thấy <strong>${count}</strong> sản phẩm phù hợp.`;
-        resultsInfo.style.color = '#5a2d0c';
-    }
-}
 
 // Hiển thị tóm tắt bộ lọc hiện tại (khi người dùng thay đổi checkbox/giá)
 function updateFilterSummaryIfIdle() {
@@ -373,8 +382,7 @@ function clearSearch() {
     if (searchInput) searchInput.value = '';
     currentSearchTerm = '';
     currentProducts = getVisibleProducts();
-    updateSearchResultsInfo();
-    updateFilterResultsInfo(getVisibleProducts().length);
+    updateSearchResultsInfo(getVisibleProducts().length);
     renderProducts(getVisibleProducts());
 }
 
@@ -398,6 +406,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const resetBtn = document.getElementById("reset-filter-btn");
     if (resetBtn) resetBtn.addEventListener("click", resetFilters);
+
+    // Gắn sự kiện cho ô tìm kiếm ở header khi đang ở trang sản phẩm
+    const searchBtn = document.getElementById("search-button");
+    if (searchBtn) {
+        searchBtn.addEventListener("click", (e) => {
+            // Ngừng sự kiện mặc định nếu cần, nhưng quan trọng là gọi applyFilters
+            applyFilters();
+        });
+    }
+
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) {
+        searchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                applyFilters();
+            }
+        });
+    }
 });
 
 // Dropdown handling moved to header.js
