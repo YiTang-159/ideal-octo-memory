@@ -3,11 +3,13 @@
 
 /* === Body override for standalone auth pages (no header/nav) === */
 body.auth-standalone {
-    height: 100vh;
+    display: flex;
+    height: auto !important;
     align-items: flex-start;
-    min-height: 100vh;
-    padding-top: 20px;
+    padding-top: 40px;
+    padding-bottom: 60px;
     justify-content: center;
+    overflow-y: auto;
     background: linear-gradient(to right, #FFF4C2, #FFF4C2);
 }
 
@@ -20,6 +22,8 @@ body.auth-standalone {
     overflow: hidden;
     max-width: 850px;
     width: 100%;
+    min-height: fit-content;
+    height: auto !important;
     margin-top: 2rem !important;
 }
 
