@@ -11,7 +11,7 @@ Trước khi tiến hành vẽ sơ đồ ERD chi tiết, danh sách dưới đâ
 **Giả định & Giải pháp (Snapshot Pattern):**
 - Trong bảng `orders` (Đơn đặt hàng) / `order_details` (Chi tiết đơn hàng): Tại thời điểm khách hàng ấn "Đặt hàng", toàn bộ giá bán hiện hành lúc đó sẽ được **lưu cứng (snapshot)** vào dòng `order_details`. Giá này hoàn toàn độc lập với bảng `products`. Dù Admin có lên giá sản phẩm sau đó thì hóa đơn cũ của khách vẫn không bị ảnh hưởng.
 - Trong bảng `goods_receipts` (Phiếu nhập) / `goods_receipt_details` (Chi tiết phiếu nhập): Giá nhập của lô hàng cũng được **lưu cứng** tương tự.
-- Bảng `products` sẽ lưu: `base_price` (giá nhập bình quân hiện tại), `profit_margin` (% lợi nhuận), và `sell_price` (giá bán tính từ giá bình quân). Các con số này chỉ mô tả **trạng thái hiện tại** của sản phẩm.
+- Bảng `products` sẽ lưu: `base_price` (giá nhập bình quân hiện tại), `profit_margin` (% lợi nhuận), và `sell_price` (giá bán tính từ giá bình quân). Các con số này chỉ mô tả **trạng thái hiện tại** của sản phẩm. `sell_price` được triển khai dưới dạng **GENERATED COLUMN** (MySQL Stored) — tự động tính lại khi `base_price` hoặc `profit_margin` thay đổi. **Application Layer không được `UPDATE sell_price` trực tiếp.**
 
 ---
 
@@ -54,6 +54,7 @@ WHERE product_id = X AND created_at <= T;
 ### 2.5. Luồng Tồn Kho (Inventory Flow)
 - **Khi Khách tạo đơn (`Pending`):** Trừ trực tiếp vào `products.stock_quantity` **ngay lập tức** và ghi `inventory_logs` (số âm) để giữ chỗ (reservation) hàng hóa, tránh bán lố.
 - **Khi Đơn bị hủy (`Cancelled`):** Hệ thống tự động truy xuất lại số lượng trong đơn đó, cộng trả lại vào `products.stock_quantity` và sinh thêm một dòng `inventory_logs` mới (số dương) vào lịch sử để phản ánh việc hoàn kho.
+- **Guard chống hủy nhiều lần (C1 — triển khai ở Application Layer khi migrate PHP):** Trước khi thực hiện bất kỳ logic hoàn kho nào, service bắt buộc phải: (1) Lock row với `SELECT ... FOR UPDATE` để tránh race condition, (2) Kiểm tra `orders.status` còn trong `['pending', 'confirmed']` — nếu đã là `cancelled` hoặc `delivered` thì ném exception, không thực hiện hoàn kho.
 - **Lưu ý về Reservation Timeout:** Hệ thống **không xử lý timeout tự động hủy đơn**. Admin sẽ định kỳ kiểm tra và hủy các đơn `Pending` quá hạn thủ công thông qua Dashboard.
 
 ---
@@ -63,8 +64,8 @@ WHERE product_id = X AND created_at <= T;
 **Vấn đề:** Khách hàng có 1 địa chỉ theo Account đăng ký, nhưng khi Check-out có quyền nhập địa chỉ mới cho *người nhận khác*. Nếu lưu trực tiếp ở bảng Account thì rác data, hoặc không biết đơn này gửi đi đâu.
 
 **Giả định & Giải pháp:**
-- Bảng `users` (Người dùng) lưu thông tin liên hệ và địa chỉ **mặc định**.
-- Bảng `orders` (Đơn đặt hàng) lưu **toàn bộ thông tin người nhận thực tế** dưới dạng Record cố định (Snapshot): `receiver_name`, `receiver_phone`, `shipping_address` (Đường, Phường/Xã).
+- Bảng `users` (Người dùng) lưu thông tin liên hệ và địa chỉ **mặc định**: `address` (số nhà, đường/phố), `commune` (phường/xã/đặc khu), `city` (tỉnh/thành).
+- Bảng `orders` (Đơn đặt hàng) lưu **toàn bộ thông tin người nhận thực tế** dưới dạng Record cố định (Snapshot): `receiver_name`, `receiver_phone`, `shipping_address` (số nhà, đường/phố), `shipping_commune` (phường/xã/đặc khu), `shipping_city` (tỉnh/thành).
 - Nếu khách chọn "Nhận tại địa chỉ mặc định", lấy từ `users` copy qua `orders`.
 - Nếu khách nhập "Nhận sinh mới", lưu thẳng vào `orders` mà không cần ghi đè địa chỉ mặc định trong `users`.
 
@@ -113,10 +114,10 @@ WHERE product_id = X AND created_at <= T;
 
 ---
 
-## 7. Lọc Theo Phường/Xã Của Đơn Hàng
+## 7. Lọc Theo Phường/Xã/Đặc Khu và Tỉnh/Thành Của Đơn Hàng
 
 **Giả định & Giải pháp:**
-- Trong `orders`, địa chỉ sẽ không phải 1 đoạn string gõ tay ngẫu nhiên hoàn toàn. `shipping_ward` (Phường / Xã) cần được lưu ở một cột text riêng biệt (hoặc ít nhất yêu cầu end-user nhập tách ô Input) thì Database mới `ORDER BY/GROUP BY` chính xác được khu vực giao hàng.
+- Trong `orders`, địa chỉ sẽ không phải 1 đoạn string gõ tay ngẫu nhiên hoàn toàn. `shipping_commune` (phường/xã/đặc khu) và `shipping_city` (tỉnh/thành) cần được lưu ở một cột text riêng biệt (hoặc ít nhất yêu cầu end-user nhập tách ô Input) thì Database mới `ORDER BY/GROUP BY` chính xác được khu vực giao hàng.
 
 ---
 
@@ -127,3 +128,21 @@ WHERE product_id = X AND created_at <= T;
 - **Ràng buộc Active Cart:** Mỗi User (`users`) chỉ được phép có **tối đa 1 giỏ hàng (`carts`) đang active** tại một thời điểm (Ràng buộc UNIQUE KEY trên `user_id`).
 - **Không ảnh hưởng tồn kho:** Sản phẩm nằm trong giỏ hàng (`cart_items`) hoàn toàn không làm trừ hay khóa tồn kho (`products.stock_quantity`). Tồn kho chỉ thực sự bị trừ khi Request biến thành `orders` (trạng thái Pending).
 - Khi đặt hàng, dữ liệu từ `cart_items` sẽ được dọn đi và chép vào `order_details`.
+
+---
+
+## 9. Ràng Buộc Toàn Vẹn Dữ Liệu Tầng DB (DB-Level Constraints)
+
+**Vấn đề:** Một số rule nghiệp vụ quan trọng không nên chỉ enforce ở Application Layer, vì nếu có bug code hoặc thao tác thẳng vào DB thì dữ liệu có thể rơi vào trạng thái bất hợp lệ.
+
+**Giải pháp:** Sử dụng MySQL CHECK Constraints (hỗ trợ từ MySQL 8.0.16+) để tạo lớp bảo vệ thứ hai tầng DB:
+
+| Bảng | Constraint | Rule |
+|---|---|---|
+| `products` | `chk_products_stock_non_negative` | `stock_quantity >= 0` |
+| `cart_items` | `chk_cart_items_qty` | `quantity >= 1` |
+| `order_details` | `chk_order_details_qty` | `quantity >= 1` |
+| `order_details` | `chk_order_details_price` | `unit_price >= 0` (cho phép = 0 nếu khuyến mãi 100%) |
+| `goods_receipt_details` | `chk_grd_qty` | `quantity >= 1` |
+| `goods_receipt_details` | `chk_grd_price` | `import_price > 0` (giá nhập phải dương) |
+| `inventory_logs` | `chk_inventory_change_nonzero` | `change_amount != 0` (log biến động phải có ý nghĩa) |
