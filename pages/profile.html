@@ -126,8 +126,8 @@
                     <input type="text" class="form-control" id="address_detail" disabled>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Phường/xã <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="address_ward" disabled>
+                    <label class="form-label">Xã/phường/đặc khu <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="address_commune" disabled>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Tỉnh/thành <span class="text-danger">*</span></label>
@@ -175,19 +175,25 @@
                 return;
             }
 
-            // Hiển thị dữ liệu
+            // Hiển thị dữ liệu - hỗ trợ cả key cũ và mới
             document.getElementById("username").value = user.username || "";
-            document.getElementById("fullname").value = user.fullname || "";
+            document.getElementById("fullname").value = user.full_name || user.fullname || ""; 
             document.getElementById("email").value = user.email || "";
             document.getElementById("phone").value = user.phone || "";
             
-            if (user.address && !user.address_detail) {
+            // Ưu tiên các trường tách biệt mới (commune, city)
+            if (user.commune || user.city) {
+                document.getElementById("address_detail").value = user.address_detail || user.address || "";
+                document.getElementById("address_commune").value = user.commune || user.address_commune || "";
+                document.getElementById("address_city").value = user.city || user.address_city || "";
+            } else if (user.address && !user.address_detail) {
+                // Fallback cho dữ liệu cũ (chỉ có duy nhất 1 chuỗi address)
                 document.getElementById("address_detail").value = user.address;
-                document.getElementById("address_ward").value = "";
+                document.getElementById("address_commune").value = "";
                 document.getElementById("address_city").value = "";
             } else {
                 document.getElementById("address_detail").value = user.address_detail || "";
-                document.getElementById("address_ward").value = user.address_ward || "";
+                document.getElementById("address_commune").value = user.address_commune || "";
                 document.getElementById("address_city").value = user.address_city || "";
             }
 
@@ -314,11 +320,11 @@
             const email = document.getElementById("email").value.trim();
             const phone = document.getElementById("phone").value.trim();
             const address_detail = document.getElementById("address_detail").value.trim();
-            const address_ward = document.getElementById("address_ward").value.trim();
+            const address_commune = document.getElementById("address_commune").value.trim();
             const address_city = document.getElementById("address_city").value.trim();
 
             // Kiểm tra rỗng
-            if (!fullname || !email || !phone || !address_detail || !address_ward || !address_city) {
+            if (!fullname || !email || !phone || !address_detail || !address_commune || !address_city) {
                 showModal("Lỗi", "Vui lòng nhập đầy đủ tất cả các trường thông tin cá nhân!", false);
                 return;
             }
@@ -338,13 +344,16 @@
 
             const updatedUser = {
                 ...user,
-                fullname,
+                full_name: fullname,        // Chuẩn hóa sang key mới
+                fullname: fullname,          // Giữ key cũ để tương thích các trang chưa update
                 email,
                 phone,
-                address_detail,
-                address_ward,
+                address_detail,             // Lưu input text để hiển thị
+                address_commune,
                 address_city,
-                address: `${address_detail}, ${address_ward}, ${address_city}`
+                address: address_detail,    // Map sang cột 'address' trong DB
+                commune: address_commune,      // Map sang cột 'commune' trong DB
+                city: address_city          // Map sang cột 'city' trong DB
             };
 
             user = updatedUser; // Cập nhật biến local để đồng bộ UI

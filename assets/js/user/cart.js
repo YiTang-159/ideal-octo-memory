@@ -55,8 +55,9 @@ function renderCart() {
     
     let html = "";
     cart.forEach((item, i) => {
-        if (!item.price || item.quantity === undefined || item.quantity === null || item.quantity < 1) {
-            console.error("Lỗi dữ liệu sản phẩm:", item.name);
+        if (!item.name || !item.price || item.quantity === undefined || item.quantity === null || item.quantity < 1) {
+            console.error("Lỗi dữ liệu sản phẩm:", item);
+            alert(`Phát hiện lỗi dữ liệu cho sản phẩm tại vị trí ${i+1}. Vui lòng kiểm tra lại giỏ hàng.`);
             return; 
         }
         
