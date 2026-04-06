@@ -162,6 +162,12 @@
                                 <p>Số điện thoại: <strong>${customerPhone}</strong></p>
                                 <p>Khách hàng: <strong>${customerName}</strong></p>
                             </div>
+                            <div class="order-note-display">
+                                <p>
+                                    <i class="fas fa-sticky-note" style="margin-right: 8px;"></i>Ghi chú: 
+                                    ${order.note ? `<strong>${order.note}</strong>` : `<span class="empty-note">(Không có)</span>`}
+                                </p>
+                            </div>
                         </div>
                         <h3>Sản phẩm đã mua:</h3>
                         <ul class="item-list">
