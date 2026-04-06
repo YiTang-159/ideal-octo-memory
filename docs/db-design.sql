@@ -1,7 +1,7 @@
 -- ============================================================
 -- DATABASE: c09_ecommerce
 -- Description: E-commerce system with inventory management
--- Generated: 2026-03-29
+-- Generated: 2026-03-29 | Revised: 2026-04-06
 -- ============================================================
 
 SET NAMES utf8mb4;
@@ -25,7 +25,8 @@ CREATE TABLE users (
     email       VARCHAR(100)    NOT NULL,
     phone       VARCHAR(20)     NOT NULL,
     address     VARCHAR(255)    NOT NULL,
-    ward        VARCHAR(100)    NOT NULL,
+    commune     VARCHAR(100)    NOT NULL,
+    city        VARCHAR(100)    NOT NULL,
     role        ENUM('customer', 'admin') NOT NULL DEFAULT 'customer',
     is_active   TINYINT(1)      NOT NULL DEFAULT 1,
     created_at  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -52,6 +53,8 @@ CREATE TABLE categories (
     CONSTRAINT uq_categories_name UNIQUE (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE INDEX ix_categories_is_deleted ON categories (is_deleted);
+
 -- ------------------------------------------------------------
 -- 3. products — Sản phẩm
 -- ------------------------------------------------------------
@@ -65,7 +68,8 @@ CREATE TABLE products (
     supplier            VARCHAR(200)    NULL,
     base_price          DECIMAL(15, 2)  NOT NULL DEFAULT 0.00,
     profit_margin       DECIMAL(5, 2)   NOT NULL DEFAULT 0.00,
-    sell_price          DECIMAL(15, 2)  NOT NULL DEFAULT 0.00,
+    sell_price          DECIMAL(15, 2)  GENERATED ALWAYS AS
+                            (ROUND(base_price * (1 + profit_margin / 100), 2)) STORED,
     stock_quantity      INT             NOT NULL DEFAULT 0,
     low_stock_threshold INT             NOT NULL DEFAULT 10,
     is_deleted          TINYINT(1)      NOT NULL DEFAULT 0,
@@ -76,10 +80,12 @@ CREATE TABLE products (
     CONSTRAINT uq_products_sku UNIQUE (sku),
     CONSTRAINT fk_products_categories
         FOREIGN KEY (category_id) REFERENCES categories (id)
-        ON UPDATE CASCADE ON DELETE RESTRICT
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT chk_products_stock_non_negative
+        CHECK (stock_quantity >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE INDEX ix_products_category_id ON products (category_id);
+CREATE INDEX ix_products_category_active ON products (category_id, is_deleted);
 CREATE INDEX ix_products_is_deleted ON products (is_deleted);
 CREATE INDEX ix_products_sell_price ON products (sell_price);
 
@@ -112,6 +118,7 @@ CREATE TABLE cart_items (
 
     CONSTRAINT pk_cart_items PRIMARY KEY (id),
     CONSTRAINT uq_cart_items_cart_product UNIQUE (cart_id, product_id),
+    CONSTRAINT chk_cart_items_qty         CHECK (quantity >= 1),
     CONSTRAINT fk_cart_items_carts
         FOREIGN KEY (cart_id) REFERENCES carts (id)
         ON UPDATE CASCADE ON DELETE CASCADE,
@@ -129,7 +136,8 @@ CREATE TABLE orders (
     receiver_name     VARCHAR(100)    NOT NULL,
     receiver_phone    VARCHAR(20)     NOT NULL,
     shipping_address  VARCHAR(255)    NOT NULL,
-    shipping_ward     VARCHAR(100)    NOT NULL,
+    shipping_commune  VARCHAR(100)    NOT NULL,
+    shipping_city     VARCHAR(100)    NOT NULL,
     payment_method    ENUM('cod', 'bank_transfer', 'online') NOT NULL,
     status            ENUM('pending', 'confirmed', 'delivered', 'cancelled') NOT NULL DEFAULT 'pending',
     total_amount      DECIMAL(15, 2)  NOT NULL,
@@ -146,7 +154,8 @@ CREATE TABLE orders (
 CREATE INDEX ix_orders_user_id ON orders (user_id);
 CREATE INDEX ix_orders_status ON orders (status);
 CREATE INDEX ix_orders_created_at ON orders (created_at);
-CREATE INDEX ix_orders_shipping_ward ON orders (shipping_ward);
+CREATE INDEX ix_orders_shipping_commune ON orders (shipping_commune);
+CREATE INDEX ix_orders_shipping_city    ON orders (shipping_city);
 
 -- ------------------------------------------------------------
 -- 7. order_details — Chi tiết đơn hàng (snapshot giá)
@@ -162,6 +171,8 @@ CREATE TABLE order_details (
     created_at    TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT pk_order_details PRIMARY KEY (id),
+    CONSTRAINT chk_order_details_qty   CHECK (quantity >= 1),
+    CONSTRAINT chk_order_details_price CHECK (unit_price >= 0),
     CONSTRAINT fk_order_details_orders
         FOREIGN KEY (order_id) REFERENCES orders (id)
         ON UPDATE CASCADE ON DELETE CASCADE,
@@ -206,6 +217,8 @@ CREATE TABLE goods_receipt_details (
     created_at        TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT pk_goods_receipt_details PRIMARY KEY (id),
+    CONSTRAINT chk_grd_qty   CHECK (quantity >= 1),
+    CONSTRAINT chk_grd_price CHECK (import_price > 0),
     CONSTRAINT fk_goods_receipt_details_receipts
         FOREIGN KEY (goods_receipt_id) REFERENCES goods_receipts (id)
         ON UPDATE CASCADE ON DELETE CASCADE,
@@ -229,14 +242,16 @@ CREATE TABLE inventory_logs (
     created_at      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT pk_inventory_logs PRIMARY KEY (id),
+    CONSTRAINT chk_inventory_change_nonzero CHECK (change_amount != 0),
     CONSTRAINT fk_inventory_logs_products
         FOREIGN KEY (product_id) REFERENCES products (id)
         ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE INDEX ix_inventory_logs_product_id ON inventory_logs (product_id);
-CREATE INDEX ix_inventory_logs_reference ON inventory_logs (reference_type, reference_id);
-CREATE INDEX ix_inventory_logs_created_at ON inventory_logs (created_at);
+CREATE INDEX ix_inventory_logs_product_id      ON inventory_logs (product_id);
+CREATE INDEX ix_inventory_logs_product_created ON inventory_logs (product_id, created_at);
+CREATE INDEX ix_inventory_logs_reference       ON inventory_logs (reference_type, reference_id);
+CREATE INDEX ix_inventory_logs_created_at      ON inventory_logs (created_at);
 
 -- ============================================================
 -- Re-enable foreign key checks
