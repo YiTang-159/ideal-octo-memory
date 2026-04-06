@@ -53,21 +53,10 @@
 
     <div id="checkout-container">
         <div id="shipping-info" class="section">
-            <h2><i class=""></i> Thông tin Khách hàng</h2>
+            <h2><i class="fas fa-truck"></i> Thông tin nhận hàng</h2>
 
-            <div id="customer-info">
-                <div class="form-group">
-                    <label for="customer-name">Họ và Tên:</label>
-                    <input type="text" id="customer-name" placeholder="Nhập họ và tên người nhận">
-                </div>
-                <div class="form-group">
-                    <label for="customer-phone">Số điện thoại:</label>
-                    <input type="text" id="customer-phone" placeholder="Nhập số điện thoại">
-                </div>
-
-                <div class="address-section">
-                    <h2><i class=""></i> Địa chỉ nhận hàng</h2>
-
+            <div id="customer-info" style="display: block;">
+                <div class="address-section" style="margin-top: 0;">
                     <div id="address-options">
                         <!-- Địa chỉ sẽ được tạo bằng JavaScript -->
                     </div>
@@ -77,7 +66,7 @@
                     </button>
 
                     <div class="new-address-form" id="new-address-form">
-                        <h3><i class="fas fa-home"></i> Thêm địa chỉ mới</h3>
+                        <h3><i class="fas fa-house-chimney"></i> Thêm địa chỉ mới</h3>
                         <div class="form-group">
                             <label for="new-address-name">Tên người nhận:</label>
                             <input type="text" id="new-address-name" placeholder="Nhập họ tên người nhận">
@@ -103,6 +92,13 @@
                             <button class="cancel-address-btn" id="cancel-address-btn">Hủy</button>
                         </div>
                     </div>
+                </div>
+
+                <div class="order-note-group">
+                    <label for="order-note">
+                        <i class="fas fa-pen-to-square"></i> Ghi chú đơn hàng
+                    </label>
+                    <textarea id="order-note" placeholder="Ví dụ: Chỉ dẫn giao hàng, lời nhắn cho cửa hàng..."></textarea>
                 </div>
             </div>
         </div>
@@ -331,14 +327,6 @@
                         });
                         addressOption.classList.add('selected');
                         selectedAddress = address;
-
-                        // Cập nhật thông tin khách hàng khi chọn địa chỉ
-                        if (address.contactName) {
-                            document.getElementById('customer-name').value = address.contactName;
-                        }
-                        if (address.phone) {
-                            document.getElementById('customer-phone').value = address.phone;
-                        }
                     }
                 });
 
@@ -350,15 +338,10 @@
             document.getElementById('new-address-form').style.display = 'block';
             document.getElementById('add-address-btn').style.display = 'none';
 
-            // Điền thông tin mặc định từ form chính
-            const currentName = document.getElementById('customer-name').value;
-            const currentPhone = document.getElementById('customer-phone').value;
-
-            if (currentName) {
-                document.getElementById('new-address-name').value = currentName;
-            }
-            if (currentPhone) {
-                document.getElementById('new-address-phone').value = currentPhone;
+            // Điền thông tin mặc định từ profile nếu có
+            if (user) {
+                document.getElementById('new-address-name').value = user.fullname || '';
+                document.getElementById('new-address-phone').value = user.phone || '';
             }
         }
 
@@ -430,20 +413,12 @@
 
         // === CÁC HÀM XỬ LÝ GIAO DIỆN ===
         function loadUserInfo() {
-            if (!user) {
-                document.getElementById('customer-name').value = '';
-                document.getElementById('customer-phone').value = '';
-                return;
-            }
-
-            // Luôn điền thông tin từ profile
-            document.getElementById('customer-name').value = user.fullname || '';
-            document.getElementById('customer-phone').value = user.phone || '';
+            // Không còn các grid input riêng lẻ ở trên, thông tin lấy từ địa chỉ đã chọn
         }
 
         function loadOrderDetails() {
             if (itemsToCheckout.length === 0) {
-                alert("Giỏ hàng không có sản phẩm nào được chọn để thanh toán.");
+                alert("Giỏ hàng không có sản phẩm nào để thanh toán.");
                 window.location.href = "cart.html";
                 return;
             }
@@ -480,25 +455,18 @@
         // === HÀM XÁC NHẬN ĐƠN HÀNG ===
         function confirmOrder() {
             if (itemsToCheckout.length === 0) {
-                alert("Không có sản phẩm nào được chọn. Vui lòng quay lại giỏ hàng.");
+                alert("Không có sản phẩm nào. Vui lòng quay lại giỏ hàng.");
                 return;
             }
 
-            const customerName = document.getElementById('customer-name').value.trim();
-            const customerPhone = document.getElementById('customer-phone').value.trim();
-
-            if (!customerName) {
-                alert("Vui lòng nhập họ và tên người nhận.");
-                return;
-            }
-            if (!customerPhone) {
-                alert("Vui lòng nhập số điện thoại.");
-                return;
-            }
             if (!selectedAddress) {
                 alert("Vui lòng chọn địa chỉ nhận hàng.");
                 return;
             }
+
+            const customerName = selectedAddress.contactName;
+            const customerPhone = selectedAddress.phone;
+            const orderNote = document.getElementById('order-note').value.trim();
 
             const finalTotal = orderSubTotal + SHIPPING_FEE;
             let paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
@@ -522,6 +490,7 @@
                     status: 'pending',
                     date: today,
                     paymentMethod: paymentMethod,
+                    note: orderNote,
                     products: itemsToCheckout.map(item => ({
                         name: item.name,
                         quantity: item.quantity,

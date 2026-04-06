@@ -83,6 +83,28 @@
     font-size: 21px;
 }
 
+.order-note-display {
+    grid-column: 1 / span 2;
+    background-color: rgba(230, 190, 138, 0.15);
+    border-left: 4px solid var(--brand-gold);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.order-note-display p {
+    margin: 0 !important;
+    font-size: 19px !important;
+    color: var(--muted-brown) !important;
+    font-style: italic;
+}
+
+.order-note-display .empty-note {
+    color: #a1887f !important;
+    font-style: italic;
+    opacity: 0.8;
+}
+
 .item-list {
     list-style: none;
     padding-left: 0;
