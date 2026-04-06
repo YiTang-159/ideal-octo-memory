@@ -76,15 +76,15 @@
                             <input type="text" id="new-address-phone" placeholder="Nhập số điện thoại">
                         </div>
                         <div class="form-group">
-                            <label for="street">Số nhà/Tên đường:</label>
+                            <label for="street">Số nhà, tên đường/phố:</label>
                             <input type="text" id="street" placeholder="Ví dụ: 123 Đường ABC">
                         </div>
                         <div class="form-group">
-                            <label for="ward">Phường/Xã:</label>
-                            <input type="text" id="ward" placeholder="Ví dụ: Phường 1">
+                            <label for="commune">Phường/xã/đặc khu:</label>
+                            <input type="text" id="commune" placeholder="Ví dụ: Phường 1">
                         </div>
                         <div class="form-group">
-                            <label for="city">Tỉnh/Thành phố:</label>
+                            <label for="city">Tỉnh/thành:</label>
                             <input type="text" id="city" placeholder="Ví dụ: Hà Nội">
                         </div>
                         <div class="form-actions">
@@ -125,15 +125,15 @@
             <div style="margin-top: 30px;">
                 <h2><i class=""></i> Hình thức Thanh toán</h2>
                 <div class="payment-option">
-                    <input type="radio" name="payment-method" id="cod" value="COD" checked>
+                    <input type="radio" name="payment-method" id="cod" value="cod" checked>
                     <label for="cod">Thanh toán khi nhận hàng (COD)</label>
                 </div>
                 <div class="payment-option">
-                    <input type="radio" name="payment-method" id="transfer" value="Transfer">
+                    <input type="radio" name="payment-method" id="transfer" value="bank_transfer">
                     <label for="transfer">Chuyển khoản ngân hàng</label>
                 </div>
 
-                <div id="transfer-options">
+                <div id="transfer-options" style="display: none; margin-left: 20px; border-left: 2px solid var(--primary-color); padding-left: 15px;">
                     <p style="margin-bottom: 15px; font-weight: bold; color: var(--primary-color);">
                         <i class=""></i> Chọn Ngân hàng/Ví điện tử:
                     </p>
@@ -146,9 +146,14 @@
                         <label for="vcb">Ngân hàng Vietcombank (VCB)</label>
                     </div>
                     <div class="payment-option">
-                        <input type="radio" name="transfer-detail" id="techcombank" value="Sacombank">
-                        <label for="techcombank">Ngân hàng Sacombank</label>
+                        <input type="radio" name="transfer-detail" id="sacom" value="Sacombank">
+                        <label for="sacom">Ngân hàng Sacombank</label>
                     </div>
+                </div>
+
+                <div class="payment-option" style="margin-top: 10px;">
+                    <input type="radio" name="payment-method" id="online" value="online">
+                    <label for="online">Thanh toán trực tuyến (VNPay/ZaloPay)</label>
                 </div>
             </div>
 
@@ -224,25 +229,30 @@
             userAddresses = [];
 
             if (user) {
-                // Nếu profile có địa chỉ (user.address không rỗng) thì tạo địa chỉ mặc định từ profile
-                // Ngược lại: KHÔNG tạo profile address — chỉ cho phép người dùng thêm địa chỉ mới
-                const hasProfileAddress = user.address && user.address.trim() !== '';
+                // Nếu profile có địa chỉ thì tạo địa chỉ mặc định từ profile
+                // Ưu tiên các trường tách biệt mới (commune, city)
+                const hasProfileAddress = (user.address && user.address.trim() !== '') || (user.address_detail && user.address_detail.trim() !== '');
+                
                 if (hasProfileAddress) {
                     const profileAddress = {
                         id: 'profile',
                         name: 'Địa chỉ mặc định',
-                        details: user.address.trim(),
+                        street: user.address_detail || user.address || '',
+                        commune: user.commune || user.address_commune || '',
+                        city: user.city || user.address_city || '',
+                        details: user.address ? user.address.trim() : `${user.address_detail || ''}, ${user.address_commune || ''}, ${user.address_city || ''}`.trim(),
                         phone: user.phone || '',
-                        contactName: user.fullname || '',
+                        contactName: user.full_name || user.fullname || '',
                         isDefault: true
                     };
                     userAddresses.push(profileAddress);
                 }
 
-                // Load thêm địa chỉ từ localStorage nếu có (địa chỉ do user thêm trước đó)
+                // Load thêm địa chỉ từ localStorage nếu có
                 const savedAddresses = localStorage.getItem('userAddresses');
                 if (savedAddresses) {
                     const additionalAddresses = JSON.parse(savedAddresses);
+                    // Đảm bảo các địa chỉ lưu trong store cũng có đủ 3 trường (backward compat)
                     userAddresses = userAddresses.concat(additionalAddresses);
                 }
             }
@@ -351,7 +361,7 @@
             document.getElementById('new-address-name').value = '';
             document.getElementById('new-address-phone').value = '';
             document.getElementById('street').value = '';
-            document.getElementById('ward').value = '';
+            document.getElementById('commune').value = '';
             document.getElementById('city').value = '';
         }
 
@@ -359,28 +369,12 @@
             const name = document.getElementById('new-address-name').value.trim();
             const phone = document.getElementById('new-address-phone').value.trim();
             const street = document.getElementById('street').value.trim();
-            const ward = document.getElementById('ward').value.trim();
+            const commune = document.getElementById('commune').value.trim();
             const city = document.getElementById('city').value.trim();
 
             // Validate thông tin
-            if (!name) {
-                alert('Vui lòng nhập tên người nhận.');
-                return;
-            }
-            if (!phone) {
-                alert('Vui lòng nhập số điện thoại.');
-                return;
-            }
-            if (!street) {
-                alert('Vui lòng nhập số nhà/tên đường.');
-                return;
-            }
-            if (!ward) {
-                alert('Vui lòng nhập phường/xã.');
-                return;
-            }
-            if (!city) {
-                alert('Vui lòng nhập tỉnh/thành phố.');
+            if (!name || !phone || !street || !commune || !city) {
+                alert('Vui lòng nhập đầy đủ thông tin người nhận và địa chỉ.');
                 return;
             }
 
@@ -392,13 +386,13 @@
 
             const newId = 'addr_' + Date.now();
 
-            // Tạo địa chỉ chi tiết
-            const fullAddress = `${street}, ${ward}, ${city}`;
-
             userAddresses.push({
                 id: newId,
                 name: 'Địa chỉ mới',
-                details: fullAddress,
+                street: street,
+                commune: commune,
+                city: city,
+                details: `${street}, ${commune}, ${city}`,
                 phone: phone,
                 contactName: name,
                 isDefault: false
@@ -469,29 +463,44 @@
             const orderNote = document.getElementById('order-note').value.trim();
 
             const finalTotal = orderSubTotal + SHIPPING_FEE;
-            let paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
-            if (paymentMethod === 'Transfer') {
+            
+            // Lấy value đã chuẩn hóa (cod/bank_transfer/online)
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            
+            // Tạo chuỗi hiển thị cho người dùng (backward compatibility cho UI)
+            let paymentDisplay = paymentMethod;
+            if (paymentMethod === 'bank_transfer') {
                 const transferDetail = document.querySelector('input[name="transfer-detail"]:checked').value;
-                paymentMethod = `Chuyển khoản (${transferDetail})`;
+                paymentDisplay = `Chuyển khoản (${transferDetail})`;
+            } else if (paymentMethod === 'cod') {
+                paymentDisplay = 'Thanh toán khi nhận hàng (COD)';
+            } else {
+                paymentDisplay = 'Thanh toán trực tuyến';
             }
 
             const orderId = generateOrderId();
             const today = getCurrentDate();
 
-            const confirmationMessage = `Bạn xác nhận đặt hàng với chi tiết:\n\nMã đơn hàng: ${orderId}\nNgày đặt: ${today}\nNgười nhận: ${customerName}\nSố điện thoại: ${customerPhone}\nĐịa chỉ: ${selectedAddress.details}\nTổng tiền: ${formatCurrency(finalTotal)}\nHình thức thanh toán: ${paymentMethod}\n\nBấm OK để xác nhận đặt hàng.`;
+            const confirmationMessage = `Bạn xác nhận đặt hàng với chi tiết:\n\nMã đơn hàng: ${orderId}\nNgày đặt: ${today}\nNgười nhận: ${customerName}\nSố điện thoại: ${customerPhone}\nĐịa chỉ: ${selectedAddress.details}\nTổng tiền: ${formatCurrency(finalTotal)}\nHình thức thanh toán: ${paymentDisplay}\n\nBấm OK để xác nhận đặt hàng.`;
 
             if (confirm(confirmationMessage)) {
                 const newOrder = {
                     id: orderId,
                     customer: customerName,
                     phone: customerPhone,
-                    address: selectedAddress.details,
+                    // SNAPSHOT ĐỊA CHỈ 3 PHÂN ĐOẠN
+                    shipping_address: selectedAddress.street || selectedAddress.details,
+                    shipping_commune: selectedAddress.commune || '',
+                    shipping_city: selectedAddress.city || '',
+                    address: selectedAddress.details,   // Vẫn giữ lại để hiển thị chuỗi gộp ở History
                     total: finalTotal,
                     status: 'pending',
                     date: today,
-                    paymentMethod: paymentMethod,
+                    payment_method: paymentMethod,      // Lưu key chuẩn Laravel (cod/bank_transfer/online)
+                    paymentMethod: paymentDisplay,      // Giữ key cũ để hiển thị text ở History
                     note: orderNote,
                     products: itemsToCheckout.map(item => ({
+                        product_id: item.id,
                         name: item.name,
                         quantity: item.quantity,
                         price: item.price,

@@ -64,7 +64,6 @@
         const statusMap = {
             'pending': { text: 'Chờ xác nhận', class: 'pending' },
             'confirmed': { text: 'Đã xác nhận', class: 'confirmed' },
-            'shipping': { text: 'Đang giao hàng', class: 'shipping' },
             'delivered': { text: 'Đã giao thành công', class: 'delivered' },
             'cancelled': { text: 'Đã hủy', class: 'cancelled' },
         };
@@ -127,7 +126,11 @@
             purchaseHistory.forEach(order => {
                 const orderId = order.id || `ORD-${Math.floor(Math.random() * 10000)}`;
                 const orderDate = order.date || getCurrentDate();
-                const shippingAddress = order.address || order.shippingAddress || 'Chưa có thông tin';
+                const shippingAddress = [
+                    order.shipping_address || order.address || '',
+                    order.shipping_commune || '',
+                    order.shipping_city || ''
+                ].filter(Boolean).join(', ') || 'Chưa có thông tin';
                 const paymentMethod = order.paymentMethod || 'Thanh toán khi nhận hàng (COD)';
                 const orderTotal = order.total || 0;
                 const customerName = order.customer || 'Chưa có thông tin';
@@ -190,11 +193,15 @@
                     id: 'ORD-0001',
                     customer: 'Nguyễn Văn A',
                     phone: '0901234567',
+                    shipping_address: '123 Đường ABC',
+                    shipping_commune: 'Quận 1',
+                    shipping_city: 'TP.HCM',
                     address: '123 Đường ABC, Quận 1, TP.HCM',
                     total: 378000,
                     date: getCurrentDate(),
                     status: 'delivered',
-                    paymentMethod: 'Thanh toán khi nhận hàng (COD)',
+                    payment_method: 'cod',
+                    paymentMethod: 'Thanh toán trực tiếp (COD)',
                     products: [
                         { name: 'Bánh Trung Thu Golden Plum', quantity: 2, price: 189000 }
                     ]
@@ -203,11 +210,15 @@
                     id: 'ORD-0002',
                     customer: 'Trần Thị B',
                     phone: '0912345678',
+                    shipping_address: '456 Đường XYZ',
+                    shipping_commune: 'Quận 3',
+                    shipping_city: 'TP.HCM',
                     address: '456 Đường XYZ, Quận 3, TP.HCM',
                     total: 567000,
                     date: getCurrentDate(),
-                    status: 'shipping',
-                    paymentMethod: 'Chuyển khoản (Momo)',
+                    status: 'confirmed',
+                    payment_method: 'bank_transfer',
+                    paymentMethod: 'Chuyển khoản ngân hàng',
                     products: [
                         { name: 'Bánh Trung Thu Hạt Sen', quantity: 1, price: 189000 },
                         { name: 'Bánh Trung Thu Thập Cẩm', quantity: 2, price: 189000 }
